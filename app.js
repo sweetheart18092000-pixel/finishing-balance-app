@@ -60,6 +60,10 @@ const clearFilterBtn = document.getElementById('clearFilterBtn');
 const opSearchInput = document.getElementById('opSearchInput');
 const selectAllOpsCheckbox = document.getElementById('selectAllOpsCheckbox');
 
+const nearClosingCard = document.getElementById('nearClosingCard');
+const nearClosingList = document.getElementById('nearClosingList');
+const nearClosingCount = document.getElementById('nearClosingCount');
+
 const openWhatsappBtn = document.getElementById('openWhatsappBtn');
 const waModal = document.getElementById('waModal');
 const closeWaModalBtn = document.getElementById('closeWaModalBtn');
@@ -98,12 +102,67 @@ async function loadData() {
       syncStatusText.textContent = `Updated: ${appData.updated_at}`;
     }
     renderRecentJobs();
+    renderNearClosingJobs();
   } catch (err) {
     console.error('Failed to load data.json:', err);
     badgeJobs.textContent = 'Sync Error';
     badgeJobs.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/25 text-rose-200 border border-rose-400/30';
   }
 }
+
+function renderNearClosingJobs() {
+  if (!appData || currentJob) {
+    nearClosingCard.classList.add('hidden');
+    return;
+  }
+
+  const near = [];
+  for (const [mj, j] of Object.entries(appData.jobs)) {
+    const mx = j.max || 0;
+    const ops = j.operations || {};
+    const opVals = Object.values(ops);
+    const pack = ops['PACKING A'] || ops['PACKING'] || (opVals.length ? opVals[opVals.length - 1] : null);
+    if (pack && mx > 0) {
+      const bal = pack.bal ?? 0;
+      const pct = (bal / mx) * 100;
+      if (bal > 0 && pct <= 20) {
+        near.push({ mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '', bal, mx, pct });
+      }
+    }
+  }
+
+  near.sort((a, b) => a.pct - b.pct);
+  nearClosingCount.textContent = near.length;
+
+  if (near.length === 0) {
+    nearClosingList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No jobs near closing right now.</div>';
+  } else {
+    nearClosingList.innerHTML = near.map(item => `
+      <div data-near-job="${escapeHtml(item.mj)}" class="px-3 py-2 hover:bg-emerald-50/60 dark:hover:bg-zinc-800/80 cursor-pointer transition flex items-center justify-between gap-2">
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center space-x-2">
+            <span class="font-mono font-extrabold text-xs text-blue-700 dark:text-sky-400">${escapeHtml(item.mj)}</span>
+            <span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500">${escapeHtml(item.pc9)}</span>
+            ${item.exf && item.exf !== '-' ? `<span class="text-[10px] font-bold text-amber-600 dark:text-amber-400">• ${escapeHtml(item.exf)}</span>` : ''}
+          </div>
+          <div class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(item.color)}</div>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="text-xs font-mono font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums">${fmtNum(item.bal)} <span class="text-[10px] font-normal text-slate-400">/ ${fmtNum(item.mx)}</span></div>
+          <span class="inline-block px-1.5 py-0.5 rounded text-[9.5px] font-extrabold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 tabular-nums">${item.pct.toFixed(1)}% left</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  nearClosingCard.classList.remove('hidden');
+}
+
+nearClosingList.addEventListener('click', (e) => {
+  const row = e.target.closest('[data-near-job]');
+  if (!row) return;
+  selectJob(row.getAttribute('data-near-job'));
+});
 
 function addRecentJob(jobCode) {
   recentJobs = [jobCode, ...recentJobs.filter(j => j !== jobCode)].slice(0, 5);
@@ -222,6 +281,7 @@ function selectJob(jobCode) {
   jobDetailsCard.classList.remove('hidden');
 
   addRecentJob(jobCode);
+  nearClosingCard.classList.add('hidden');
   updateStatusPills();
   updateSortIndicators();
   renderAllOperations();
@@ -237,6 +297,7 @@ clearJobBtn.addEventListener('click', () => {
   currentJob = null;
   currentJobCode = null;
   renderRecentJobs();
+  renderNearClosingJobs();
 });
 
 // Status Filter Pills
