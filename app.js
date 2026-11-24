@@ -72,6 +72,7 @@ const nearCustomerSelect = document.getElementById('nearCustomerSelect');
 const nearPctInput = document.getElementById('nearPctInput');
 const nearPctWrapper = document.getElementById('nearPctWrapper');
 const nearSortBtn = document.getElementById('nearSortBtn');
+const nearRightColHdr = document.getElementById('nearRightColHdr');
 const modeNearBtn = document.getElementById('modeNearBtn');
 const modeNegBtn = document.getElementById('modeNegBtn');
 const nearWhatsappBtn = document.getElementById('nearWhatsappBtn');
@@ -184,21 +185,24 @@ function parseExfDate(str) {
 }
 
 function getExfBadgeHtml(exfStr) {
-  if (!exfStr || exfStr === '-') return '';
+  if (!exfStr || exfStr === '-') return `<span class="text-[10px] text-slate-400">-</span>`;
+  const shortDate = exfStr.replace(/-\d{2}$/, '');
   const d = parseExfDate(exfStr);
   if (!d) {
-    return `<span class="text-[10px] font-bold text-amber-600 dark:text-amber-400">• ${escapeHtml(exfStr)}</span>`;
+    return `<span class="text-[10px] font-bold text-slate-600 dark:text-zinc-300">${escapeHtml(shortDate)}</span>`;
   }
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const diffDays = Math.round((d - today) / 86400000);
   if (diffDays < 0) {
-    return `<span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300">EXF ${escapeHtml(exfStr)} (OVERDUE)</span>`;
+    return `<span class="inline-block px-1.5 py-0.5 rounded text-[9.5px] font-extrabold bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 leading-tight">${escapeHtml(shortDate)}</span>
+            <span class="block text-[8.5px] font-extrabold text-rose-600 dark:text-rose-400 mt-0.5">OVERDUE</span>`;
   }
   if (diffDays <= 7) {
-    return `<span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300">EXF ${escapeHtml(exfStr)} (URGENT)</span>`;
+    return `<span class="inline-block px-1.5 py-0.5 rounded text-[9.5px] font-extrabold bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 leading-tight">${escapeHtml(shortDate)}</span>
+            <span class="block text-[8.5px] font-extrabold text-amber-600 dark:text-amber-400 mt-0.5">URGENT</span>`;
   }
-  return `<span class="text-[10px] font-semibold text-slate-500 dark:text-zinc-400">• ${escapeHtml(exfStr)}</span>`;
+  return `<span class="text-[10.5px] font-semibold text-slate-600 dark:text-zinc-300">${escapeHtml(shortDate)}</span>`;
 }
 
 function updateHomeModeUI() {
@@ -207,11 +211,13 @@ function updateHomeModeUI() {
     modeNearBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition text-slate-600 dark:text-zinc-300';
     nearClosingCount.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white';
     nearPctWrapper.classList.add('hidden');
+    if (nearRightColHdr) nearRightColHdr.textContent = 'NEG BAL';
   } else {
     modeNearBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition bg-emerald-600 text-white shadow-xs';
     modeNegBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition text-slate-600 dark:text-zinc-300';
     nearClosingCount.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white';
     nearPctWrapper.classList.remove('hidden');
+    if (nearRightColHdr) nearRightColHdr.textContent = 'BAL / MAX';
   }
   nearSortBtn.textContent = nearSortBy === 'exf' ? 'Sort: EXF' : (homeMode === 'neg' ? 'Sort: BAL' : 'Sort: %');
 }
@@ -361,23 +367,25 @@ function renderNearClosingJobs() {
     nearClosingList.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">${emptyMsg}</div>`;
   } else {
     nearClosingList.innerHTML = items.map(item => `
-      <div data-near-job="${escapeHtml(item.mj)}" class="px-3 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition flex items-center justify-between gap-2">
-        <div class="min-w-0 flex-1">
-          <div class="flex items-center flex-wrap gap-1.5">
-            <span class="font-mono font-extrabold text-xs text-blue-700 dark:text-sky-400">${escapeHtml(item.mj)}</span>
-            <span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500">${escapeHtml(item.pc9)}</span>
-            ${item.cust ? `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300">${escapeHtml(item.cust)}</span>` : ''}
-            ${getExfBadgeHtml(item.exf)}
+      <div data-near-job="${escapeHtml(item.mj)}" class="grid grid-cols-[1fr_72px_88px] gap-1.5 items-center px-2.5 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
+        <div class="min-w-0">
+          <div class="flex items-center space-x-1.5 min-w-0">
+            <span class="font-mono font-extrabold text-xs text-blue-700 dark:text-sky-400 shrink-0">${escapeHtml(item.mj)}</span>
+            <span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500 truncate">${escapeHtml(item.pc9)}</span>
+            ${item.cust ? `<span class="text-[9px] font-bold px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(item.cust)}</span>` : ''}
           </div>
-          <div class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(item.color)}</div>
-          ${homeMode === 'neg' ? `<div class="text-[10px] font-bold text-rose-600 dark:text-rose-400 mt-0.5">${escapeHtml(item.negLabel)}</div>` : ''}
+          <div class="text-[11px] font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(item.color)}</div>
+          ${homeMode === 'neg' ? `<div class="text-[9.5px] font-bold text-rose-600 dark:text-rose-400 truncate mt-0.5">${escapeHtml(item.negLabel)}</div>` : ''}
         </div>
-        <div class="text-right shrink-0">
+        <div class="text-center leading-tight">
+          ${getExfBadgeHtml(item.exf)}
+        </div>
+        <div class="text-right">
           ${homeMode === 'neg'
             ? `<div class="text-sm font-mono font-black text-rose-600 dark:text-rose-400 tabular-nums">${fmtNum(item.bal)}</div>
-               <span class="text-[9.5px] font-bold text-slate-400">Negative BAL</span>`
-            : `<div class="text-xs font-mono font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums">${fmtNum(item.bal)} <span class="text-[10px] font-normal text-slate-400">/ ${fmtNum(item.mx)}</span></div>
-               <span class="inline-block px-1.5 py-0.5 rounded text-[9.5px] font-extrabold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 tabular-nums">${item.pct.toFixed(1)}% left</span>`
+               <span class="text-[9px] font-bold text-slate-400">Negative</span>`
+            : `<div class="text-xs font-mono font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums leading-tight">${fmtNum(item.bal)}<span class="text-[9.5px] font-normal text-slate-400 block">/ ${fmtNum(item.mx)}</span></div>
+               <span class="inline-block mt-0.5 px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 tabular-nums">${item.pct.toFixed(1)}% left</span>`
           }
         </div>
       </div>
