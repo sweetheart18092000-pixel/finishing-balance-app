@@ -8,6 +8,10 @@ let activeStatusFilter = 'all';
 let sortKey = 'seq';
 let sortDir = 1; // 1 = asc, -1 = desc
 let lastRenderedEntries = [];
+let homeMode = localStorage.getItem('finishing_home_mode') || 'near'; // 'near' | 'neg'
+let nearSortBy = localStorage.getItem('finishing_near_sort') || 'pct'; // 'pct' | 'exf'
+let lastHomeItems = [];
+let waShareMode = 'job'; // 'job' | 'summary'
 
 const htmlEl = document.documentElement;
 const themeToggleBtn = document.getElementById('themeToggleBtn');
@@ -64,7 +68,15 @@ const nearClosingCard = document.getElementById('nearClosingCard');
 const nearClosingList = document.getElementById('nearClosingList');
 const nearClosingCount = document.getElementById('nearClosingCount');
 const nearOpSelect = document.getElementById('nearOpSelect');
+const nearCustomerSelect = document.getElementById('nearCustomerSelect');
 const nearPctInput = document.getElementById('nearPctInput');
+const nearPctWrapper = document.getElementById('nearPctWrapper');
+const nearSortBtn = document.getElementById('nearSortBtn');
+const modeNearBtn = document.getElementById('modeNearBtn');
+const modeNegBtn = document.getElementById('modeNegBtn');
+const nearWhatsappBtn = document.getElementById('nearWhatsappBtn');
+const refreshDataBtn = document.getElementById('refreshDataBtn');
+const refreshIcon = document.getElementById('refreshIcon');
 const backHomeBtn = document.getElementById('backHomeBtn');
 
 const openWhatsappBtn = document.getElementById('openWhatsappBtn');
@@ -94,24 +106,88 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+// Register Offline Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
 // Fetch data.json
-async function loadData() {
+async function loadData(isManual = false) {
+  if (isManual && refreshIcon) {
+    refreshIcon.classList.add('animate-spin');
+  }
   try {
     const response = await fetch('data.json?v=' + Date.now());
     appData = await response.json();
     badgeJobs.textContent = `${appData.total_jobs} Jobs`;
-    badgeJobs.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 backdrop-blur-sm';
+    badgeJobs.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-400/20 text-emerald-200 border border-emerald-300/30';
     if (appData.updated_at) {
       syncStatusText.textContent = `Updated: ${appData.updated_at}`;
     }
     initNearClosingControls();
     renderRecentJobs();
-    renderNearClosingJobs();
+    if (currentJobCode && appData.jobs[currentJobCode]) {
+      selectJob(currentJobCode, true);
+    } else {
+      renderNearClosingJobs();
+    }
   } catch (err) {
     console.error('Failed to load data.json:', err);
-    badgeJobs.textContent = 'Sync Error';
-    badgeJobs.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/25 text-rose-200 border border-rose-400/30';
+    badgeJobs.textContent = 'Offline / Error';
+    badgeJobs.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/25 text-rose-200 border border-rose-400/30';
+  } finally {
+    if (refreshIcon) {
+      setTimeout(() => refreshIcon.classList.remove('animate-spin'), 400);
+    }
   }
+}
+
+refreshDataBtn.addEventListener('click', () => loadData(true));
+
+const MONTHS_MAP = { JAN: 0, FEB: 1, MAR: 2, APR: 3, MAY: 4, JUN: 5, JUL: 6, AUG: 7, SEP: 8, OCT: 9, NOV: 10, DEC: 11 };
+
+function parseExfDate(str) {
+  if (!str || str === '-') return null;
+  const parts = str.trim().split('-');
+  if (parts.length !== 3) return null;
+  const day = parseInt(parts[0], 10);
+  const mon = MONTHS_MAP[parts[1].toUpperCase()];
+  const yr = 2000 + parseInt(parts[2], 10);
+  if (isNaN(day) || mon === undefined || isNaN(yr)) return null;
+  return new Date(yr, mon, day);
+}
+
+function getExfBadgeHtml(exfStr) {
+  if (!exfStr || exfStr === '-') return '';
+  const d = parseExfDate(exfStr);
+  if (!d) {
+    return `<span class="text-[10px] font-bold text-amber-600 dark:text-amber-400">• ${escapeHtml(exfStr)}</span>`;
+  }
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const diffDays = Math.round((d - today) / 86400000);
+  if (diffDays < 0) {
+    return `<span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300">EXF ${escapeHtml(exfStr)} (OVERDUE)</span>`;
+  }
+  if (diffDays <= 7) {
+    return `<span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300">EXF ${escapeHtml(exfStr)} (URGENT)</span>`;
+  }
+  return `<span class="text-[10px] font-semibold text-slate-500 dark:text-zinc-400">• ${escapeHtml(exfStr)}</span>`;
+}
+
+function updateHomeModeUI() {
+  if (homeMode === 'neg') {
+    modeNegBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition bg-rose-600 text-white shadow-xs';
+    modeNearBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition text-slate-600 dark:text-zinc-300';
+    nearClosingCount.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white';
+    nearPctWrapper.classList.add('hidden');
+  } else {
+    modeNearBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition bg-emerald-600 text-white shadow-xs';
+    modeNegBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition text-slate-600 dark:text-zinc-300';
+    nearClosingCount.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white';
+    nearPctWrapper.classList.remove('hidden');
+  }
+  nearSortBtn.textContent = nearSortBy === 'exf' ? 'Sort: EXF' : (homeMode === 'neg' ? 'Sort: BAL' : 'Sort: %');
 }
 
 function initNearClosingControls() {
@@ -119,20 +195,63 @@ function initNearClosingControls() {
   const ops = appData.operations_list || [];
   const savedOp = localStorage.getItem('finishing_near_op') || (ops.includes('PACKING A') ? 'PACKING A' : (ops[0] || ''));
   const savedPct = localStorage.getItem('finishing_near_pct') || '20';
+  const savedCust = localStorage.getItem('finishing_near_cust') || '';
 
-  nearOpSelect.innerHTML = ops.map(op =>
-    `<option value="${escapeHtml(op)}" ${op === savedOp ? 'selected' : ''}>${escapeHtml(op)}</option>`
-  ).join('');
+  const opOptions = [`<option value="__ALL__">ALL OPS</option>`].concat(
+    ops.map(op => `<option value="${escapeHtml(op)}">${escapeHtml(op)}</option>`)
+  );
+  nearOpSelect.innerHTML = opOptions.join('');
+  nearOpSelect.value = (savedOp === '__ALL__' || ops.includes(savedOp)) ? savedOp : (ops.includes('PACKING A') ? 'PACKING A' : '__ALL__');
   nearPctInput.value = savedPct;
+
+  const customers = Array.from(new Set(
+    Object.values(appData.jobs).map(j => (j.customer || '').trim()).filter(Boolean)
+  )).sort();
+  nearCustomerSelect.innerHTML = `<option value="">All Cust</option>` +
+    customers.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  nearCustomerSelect.value = customers.includes(savedCust) ? savedCust : '';
+
+  updateHomeModeUI();
 }
+
+modeNearBtn.addEventListener('click', () => {
+  homeMode = 'near';
+  localStorage.setItem('finishing_home_mode', homeMode);
+  if (nearOpSelect.value === '__ALL__') {
+    const ops = appData?.operations_list || [];
+    nearOpSelect.value = ops.includes('PACKING A') ? 'PACKING A' : (ops[0] || '');
+    localStorage.setItem('finishing_near_op', nearOpSelect.value);
+  }
+  updateHomeModeUI();
+  renderNearClosingJobs();
+});
+
+modeNegBtn.addEventListener('click', () => {
+  homeMode = 'neg';
+  localStorage.setItem('finishing_home_mode', homeMode);
+  updateHomeModeUI();
+  renderNearClosingJobs();
+});
 
 nearOpSelect.addEventListener('change', () => {
   localStorage.setItem('finishing_near_op', nearOpSelect.value);
   renderNearClosingJobs();
 });
 
+nearCustomerSelect.addEventListener('change', () => {
+  localStorage.setItem('finishing_near_cust', nearCustomerSelect.value);
+  renderNearClosingJobs();
+});
+
 nearPctInput.addEventListener('input', () => {
   localStorage.setItem('finishing_near_pct', nearPctInput.value);
+  renderNearClosingJobs();
+});
+
+nearSortBtn.addEventListener('click', () => {
+  nearSortBy = nearSortBy === 'exf' ? 'pct' : 'exf';
+  localStorage.setItem('finishing_near_sort', nearSortBy);
+  updateHomeModeUI();
   renderNearClosingJobs();
 });
 
@@ -143,42 +262,97 @@ function renderNearClosingJobs() {
   }
 
   const targetOp = nearOpSelect.value || 'PACKING A';
+  const targetCust = nearCustomerSelect.value || '';
   const maxPct = parseFloat(nearPctInput.value);
   const threshold = isNaN(maxPct) || maxPct <= 0 ? 20 : maxPct;
 
-  const near = [];
+  const items = [];
   for (const [mj, j] of Object.entries(appData.jobs)) {
+    if (targetCust && (j.customer || '').trim() !== targetCust) continue;
     const mx = j.max || 0;
     const ops = j.operations || {};
-    const opObj = ops[targetOp];
-    if (opObj && mx > 0) {
-      const bal = opObj.bal ?? 0;
-      const pct = (bal / mx) * 100;
-      if (bal > 0 && pct <= threshold) {
-        near.push({ mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '', bal, mx, pct });
+
+    if (homeMode === 'neg') {
+      if (targetOp === '__ALL__') {
+        const negOps = Object.entries(ops).filter(([, s]) => (s.bal ?? 0) < 0);
+        if (negOps.length > 0) {
+          negOps.sort((a, b) => a[1].bal - b[1].bal);
+          const worstOp = negOps[0][0];
+          const worstBal = negOps[0][1].bal;
+          items.push({
+            mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '',
+            cust: j.customer || '', bal: worstBal, mx, pct: 0,
+            negLabel: negOps.length > 1 ? `${worstOp} (+${negOps.length - 1} more)` : worstOp
+          });
+        }
+      } else {
+        const opObj = ops[targetOp];
+        if (opObj && (opObj.bal ?? 0) < 0) {
+          items.push({
+            mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '',
+            cust: j.customer || '', bal: opObj.bal, mx, pct: 0, negLabel: targetOp
+          });
+        }
+      }
+    } else {
+      if (targetOp === '__ALL__') continue;
+      const opObj = ops[targetOp];
+      if (opObj && mx > 0) {
+        const bal = opObj.bal ?? 0;
+        const pct = (bal / mx) * 100;
+        if (bal > 0 && pct <= threshold) {
+          items.push({
+            mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '',
+            cust: j.customer || '', bal, mx, pct
+          });
+        }
       }
     }
   }
 
-  near.sort((a, b) => a.pct - b.pct);
-  nearClosingCount.textContent = near.length;
-
-  if (near.length === 0) {
-    nearClosingList.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">No jobs with ${escapeHtml(targetOp)} ≤ ${threshold}%.</div>`;
+  if (nearSortBy === 'exf') {
+    items.sort((a, b) => {
+      const da = parseExfDate(a.exf);
+      const db = parseExfDate(b.exf);
+      if (!da && !db) return a.pct - b.pct;
+      if (!da) return 1;
+      if (!db) return -1;
+      return da - db;
+    });
+  } else if (homeMode === 'neg') {
+    items.sort((a, b) => a.bal - b.bal);
   } else {
-    nearClosingList.innerHTML = near.map(item => `
-      <div data-near-job="${escapeHtml(item.mj)}" class="px-3 py-2 hover:bg-emerald-50/60 dark:hover:bg-zinc-800/80 cursor-pointer transition flex items-center justify-between gap-2">
+    items.sort((a, b) => a.pct - b.pct);
+  }
+
+  lastHomeItems = items;
+  nearClosingCount.textContent = items.length;
+
+  if (items.length === 0) {
+    const emptyMsg = homeMode === 'neg'
+      ? 'No jobs with Negative BAL.'
+      : (targetOp === '__ALL__' ? 'Please select a specific Operation.' : `No jobs with ${escapeHtml(targetOp)} ≤ ${threshold}%.`);
+    nearClosingList.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">${emptyMsg}</div>`;
+  } else {
+    nearClosingList.innerHTML = items.map(item => `
+      <div data-near-job="${escapeHtml(item.mj)}" class="px-3 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition flex items-center justify-between gap-2">
         <div class="min-w-0 flex-1">
-          <div class="flex items-center space-x-2">
+          <div class="flex items-center flex-wrap gap-1.5">
             <span class="font-mono font-extrabold text-xs text-blue-700 dark:text-sky-400">${escapeHtml(item.mj)}</span>
             <span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500">${escapeHtml(item.pc9)}</span>
-            ${item.exf && item.exf !== '-' ? `<span class="text-[10px] font-bold text-amber-600 dark:text-amber-400">• ${escapeHtml(item.exf)}</span>` : ''}
+            ${item.cust ? `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300">${escapeHtml(item.cust)}</span>` : ''}
+            ${getExfBadgeHtml(item.exf)}
           </div>
           <div class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(item.color)}</div>
+          ${homeMode === 'neg' ? `<div class="text-[10px] font-bold text-rose-600 dark:text-rose-400 mt-0.5">${escapeHtml(item.negLabel)}</div>` : ''}
         </div>
         <div class="text-right shrink-0">
-          <div class="text-xs font-mono font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums">${fmtNum(item.bal)} <span class="text-[10px] font-normal text-slate-400">/ ${fmtNum(item.mx)}</span></div>
-          <span class="inline-block px-1.5 py-0.5 rounded text-[9.5px] font-extrabold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 tabular-nums">${item.pct.toFixed(1)}% left</span>
+          ${homeMode === 'neg'
+            ? `<div class="text-sm font-mono font-black text-rose-600 dark:text-rose-400 tabular-nums">${fmtNum(item.bal)}</div>
+               <span class="text-[9.5px] font-bold text-slate-400">Negative BAL</span>`
+            : `<div class="text-xs font-mono font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums">${fmtNum(item.bal)} <span class="text-[10px] font-normal text-slate-400">/ ${fmtNum(item.mx)}</span></div>
+               <span class="inline-block px-1.5 py-0.5 rounded text-[9.5px] font-extrabold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 tabular-nums">${item.pct.toFixed(1)}% left</span>`
+          }
         </div>
       </div>
     `).join('');
@@ -592,7 +766,42 @@ function saveWaCols() {
 
 [waColTodate, waColBuffer, waColBal].forEach(cb => cb.addEventListener('change', saveWaCols));
 
+function buildWhatsAppSummaryMessage() {
+  const targetOp = nearOpSelect.value === '__ALL__' ? 'ALL OPS' : (nearOpSelect.value || 'PACKING A');
+  const cust = nearCustomerSelect.value || 'All Customers';
+  const threshold = nearPctInput.value || '20';
+  const title = homeMode === 'neg'
+    ? `*NEGATIVE BAL ALERT (${targetOp} | ${cust})*`
+    : `*NEAR CLOSING JOBS (${targetOp} ≤ ${threshold}% | ${cust})*`;
+
+  const lines = [title, ``];
+  if (lastHomeItems.length === 0) {
+    lines.push('(No jobs found)');
+  } else {
+    lastHomeItems.forEach((item, idx) => {
+      if (homeMode === 'neg') {
+        lines.push(`${idx + 1}. *${item.mj}* (${item.pc9 || '-'}) — ${item.color}`);
+        lines.push(`   ${item.negLabel}: *${fmtNum(item.bal)}* | EXF: ${item.exf || '-'}`);
+      } else {
+        lines.push(`${idx + 1}. *${item.mj}* (${item.pc9 || '-'}) — ${item.color}`);
+        lines.push(`   BAL: *${fmtNum(item.bal)}* / ${fmtNum(item.mx)} (${item.pct.toFixed(1)}%) | EXF: ${item.exf || '-'}`);
+      }
+    });
+  }
+
+  const remarks = waRemarksInput.value.trim();
+  if (remarks) {
+    lines.push(``);
+    lines.push(`*Status / Remarks:*`);
+    lines.push(remarks);
+  }
+  return lines.join('\n');
+}
+
 function buildWhatsAppMessage() {
+  if (waShareMode === 'summary') {
+    return buildWhatsAppSummaryMessage();
+  }
   if (!currentJob || !currentJobCode) return '';
 
   const showTodate = waColTodate.checked;
@@ -653,8 +862,20 @@ function updateWaPreview() {
   waPreview.textContent = buildWhatsAppMessage();
 }
 
+const waColsBlock = waColBal.closest('.space-y-3 > div');
+
 openWhatsappBtn.addEventListener('click', () => {
   if (!currentJob) return;
+  waShareMode = 'job';
+  if (waColsBlock) waColsBlock.classList.remove('hidden');
+  updateWaPreview();
+  waModal.classList.remove('hidden');
+});
+
+nearWhatsappBtn.addEventListener('click', () => {
+  if (!appData) return;
+  waShareMode = 'summary';
+  if (waColsBlock) waColsBlock.classList.add('hidden');
   updateWaPreview();
   waModal.classList.remove('hidden');
 });
@@ -686,6 +907,9 @@ copyWaBtn.addEventListener('click', async () => {
 function resetAfterSend() {
   waModal.classList.add('hidden');
   waRemarksInput.value = '';
+  if (waShareMode === 'summary') {
+    return;
+  }
   selectedFilterOps.clear();
   showOnlySelected = false;
   activeStatusFilter = 'all';

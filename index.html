@@ -46,6 +46,11 @@
 
     <div class="flex items-center space-x-1.5">
       <span id="badgeJobs" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/15 text-white border border-white/20">Loading...</span>
+      <button id="refreshDataBtn" aria-label="Refresh Data" title="Refresh Data" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white transition">
+        <svg id="refreshIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+      </button>
       <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white transition">
         <svg id="sunIcon" class="w-3.5 h-3.5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -88,20 +93,42 @@
       <ul id="jobSuggestions" class="hidden max-h-52 overflow-y-auto bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg divide-y divide-slate-100 dark:divide-zinc-800 shadow-xl z-20"></ul>
     </section>
 
-    <!-- Near Closing Jobs Card (Visible when no job is selected) -->
+    <!-- Near Closing / Negative BAL Card (Visible when no job is selected) -->
     <section id="nearClosingCard" class="hidden bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-      <div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-zinc-800/80 dark:to-zinc-800/40 px-3 py-2 border-b border-slate-200 dark:border-zinc-800 space-y-1.5">
-        <div class="flex items-center justify-between">
-          <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">Near Closing Jobs</h3>
-          <span id="nearClosingCount" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white">0</span>
-        </div>
-        <div class="flex items-center space-x-1.5">
-          <select id="nearOpSelect" class="flex-1 min-w-0 bg-white dark:bg-zinc-900 border border-emerald-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-emerald-500"></select>
-          <div class="flex items-center space-x-0.5 bg-white dark:bg-zinc-900 border border-emerald-200 dark:border-zinc-700 rounded-lg px-2 py-1 shrink-0">
-            <span class="text-[10px] font-bold text-slate-500 dark:text-zinc-400">≤</span>
-            <input id="nearPctInput" type="number" min="1" max="100" value="20" class="w-10 text-center font-mono font-extrabold text-emerald-700 dark:text-emerald-400 bg-transparent focus:outline-none text-[11px]" />
-            <span class="text-[10px] font-bold text-slate-500 dark:text-zinc-400">%</span>
+      <div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-zinc-800/80 dark:to-zinc-800/40 px-2.5 py-2 border-b border-slate-200 dark:border-zinc-800 space-y-1.5">
+        <div class="flex items-center justify-between gap-1.5">
+          <!-- Mode Switcher: Near Closing | Negative BAL -->
+          <div class="flex items-center bg-white/80 dark:bg-zinc-950 p-0.5 rounded-lg border border-slate-200 dark:border-zinc-700">
+            <button id="modeNearBtn" type="button" class="px-2 py-0.5 rounded-md text-[10px] font-extrabold transition bg-emerald-600 text-white shadow-xs">
+              Near Closing
+            </button>
+            <button id="modeNegBtn" type="button" class="px-2 py-0.5 rounded-md text-[10px] font-extrabold transition text-slate-600 dark:text-zinc-300">
+              Negative BAL
+            </button>
           </div>
+
+          <div class="flex items-center space-x-1.5">
+            <span id="nearClosingCount" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white">0</span>
+            <button id="nearWhatsappBtn" type="button" class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition flex items-center space-x-1">
+              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.156 5.281-1.375c1.469.797 3.109 1.219 4.75 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.891-.125-.438-.141-1-.328-1.719-.641-3.016-1.297-4.984-4.344-5.141-4.547-.141-.203-1.234-1.641-1.234-3.125 0-1.484.766-2.219 1.047-2.516.266-.297.594-.375.797-.375.203 0 .406.016.578.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.109.203-.156.344-.313.516-.156.188-.328.406-.469.547-.156.156-.328.328-.141.641.188.313.844 1.391 1.813 2.25 1.25 1.109 2.297 1.453 2.609 1.609.313.156.5.125.688-.078.188-.219.797-.922 1.016-1.25.219-.313.422-.266.719-.156.297.109 1.875.891 2.188 1.047.313.156.531.234.609.359.078.125.078.734-.172 1.438z"/></svg>
+              <span>Share</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-1.5 items-center">
+          <select id="nearOpSelect" class="col-span-5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1.5 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-emerald-500"></select>
+          <select id="nearCustomerSelect" class="col-span-3 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1.5 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <option value="">All Cust</option>
+          </select>
+          <div id="nearPctWrapper" class="col-span-2 flex items-center justify-center space-x-0.5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1 py-1">
+            <span class="text-[9px] font-bold text-slate-400">≤</span>
+            <input id="nearPctInput" type="number" min="1" max="100" value="20" class="w-7 text-center font-mono font-extrabold text-emerald-700 dark:text-emerald-400 bg-transparent focus:outline-none text-[11px]" />
+            <span class="text-[9px] font-bold text-slate-400">%</span>
+          </div>
+          <button id="nearSortBtn" type="button" title="Toggle Sort (% vs EXF)" class="col-span-2 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1.5 py-1 text-[10px] font-extrabold text-blue-700 dark:text-sky-400 hover:bg-blue-50 transition truncate">
+            Sort: %
+          </button>
         </div>
       </div>
       <div id="nearClosingList" class="divide-y divide-slate-100 dark:divide-zinc-800/80"></div>
@@ -283,6 +310,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=17"></script>
+  <script src="app.js?v=18"></script>
 </body>
 </html>
