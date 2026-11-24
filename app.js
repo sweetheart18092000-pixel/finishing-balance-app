@@ -537,6 +537,18 @@ copyWaBtn.addEventListener('click', async () => {
   }
 });
 
+function resetAfterSend() {
+  waModal.classList.add('hidden');
+  waRemarksInput.value = '';
+  selectedFilterOps.clear();
+  showOnlySelected = false;
+  activeStatusFilter = 'all';
+  opSearchInput.value = '';
+  localStorage.setItem('finishing_selected_ops', JSON.stringify([]));
+  clearJobBtn.click();
+  mainJobInput.focus();
+}
+
 function openWhatsAppPackage(pkg) {
   const text = buildWhatsAppMessage();
   const encoded = encodeURIComponent(text);
@@ -549,6 +561,8 @@ function openWhatsAppPackage(pkg) {
   } else {
     window.open(waMeUrl, '_blank');
   }
+
+  setTimeout(resetAfterSend, 300);
 }
 
 sendWaPersonalBtn.addEventListener('click', () => {
@@ -567,12 +581,14 @@ shareNativeBtn.addEventListener('click', async () => {
         title: `Finishing Status - ${currentJobCode || ''}`,
         text: text
       });
+      resetAfterSend();
       return;
     } catch (err) {
       if (err.name === 'AbortError') return;
     }
   }
   window.location.href = `whatsapp://send?text=${encodeURIComponent(text)}`;
+  setTimeout(resetAfterSend, 300);
 });
 
 // Initial load
