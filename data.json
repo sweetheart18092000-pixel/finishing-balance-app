@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24 18:02:25",
+  "updated_at": "2026-11-24 19:49:23",
   "total_jobs": 206,
   "operations_list": [
     "4 HOLE BUTTON",
@@ -78,7 +78,7 @@
       "first_exf": "04-Dec-26",
       "max": 56591.0,
       "customer": "RED",
-      "color": "ASTRAL INDIGO (MRM, WFP ACID STONE)",
+      "color": "ASTRAL INDIGO",
       "operations": {
         "WASHING": {
           "todate": 56592.0,
@@ -208,7 +208,7 @@
       "first_exf": "04-Dec-26",
       "max": 13252.0,
       "customer": "LEVIS",
-      "color": "BEAUTIFUL TARGET SKIRT (DK, WFP, 5 GRINDING, ACID)",
+      "color": "BEAUTIFUL TARGET SKIRT",
       "operations": {
         "WASHING": {
           "todate": 13252.0,
@@ -320,7 +320,7 @@
       "first_exf": "03-Dec-26",
       "max": 2378.0,
       "customer": "LEVIS",
-      "color": "BEAUTIFUL TARGET SKIRT (DK, WFP, 5 GRINDING, ACID)",
+      "color": "BEAUTIFUL TARGET SKIRT",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -420,7 +420,7 @@
       "first_exf": "04-Dec-26",
       "max": 3181.0,
       "customer": "LEVIS",
-      "color": "BELIEVE IN ME (MDM, WFP, ACID, 4 DMG, RELEASED HEM)",
+      "color": "BELIEVE IN ME",
       "operations": {
         "WASHING": {
           "todate": 2085.0,
@@ -838,7 +838,7 @@
       "first_exf": "03-Dec-26",
       "max": 23427.0,
       "customer": "LEVIS",
-      "color": "BRINGING THE GAME (BATIQ, MED, WFP)",
+      "color": "BRINGING THE GAME",
       "operations": {
         "WASHING": {
           "todate": 23427.0,
@@ -956,7 +956,7 @@
       "first_exf": "27-Nov-26",
       "max": 2448.0,
       "customer": "GOLD",
-      "color": "BRUNCH BLUE (ACID, WFP, MDM)",
+      "color": "BRUNCH BLUE",
       "operations": {
         "WASHING": {
           "todate": 2448.0,
@@ -1062,7 +1062,7 @@
       "first_exf": "22-Jan-27",
       "max": 1224.0,
       "customer": "GOLD",
-      "color": "BYRON BAY (FRT ONLY <-- remove PP)",
+      "color": "BYRON BAY",
       "operations": {
         "WASHING": {
           "todate": 899.0,
@@ -1162,7 +1162,7 @@
       "first_exf": "03-Dec-26",
       "max": 1153.62,
       "customer": "LEVIS",
-      "color": "CAMP DENIM (3BL, WFP, LASER DP)",
+      "color": "CAMP DENIM",
       "operations": {
         "WASHING": {
           "todate": 1156.0,
@@ -1262,7 +1262,7 @@
       "first_exf": "01-Jan-27",
       "max": 4590.0,
       "customer": "LEVIS",
-      "color": "CAMP DENIM (3BL, WFP, LASER DP)",
+      "color": "CAMP DENIM",
       "operations": {
         "WASHING": {
           "todate": 4590.0,
@@ -1362,7 +1362,7 @@
       "first_exf": "20-Nov-26",
       "max": 413.0,
       "customer": "LEVIS",
-      "color": "CAMP DENIM (3BL, WFP, LASER DP)",
+      "color": "CAMP DENIM",
       "operations": {
         "WASHING": {
           "todate": 413.0,
@@ -1468,7 +1468,7 @@
       "first_exf": "27-Nov-26",
       "max": 16717.0,
       "customer": "LEVIS",
-      "color": "CAMP DENIM SHORT (3BL, WFP)",
+      "color": "CAMP DENIM SHORT",
       "operations": {
         "WASHING": {
           "todate": 16726.0,
@@ -1574,7 +1574,7 @@
       "first_exf": "15-Jan-27",
       "max": 11368.0,
       "customer": "LEVIS",
-      "color": "CAMP DENIM SHORT (3BL, WFP)",
+      "color": "CAMP DENIM SHORT",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -1786,7 +1786,7 @@
       "first_exf": "27-Nov-26",
       "max": 11984.0,
       "customer": "RED",
-      "color": "CAPRI CLOUD (SUPER BLEACH NO DP)",
+      "color": "CAPRI CLOUD",
       "operations": {
         "WASHING": {
           "todate": 11984.0,
@@ -2622,7 +2622,7 @@
       "first_exf": "08-Jan-27",
       "max": 6844.0,
       "customer": "LEVIS",
-      "color": "CLEVER GIRL SHORT (MED, WFP)",
+      "color": "CLEVER GIRL SHORT",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -2734,7 +2734,7 @@
       "first_exf": "18-Dec-26",
       "max": 4687.92,
       "customer": "GOLD/SHIRT",
-      "color": "COASTAL CLOUD (SHIRT, 5BL)",
+      "color": "COASTAL CLOUD",
       "operations": {
         "WASHING": {
           "todate": 4688.0,
@@ -2834,7 +2834,7 @@
       "first_exf": "25-Dec-26",
       "max": 2272.56,
       "customer": "GOLD",
-      "color": "DARK ORBIT (DK, WFP)",
+      "color": "DARK ORBIT",
       "operations": {
         "WASHING": {
           "todate": 2273.0,
@@ -2934,7 +2934,7 @@
       "first_exf": "27-Nov-26",
       "max": 13356.0,
       "customer": "GOLD",
-      "color": "DARK ORBIT (DK, WFP)",
+      "color": "DARK ORBIT",
       "operations": {
         "WASHING": {
           "todate": 13356.0,
@@ -3558,7 +3558,7 @@
       "first_exf": "11-Dec-26",
       "max": 1722.0,
       "customer": "LEVIS",
-      "color": "DOUBLE DUTY SHORT (L, WFP, CUT HEM)",
+      "color": "DOUBLE DUTY SHORT",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -4618,7 +4618,7 @@
       "first_exf": "20-Nov-26",
       "max": 2788.0,
       "customer": "GOLD",
-      "color": "EMBASSY SWEET (DK, WFP)",
+      "color": "EMBASSY SWEET",
       "operations": {
         "WASHING": {
           "todate": 2788.0,
@@ -4724,7 +4724,7 @@
       "first_exf": "27-Nov-26",
       "max": 3390.0,
       "customer": "LEVIS",
-      "color": "EMPTY SPACE (MDM, WFP)",
+      "color": "EMPTY SPACE",
       "operations": {
         "WASHING": {
           "todate": 3401.0,
@@ -4830,7 +4830,7 @@
       "first_exf": "26-Nov-26",
       "max": 21270.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO DARK (DARK, WFP)",
+      "color": "EVERLASTING INDIGO DARK",
       "operations": {
         "WASHING": {
           "todate": 21270.0,
@@ -4930,7 +4930,7 @@
       "first_exf": "10-Dec-26",
       "max": 18490.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO DARK (DARK, WFP)",
+      "color": "EVERLASTING INDIGO DARK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -5036,7 +5036,7 @@
       "first_exf": "10-Dec-26",
       "max": 17404.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO DARK (DARK, WFP)",
+      "color": "EVERLASTING INDIGO DARK",
       "operations": {
         "WASHING": {
           "todate": 17404.0,
@@ -5142,7 +5142,7 @@
       "first_exf": "20-Nov-26",
       "max": 1530.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO LIGHT (LIGHT WFP)",
+      "color": "EVERLASTING INDIGO LIGHT",
       "operations": {
         "WASHING": {
           "todate": 1530.0,
@@ -5248,7 +5248,7 @@
       "first_exf": "24-Nov-26",
       "max": 16841.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO LIGHT (LIGHT WFP)",
+      "color": "EVERLASTING INDIGO LIGHT",
       "operations": {
         "WASHING": {
           "todate": 13228.0,
@@ -5360,7 +5360,7 @@
       "first_exf": "11-Dec-26",
       "max": 5307.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO LIGHT (LIGHT WFP)",
+      "color": "EVERLASTING INDIGO LIGHT",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -5466,7 +5466,7 @@
       "first_exf": "24-Nov-26",
       "max": 20774.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO MED (WFP, MDM)",
+      "color": "EVERLASTING INDIGO MED",
       "operations": {
         "WASHING": {
           "todate": 20774.0,
@@ -5572,7 +5572,7 @@
       "first_exf": "10-Dec-26",
       "max": 17279.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO MED (WFP, MDM)",
+      "color": "EVERLASTING INDIGO MED",
       "operations": {
         "WASHING": {
           "todate": 17294.0,
@@ -5672,7 +5672,7 @@
       "first_exf": "11-Dec-26",
       "max": 3324.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO MED (WFP, MDM)",
+      "color": "EVERLASTING INDIGO MED",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -5778,7 +5778,7 @@
       "first_exf": "24-Nov-26",
       "max": 6304.0,
       "customer": "GOLD",
-      "color": "FADED MEMORY LSS (MDM, 2BL, WFP)",
+      "color": "FADED MEMORY LSS",
       "operations": {
         "WASHING": {
           "todate": 6304.0,
@@ -5884,7 +5884,7 @@
       "first_exf": "24-Nov-26",
       "max": 3145.0,
       "customer": "LEVIS",
-      "color": "FLASH BLACK (NO DP, RINSE)",
+      "color": "FLASH BLACK",
       "operations": {
         "WASHING": {
           "todate": 3145.0,
@@ -6002,7 +6002,7 @@
       "first_exf": "04-Dec-26",
       "max": 2346.0,
       "customer": "GOLD",
-      "color": "GOLDEN STAR 5D (MDM TINT, WFBPP)",
+      "color": "GOLDEN STAR 5D",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -6102,7 +6102,7 @@
       "first_exf": "03-Dec-26",
       "max": 16639.0,
       "customer": "LEVIS",
-      "color": "GROUP THINK (POX RINSE, LIGHT WFP)",
+      "color": "GROUP THINK",
       "operations": {
         "WASHING": {
           "todate": 10312.0,
@@ -6208,7 +6208,7 @@
       "first_exf": "27-Nov-26",
       "max": 1530.0,
       "customer": "RED",
-      "color": "HOT SPRINGS LIGHT (same as HYDRO, 1 DMG, ACID)",
+      "color": "HOT SPRINGS LIGHT",
       "operations": {
         "WASHING": {
           "todate": 1530.0,
@@ -6332,7 +6332,7 @@
       "first_exf": "04-Dec-26",
       "max": 2607.0,
       "customer": "GOLD",
-      "color": "HURRICANE LSS (DK, WFP, TINT)",
+      "color": "HURRICANE LSS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -6432,7 +6432,7 @@
       "first_exf": "28-Nov-26",
       "max": 5830.0,
       "customer": "GOLD",
-      "color": "HYDRO WASH LSS (3BL, WFP, 2 DMG, ACID)",
+      "color": "HYDRO WASH LSS",
       "operations": {
         "WASHING": {
           "todate": 5830.0,
@@ -6568,7 +6568,7 @@
       "first_exf": "27-Nov-26",
       "max": 1530.0,
       "customer": "GOLD",
-      "color": "HYDRO WASH LSS (3BL, WFP, 2 DMG, ACID)",
+      "color": "HYDRO WASH LSS",
       "operations": {
         "WASHING": {
           "todate": 1530.0,
@@ -6716,7 +6716,7 @@
       "first_exf": "27-Nov-26",
       "max": 1534.0,
       "customer": "LEVIS",
-      "color": "IN YOUR FACE (LT, WFP, 1 DMG)",
+      "color": "IN YOUR FACE",
       "operations": {
         "WASHING": {
           "todate": 1534.0,
@@ -6846,7 +6846,7 @@
       "first_exf": "11-Dec-26",
       "max": 2769.3,
       "customer": "LEVIS",
-      "color": "IN YOUR FACE NO DMG (WFP LT, TINT)",
+      "color": "IN YOUR FACE NO DMG",
       "operations": {
         "WASHING": {
           "todate": 2790.0,
@@ -6964,7 +6964,7 @@
       "first_exf": "11-Dec-26",
       "max": 7748.0,
       "customer": "GOLD",
-      "color": "INDIGO LACE (OVERALL PP, NO DP)",
+      "color": "INDIGO LACE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -7076,7 +7076,7 @@
       "first_exf": "25-Dec-26",
       "max": 1841.1,
       "customer": "GOLD",
-      "color": "ISLAND RINSE (RNS, NO DP)",
+      "color": "ISLAND RINSE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -7170,7 +7170,7 @@
       "first_exf": "04-Dec-26",
       "max": 2546.94,
       "customer": "GOLD",
-      "color": "ISLAND RINSE (RNS, NO DP)",
+      "color": "ISLAND RINSE",
       "operations": {
         "WASHING": {
           "todate": 2547.0,
@@ -7270,7 +7270,7 @@
       "first_exf": "27-Nov-26",
       "max": 12771.0,
       "customer": "GOLD",
-      "color": "ITALIAN SUMMER (LT, WFP)",
+      "color": "ITALIAN SUMMER",
       "operations": {
         "WASHING": {
           "todate": 12771.0,
@@ -7388,7 +7388,7 @@
       "first_exf": "04-Dec-26",
       "max": 10849.0,
       "customer": "GOLD",
-      "color": "JACKSON SQUARE (DK? WFP?)",
+      "color": "JACKSON SQUARE",
       "operations": {
         "WASHING": {
           "todate": 10864.0,
@@ -7494,7 +7494,7 @@
       "first_exf": "12-Dec-26",
       "max": 171.36,
       "customer": "LEVIS",
-      "color": "LATE THOUGHT (DARK, ALL OVER PP, WFP)",
+      "color": "LATE THOUGHT",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -7594,7 +7594,7 @@
       "first_exf": "24-Nov-26",
       "max": 8743.0,
       "customer": "LEVIS",
-      "color": "LOS DOS (MDM, 3TACK, WFP)",
+      "color": "LOS DOS",
       "operations": {
         "WASHING": {
           "todate": 8751.0,
@@ -7700,7 +7700,7 @@
       "first_exf": "26-Nov-26",
       "max": 7161.0,
       "customer": "LEVIS",
-      "color": "LOST WALKMAN (LT, NO DP EILIGHT)",
+      "color": "LOST WALKMAN",
       "operations": {
         "WASHING": {
           "todate": 3630.0,
@@ -7806,7 +7806,7 @@
       "first_exf": "04-Dec-26",
       "max": 2460.24,
       "customer": "GOLD",
-      "color": "LUNA LSS (LIGHT, FBW)",
+      "color": "LUNA LSS",
       "operations": {
         "WASHING": {
           "todate": 2471.0,
@@ -7912,7 +7912,7 @@
       "first_exf": "04-Dec-26",
       "max": 11016.0,
       "customer": "LEVIS",
-      "color": "MANY THANKS (L, WFP, SB, GRIND 5pkt)",
+      "color": "MANY THANKS",
       "operations": {
         "WASHING": {
           "todate": 11023.0,
@@ -8024,7 +8024,7 @@
       "first_exf": "27-Nov-26",
       "max": 6312.0,
       "customer": "LEVIS",
-      "color": "MOBILE GARDEN (EX LT, DYESTAR ACID)",
+      "color": "MOBILE GARDEN",
       "operations": {
         "WASHING": {
           "todate": 6313.0,
@@ -8160,7 +8160,7 @@
       "first_exf": "11-Dec-26",
       "max": 1918.62,
       "customer": "GOLD",
-      "color": "NAPLES MID (MDM, WFP)",
+      "color": "NAPLES MID",
       "operations": {
         "WASHING": {
           "todate": 1924.0,
@@ -8266,7 +8266,7 @@
       "first_exf": "04-Dec-26",
       "max": 2787.0,
       "customer": "LEVIS",
-      "color": "NEW BESTIE (MDM, WFP)",
+      "color": "NEW BESTIE",
       "operations": {
         "WASHING": {
           "todate": 2796.0,
@@ -8372,7 +8372,7 @@
       "first_exf": "24-Nov-26",
       "max": 3619.0,
       "customer": "GOLD",
-      "color": "NEW BESTIE PLUS  (MDM, WFP)",
+      "color": "NEW BESTIE PLUS",
       "operations": {
         "WASHING": {
           "todate": 3619.0,
@@ -8484,7 +8484,7 @@
       "first_exf": "27-Nov-26",
       "max": 16415.0,
       "customer": "LEVIS",
-      "color": "NO TEA (MDM, TINT, RELASE, WFP, GRIND)",
+      "color": "NO TEA",
       "operations": {
         "WASHING": {
           "todate": 16415.0,
@@ -8596,7 +8596,7 @@
       "first_exf": "17-Dec-26",
       "max": 9765.0,
       "customer": "LEVIS",
-      "color": "NO TEA (MDM, TINT, RELASE, WFP, GRIND)",
+      "color": "NO TEA",
       "operations": {
         "WASHING": {
           "todate": 9770.0,
@@ -8814,7 +8814,7 @@
       "first_exf": "20-Nov-26",
       "max": 11973.0,
       "customer": "LEVIS",
-      "color": "NOT THE SAME (MDM, WFP, CREASE MARK, ACID)",
+      "color": "NOT THE SAME",
       "operations": {
         "WASHING": {
           "todate": 11973.0,
@@ -8926,7 +8926,7 @@
       "first_exf": "24-Nov-26",
       "max": 13757.0,
       "customer": "LEVIS",
-      "color": "NOT THE SAME (MDM, WFP, CREASE MARK, ACID)",
+      "color": "NOT THE SAME",
       "operations": {
         "WASHING": {
           "todate": 13757.0,
@@ -9050,7 +9050,7 @@
       "first_exf": "04-Dec-26",
       "max": 10505.0,
       "customer": "LEVIS",
-      "color": "NOT THE SAME (MDM, WFP, CREASE MARK, ACID)",
+      "color": "NOT THE SAME",
       "operations": {
         "WASHING": {
           "todate": 10515.0,
@@ -9374,7 +9374,7 @@
       "first_exf": "23-Dec-26",
       "max": 1438.0,
       "customer": "LEVIS",
-      "color": "OUTSIDE THE SCREEN (DK NO DP)",
+      "color": "OUTSIDE THE SCREEN",
       "operations": {
         "WASHING": {
           "todate": 1438.0,
@@ -9480,7 +9480,7 @@
       "first_exf": "25-Dec-26",
       "max": 1681.98,
       "customer": "GOLD",
-      "color": "OVER THE MOON (MDM, WFP )",
+      "color": "OVER THE MOON",
       "operations": {
         "WASHING": {
           "todate": 1685.0,
@@ -9586,7 +9586,7 @@
       "first_exf": "27-Nov-26",
       "max": 2529.0,
       "customer": "RED",
-      "color": "PALERMO COAST (LT, WFP)",
+      "color": "PALERMO COAST",
       "operations": {
         "WASHING": {
           "todate": 2529.0,
@@ -9698,7 +9698,7 @@
       "first_exf": "04-Dec-26",
       "max": 1530.0,
       "customer": "GOLD",
-      "color": "POINT BONITA 5D (DARK, WFBPP)",
+      "color": "POINT BONITA 5D",
       "operations": {
         "WASHING": {
           "todate": 1530.0,
@@ -9798,7 +9798,7 @@
       "first_exf": "04-Dec-26",
       "max": 15442.0,
       "customer": "LEVIS/SHORT",
-      "color": "POOL PARTY (Same as shallow, 2 DMG, SL, OVERALL)",
+      "color": "POOL PARTY",
       "operations": {
         "WASHING": {
           "todate": 11314.0,
@@ -9934,7 +9934,7 @@
       "first_exf": "30-Dec-26",
       "max": 2194.02,
       "customer": "LEVIS",
-      "color": "RIPPED PAGE (MDM, OVERALLPP, 2DMG)",
+      "color": "RIPPED PAGE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -10046,7 +10046,7 @@
       "first_exf": "14-Jan-27",
       "max": 1550.0,
       "customer": "LEVIS",
-      "color": "RIVER ROCK (POX, ACID, WFP)",
+      "color": "RIVER ROCK",
       "operations": {
         "WASHING": {
           "todate": 235.0,
@@ -10152,7 +10152,7 @@
       "first_exf": "18-Dec-26",
       "max": 7446.0,
       "customer": "RED",
-      "color": "ROADSIDE WONDERS (MDM, WFP very light SCRAP)",
+      "color": "ROADSIDE WONDERS",
       "operations": {
         "WASHING": {
           "todate": 330.0,
@@ -10264,7 +10264,7 @@
       "first_exf": "27-Nov-26",
       "max": 10302.0,
       "customer": "GOLD",
-      "color": "SADDLE UP (MDM, WFP)",
+      "color": "SADDLE UP",
       "operations": {
         "WASHING": {
           "todate": 10302.0,
@@ -10382,7 +10382,7 @@
       "first_exf": "27-Nov-26",
       "max": 3121.2,
       "customer": "GOLD/SHIRT",
-      "color": "SAND CLOUD LSS (POX, DK, NO DP)",
+      "color": "SAND CLOUD LSS",
       "operations": {
         "WASHING": {
           "todate": 3121.0,
@@ -10452,7 +10452,7 @@
       "first_exf": "11-Dec-26",
       "max": 10994.0,
       "customer": "GOLD/SHIRT",
-      "color": "SAND CLOUD LSS (POX, DK, NO DP)",
+      "color": "SAND CLOUD LSS",
       "operations": {
         "WASHING": {
           "todate": 8994.0,
@@ -10528,7 +10528,7 @@
       "first_exf": "27-Nov-26",
       "max": 3060.0,
       "customer": "GOLD",
-      "color": "SANDBAR STONEWASH (MDM, OVERALL PP)",
+      "color": "SANDBAR STONEWASH",
       "operations": {
         "WASHING": {
           "todate": 3060.0,
@@ -10676,7 +10676,7 @@
       "first_exf": "20-Nov-26",
       "max": 8101.0,
       "customer": "LEVIS",
-      "color": "SAVED ME (SUPERLIGHT, WFP, GRIND)",
+      "color": "SAVED ME",
       "operations": {
         "WASHING": {
           "todate": 8101.0,
@@ -10782,7 +10782,7 @@
       "first_exf": "03-Dec-26",
       "max": 6446.0,
       "customer": "LEVIS",
-      "color": "SAVED ME (SUPERLIGHT, WFP, GRIND)",
+      "color": "SAVED ME",
       "operations": {
         "WASHING": {
           "todate": 6446.0,
@@ -10888,7 +10888,7 @@
       "first_exf": "08-Jan-27",
       "max": 1020.0,
       "customer": "LEVIS",
-      "color": "SAVED ME (SUPERLIGHT, WFP, GRIND)",
+      "color": "SAVED ME",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -10994,7 +10994,7 @@
       "first_exf": "04-Dec-26",
       "max": 6485.16,
       "customer": "GOLD",
-      "color": "SEA RANCH 5D (SL 2BL, WFP PP)",
+      "color": "SEA RANCH 5D",
       "operations": {
         "WASHING": {
           "todate": 6491.0,
@@ -11094,7 +11094,7 @@
       "first_exf": "27-Nov-26",
       "max": 4005.0,
       "customer": "LEVIS",
-      "color": "SECOND GUESS (DK, WFP)",
+      "color": "SECOND GUESS",
       "operations": {
         "WASHING": {
           "todate": 4005.0,
@@ -11200,7 +11200,7 @@
       "first_exf": "04-Dec-26",
       "max": 8201.0,
       "customer": "LEVIS",
-      "color": "SECOND GUESS (DK, WFP)",
+      "color": "SECOND GUESS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -11306,7 +11306,7 @@
       "first_exf": "18-Dec-26",
       "max": 1997.16,
       "customer": "LEVIS",
-      "color": "SECOND GUESS (DK, WFP)",
+      "color": "SECOND GUESS",
       "operations": {
         "WASHING": {
           "todate": 2010.0,
@@ -11412,7 +11412,7 @@
       "first_exf": "27-Nov-26",
       "max": 1736.0,
       "customer": "GOLD",
-      "color": "SECOND GUESS  PLUS(DK, WFP)",
+      "color": "SECOND GUESS  PLUS",
       "operations": {
         "WASHING": {
           "todate": 1742.0,
@@ -11524,7 +11524,7 @@
       "first_exf": "04-Dec-26",
       "max": 1531.02,
       "customer": "GOLD/SHIRT",
-      "color": "SHADOW LIGHT (3BL NO DP, SHIRT PKT TEAR)",
+      "color": "SHADOW LIGHT",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -11606,7 +11606,7 @@
       "first_exf": "04-Dec-26",
       "max": 1664.64,
       "customer": "RED",
-      "color": "SHADOW NEBULA (OD - TINT-check, FRONT)",
+      "color": "SHADOW NEBULA",
       "operations": {
         "WASHING": {
           "todate": 1665.0,
@@ -11706,7 +11706,7 @@
       "first_exf": "04-Dec-26",
       "max": 1224.0,
       "customer": "LEVIS",
-      "color": "SHELL OUT PLUS (MDM, WFP, RELEASE HEM)",
+      "color": "SHELL OUT PLUS",
       "operations": {
         "WASHING": {
           "todate": 1228.0,
@@ -11818,7 +11818,7 @@
       "first_exf": "01-Jan-27",
       "max": 2023.0,
       "customer": "RED",
-      "color": "SICILIAN SEA (DK, WFP)",
+      "color": "SICILIAN SEA",
       "operations": {
         "WASHING": {
           "todate": 2022.0,
@@ -11930,7 +11930,7 @@
       "first_exf": "27-Nov-26",
       "max": 2497.0,
       "customer": "GOLD",
-      "color": "SIENA GLOW (DK, WFP)",
+      "color": "SIENA GLOW",
       "operations": {
         "WASHING": {
           "todate": 2497.0,
@@ -12024,7 +12024,7 @@
       "first_exf": "27-Nov-26",
       "max": 2508.0,
       "customer": "LEVIS",
-      "color": "SLIGHTLY CHILLED BFR (SLIGHT, ACID, NO DP)",
+      "color": "SLIGHTLY CHILLED BFR",
       "operations": {
         "WASHING": {
           "todate": 2508.0,
@@ -12130,7 +12130,7 @@
       "first_exf": "04-Dec-26",
       "max": 1224.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 1230.0,
@@ -12236,7 +12236,7 @@
       "first_exf": "03-Dec-26",
       "max": 5034.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 5034.0,
@@ -12336,7 +12336,7 @@
       "first_exf": "17-Dec-26",
       "max": 6797.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 6797.0,
@@ -12436,7 +12436,7 @@
       "first_exf": "25-Dec-26",
       "max": 10110.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 10110.0,
@@ -12536,7 +12536,7 @@
       "first_exf": "31-Dec-26",
       "max": 3160.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -12642,7 +12642,7 @@
       "first_exf": "03-Dec-26",
       "max": 5462.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 5464.0,
@@ -12736,7 +12736,7 @@
       "first_exf": "10-Dec-26",
       "max": 1667.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 1667.0,
@@ -12830,7 +12830,7 @@
       "first_exf": "10-Dec-26",
       "max": 5757.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 5757.0,
@@ -12930,7 +12930,7 @@
       "first_exf": "04-Dec-26",
       "max": 9064.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 9075.0,
@@ -13024,7 +13024,7 @@
       "first_exf": "18-Dec-26",
       "max": 3267.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 3274.0,
@@ -13118,7 +13118,7 @@
       "first_exf": "31-Dec-26",
       "max": 1877.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 1224.0,
@@ -13212,7 +13212,7 @@
       "first_exf": "27-Nov-26",
       "max": 3943.0,
       "customer": "GOLD",
-      "color": "SPACE ICE (LT, WFP, CUFF)",
+      "color": "SPACE ICE",
       "operations": {
         "WASHING": {
           "todate": 3949.0,
@@ -13324,7 +13324,7 @@
       "first_exf": "27-Nov-26",
       "max": 4689.0,
       "customer": "LEVIS",
-      "color": "SPRING DAZE (LIGHT, OVERALL 5pKT, WFP)",
+      "color": "SPRING DAZE",
       "operations": {
         "WASHING": {
           "todate": 4689.0,
@@ -13436,7 +13436,7 @@
       "first_exf": "27-Nov-26",
       "max": 52731.0,
       "customer": "GOLD/SHIRT",
-      "color": "SPRING IRIS (FLORAL PRINT + 3BL)",
+      "color": "SPRING IRIS",
       "operations": {
         "WASHING": {
           "todate": 52731.0,
@@ -13512,7 +13512,7 @@
       "first_exf": "27-Nov-26",
       "max": 4484.0,
       "customer": "LEVIS",
-      "color": "STATE LINE (POX, STONE, WFP HIGH CONTRST)",
+      "color": "STATE LINE",
       "operations": {
         "WASHING": {
           "todate": 3593.0,
@@ -13618,7 +13618,7 @@
       "first_exf": "04-Dec-26",
       "max": 1969.62,
       "customer": "GOLD",
-      "color": "STELLAR VISION (MDM, WFP)",
+      "color": "STELLAR VISION",
       "operations": {
         "WASHING": {
           "todate": 1971.0,
@@ -13718,7 +13718,7 @@
       "first_exf": "27-Nov-26",
       "max": 8274.0,
       "customer": "LEVIS/SHORT",
-      "color": "STONEWASHED SKY (SL, WFP, CRACKING ISSUE)",
+      "color": "STONEWASHED SKY",
       "operations": {
         "WASHING": {
           "todate": 7547.0,
@@ -13842,7 +13842,7 @@
       "first_exf": "10-Nov-26",
       "max": 2129.76,
       "customer": "GOLD/ROMPER",
-      "color": "SUN SALT FADE (LT ACID, NO DP)",
+      "color": "SUN SALT FADE",
       "operations": {
         "WASHING": {
           "todate": 2130.0,
@@ -13948,7 +13948,7 @@
       "first_exf": "04-Dec-26",
       "max": 1530.0,
       "customer": "RED",
-      "color": "SUNDOWN BLUE (DK, WFP, TINT)",
+      "color": "SUNDOWN BLUE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -14054,7 +14054,7 @@
       "first_exf": "04-Dec-26",
       "max": 3011.0,
       "customer": "RED",
-      "color": "SUNRISE PEAK NEW R (SL, 3BL, WFP, OVERALL)",
+      "color": "SUNRISE PEAK NEW R",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -14160,7 +14160,7 @@
       "first_exf": "04-Dec-26",
       "max": 3116.1,
       "customer": "GOLD",
-      "color": "SUPERNOVA LSS (DK, WFP)",
+      "color": "SUPERNOVA LSS",
       "operations": {
         "WASHING": {
           "todate": 3121.0,
@@ -14260,7 +14260,7 @@
       "first_exf": "08-Jan-27",
       "max": 3876.0,
       "customer": "RED/SHIRT",
-      "color": "SWIM-UP BLUE (SLIGHT, NO DP)",
+      "color": "SWIM-UP BLUE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -14354,7 +14354,7 @@
       "first_exf": "26-Nov-26",
       "max": 9552.0,
       "customer": "LEVIS",
-      "color": "TALL GLASS OF WATER (SL. 3BL, WFP)",
+      "color": "TALL GLASS OF WATER",
       "operations": {
         "WASHING": {
           "todate": 9552.0,
@@ -14466,7 +14466,7 @@
       "first_exf": "17-Dec-26",
       "max": 43602.0,
       "customer": "LEVIS",
-      "color": "TALL GLASS OF WATER (SL. 3BL, WFP)",
+      "color": "TALL GLASS OF WATER",
       "operations": {
         "WASHING": {
           "todate": 718.0,
@@ -14572,7 +14572,7 @@
       "first_exf": "20-Nov-26",
       "max": 4939.0,
       "customer": "GOLD",
-      "color": "TERRA NOVA( WFP, STONE ACID)",
+      "color": "TERRA NOVA",
       "operations": {
         "WASHING": {
           "todate": 4939.0,
@@ -14672,7 +14672,7 @@
       "first_exf": "24-Nov-26",
       "max": 2941.0,
       "customer": "GOLD",
-      "color": "THINGS CHANGE PLUS (MDM, WFB PP)",
+      "color": "THINGS CHANGE PLUS",
       "operations": {
         "WASHING": {
           "todate": 2941.0,
@@ -14784,7 +14784,7 @@
       "first_exf": "04-Dec-26",
       "max": 3504.0,
       "customer": "GOLD",
-      "color": "TINTY NIGHT 5D (DK, WFB)",
+      "color": "TINTY NIGHT 5D",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -14884,7 +14884,7 @@
       "first_exf": "11-Dec-26",
       "max": 36014.0,
       "customer": "RED",
-      "color": "TORINO DARK (DK, WFP)",
+      "color": "TORINO DARK",
       "operations": {
         "WASHING": {
           "todate": 13971.0,
@@ -15002,7 +15002,7 @@
       "first_exf": "27-Nov-26",
       "max": 1949.0,
       "customer": "LEVIS",
-      "color": "TREE TIME (MDM, WFP, 3PP OVERALL)",
+      "color": "TREE TIME",
       "operations": {
         "WASHING": {
           "todate": 1956.0,
@@ -15108,7 +15108,7 @@
       "first_exf": "27-Nov-26",
       "max": 1224.0,
       "customer": "LEVIS",
-      "color": "TREE TIME (MDM, WFP, 3PP OVERALL)",
+      "color": "TREE TIME",
       "operations": {
         "WASHING": {
           "todate": 1224.0,
@@ -15220,7 +15220,7 @@
       "first_exf": "24-Nov-26",
       "max": 10273.0,
       "customer": "LEVIS",
-      "color": "UP AND AWAY (SL, WFP, STARB)",
+      "color": "UP AND AWAY",
       "operations": {
         "WASHING": {
           "todate": 10273.0,
@@ -15326,7 +15326,7 @@
       "first_exf": "24-Nov-26",
       "max": 4204.0,
       "customer": "LEVIS",
-      "color": "UP AND AWAY (SL, WFP, STARB)",
+      "color": "UP AND AWAY",
       "operations": {
         "WASHING": {
           "todate": 4226.0,
@@ -15426,7 +15426,7 @@
       "first_exf": "03-Dec-26",
       "max": 11089.0,
       "customer": "LEVIS",
-      "color": "UP AND AWAY (SL, WFP, STARB)",
+      "color": "UP AND AWAY",
       "operations": {
         "WASHING": {
           "todate": 11089.0,
@@ -15532,7 +15532,7 @@
       "first_exf": "11-Dec-26",
       "max": 4137.0,
       "customer": "LEVIS",
-      "color": "UP AND AWAY (SL, WFP, STARB)",
+      "color": "UP AND AWAY",
       "operations": {
         "WASHING": {
           "todate": 4147.0,
@@ -15638,7 +15638,7 @@
       "first_exf": "30-Nov-26",
       "max": 370.0,
       "customer": "LEVIS",
-      "color": "WE HAVE ARRIVED (2BL, NO DP)",
+      "color": "WE HAVE ARRIVED",
       "operations": {
         "WASHING": {
           "todate": 360.0,
@@ -15744,7 +15744,7 @@
       "first_exf": "23-Dec-26",
       "max": 204.0,
       "customer": "LEVIS",
-      "color": "WE HAVE ARRIVED (2BL, NO DP)",
+      "color": "WE HAVE ARRIVED",
       "operations": {
         "WASHING": {
           "todate": 208.0,
@@ -15844,7 +15844,7 @@
       "first_exf": "24-Dec-26",
       "max": 1422.0,
       "customer": "LEVIS",
-      "color": "WE HAVE ARRIVED (2BL, NO DP)",
+      "color": "WE HAVE ARRIVED",
       "operations": {
         "WASHING": {
           "todate": 1422.0,
@@ -15950,7 +15950,7 @@
       "first_exf": "31-Dec-26",
       "max": 2168.0,
       "customer": "LEVIS",
-      "color": "WE HAVE ARRIVED (2BL, NO DP)",
+      "color": "WE HAVE ARRIVED",
       "operations": {
         "WASHING": {
           "todate": 2168.0,
@@ -16056,7 +16056,7 @@
       "first_exf": "26-Nov-26",
       "max": 2946.0,
       "customer": "LEVIS",
-      "color": "WORKING HARDER (SL, 2BL, WFP)",
+      "color": "WORKING HARDER",
       "operations": {
         "WASHING": {
           "todate": 2954.0,
@@ -16156,7 +16156,7 @@
       "first_exf": "26-Nov-26",
       "max": 8768.0,
       "customer": "LEVIS",
-      "color": "WORKING LATE (DK TINT, WFP)",
+      "color": "WORKING LATE",
       "operations": {
         "WASHING": {
           "todate": 8768.0,
@@ -16268,7 +16268,7 @@
       "first_exf": "25-Dec-26",
       "max": 5632.0,
       "customer": "LEVIS",
-      "color": "WORKING LATE (DK TINT, WFP)",
+      "color": "WORKING LATE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -16374,7 +16374,7 @@
       "first_exf": "26-Nov-26",
       "max": 1224.0,
       "customer": "LEVIS",
-      "color": "WORKING LATE (DK TINT, WFP)",
+      "color": "WORKING LATE",
       "operations": {
         "WASHING": {
           "todate": 1224.0,
@@ -16480,7 +16480,7 @@
       "first_exf": "24-Dec-26",
       "max": 408.0,
       "customer": "LEVIS",
-      "color": "WORKING LATE (DK TINT, WFP)",
+      "color": "WORKING LATE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -16586,7 +16586,7 @@
       "first_exf": "27-Nov-26",
       "max": 1658.0,
       "customer": "LEVIS",
-      "color": "WORKING LATE PLUS (DK TINT, WFP)",
+      "color": "WORKING LATE PLUS",
       "operations": {
         "WASHING": {
           "todate": 1664.0,
@@ -16692,7 +16692,7 @@
       "first_exf": "25-Dec-26",
       "max": 2601.0,
       "customer": "LEVIS",
-      "color": "WOVEN MINUTES (LT, WFP, ACID, CUT HEM)",
+      "color": "WOVEN MINUTES",
       "operations": {
         "WASHING": {
           "todate": 2603.0,
@@ -16816,7 +16816,7 @@
       "first_exf": "03-Dec-26",
       "max": 8648.0,
       "customer": "LEVIS",
-      "color": "ZEALOUS BLUE (1BL TINT DARK,  WFP)",
+      "color": "ZEALOUS BLUE",
       "operations": {
         "WASHING": {
           "todate": 8648.0,
@@ -16922,7 +16922,7 @@
       "first_exf": "25-Dec-26",
       "max": 1530.0,
       "customer": "LEVIS",
-      "color": "WESTERN WAY LB (MDM, WFP, TINT)",
+      "color": "WESTERN WAY LB",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17022,7 +17022,7 @@
       "first_exf": "04-Dec-26",
       "max": 1752.0,
       "customer": "GOLD",
-      "color": "ANGEL ISLAND (DK, LSR)",
+      "color": "ANGEL ISLAND",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17122,7 +17122,7 @@
       "first_exf": "01-Jan-27",
       "max": 1891.0,
       "customer": "GOLD",
-      "color": "FADED MEMORY LSS (MDM, 2BL, WFP)",
+      "color": "FADED MEMORY LSS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17222,7 +17222,7 @@
       "first_exf": "01-Jan-27",
       "max": 2491.0,
       "customer": "GOLD",
-      "color": "FADED MEMORY LSS (MDM, 2BL, WFP)",
+      "color": "FADED MEMORY LSS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17422,7 +17422,7 @@
       "first_exf": "31-Dec-26",
       "max": 17988.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO DARK (DARK, WFP)",
+      "color": "EVERLASTING INDIGO DARK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17528,7 +17528,7 @@
       "first_exf": "01-Jan-27",
       "max": 30108.0,
       "customer": "RED",
-      "color": "ASTRAL INDIGO (MRM, WFP ACID STONE)",
+      "color": "ASTRAL INDIGO",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17652,7 +17652,7 @@
       "first_exf": "24-Dec-26",
       "max": 1224.0,
       "customer": "LEVIS",
-      "color": "MANY THANKS (L, WFP, SB, GRIND 5pkt)",
+      "color": "MANY THANKS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17758,7 +17758,7 @@
       "first_exf": "25-Dec-26",
       "max": 893.0,
       "customer": "LEVIS",
-      "color": "SHELL OUT (MDM, WFP, RELEASE HEM)",
+      "color": "SHELL OUT",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17870,7 +17870,7 @@
       "first_exf": "01-Jan-27",
       "max": 8869.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO MED (WFP, MDM)",
+      "color": "EVERLASTING INDIGO MED",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -17976,7 +17976,7 @@
       "first_exf": "01-Jan-27",
       "max": 16144.0,
       "customer": "GOLD",
-      "color": "BLUE LAGUNA SHAPING (MDM, WFP)",
+      "color": "BLUE LAGUNA SHAPING",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -18400,7 +18400,7 @@
       "first_exf": "01-Jan-27",
       "max": 424.0,
       "customer": "GOLD",
-      "color": "AROMATIC AIR (SL, 3BL WFP)",
+      "color": "AROMATIC AIR",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -18500,7 +18500,7 @@
       "first_exf": "11-Dec-26",
       "max": 4213.0,
       "customer": "GOLD",
-      "color": "DEEP PRAIRIE (DK WFP)",
+      "color": "DEEP PRAIRIE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -18600,7 +18600,7 @@
       "first_exf": "01-Jan-27",
       "max": 3128.0,
       "customer": "GOLD",
-      "color": "MIDSUMMER (3BL, WFP)",
+      "color": "MIDSUMMER",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -18700,7 +18700,7 @@
       "first_exf": "01-Jan-27",
       "max": 3290.52,
       "customer": "RED",
-      "color": "FLORAL FADE (LASER PRINT, NO DP MDM)",
+      "color": "FLORAL FADE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -18812,7 +18812,7 @@
       "first_exf": "15-Jan-27",
       "max": 3570.0,
       "customer": "GOLD",
-      "color": "HYDRO WASH LSS (3BL, WFP, 2 DMG, ACID)",
+      "color": "HYDRO WASH LSS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -18954,7 +18954,7 @@
       "first_exf": "18-Dec-26",
       "max": 3698.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19054,7 +19054,7 @@
       "first_exf": "08-Jan-27",
       "max": 10737.0,
       "customer": "GOLD",
-      "color": "MYSTIC WATERS (MDM, WFP)",
+      "color": "MYSTIC WATERS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19160,7 +19160,7 @@
       "first_exf": "18-Dec-26",
       "max": 5279.0,
       "customer": "RED",
-      "color": "DAYBREAK LSS (SL, WFP)",
+      "color": "DAYBREAK LSS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19260,7 +19260,7 @@
       "first_exf": "18-Dec-26",
       "max": 4662.0,
       "customer": "GOLD",
-      "color": "SUNBLEACH WHITE (POX BLEACH 3, OBA )",
+      "color": "SUNBLEACH WHITE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19360,7 +19360,7 @@
       "first_exf": "11-Dec-26",
       "max": 9849.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO DARK (DARK, WFP)",
+      "color": "EVERLASTING INDIGO DARK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19466,7 +19466,7 @@
       "first_exf": "01-Jan-27",
       "max": 2022.66,
       "customer": "GOLD",
-      "color": "SIENA GLOW (DK, WFP)",
+      "color": "SIENA GLOW",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19566,7 +19566,7 @@
       "first_exf": "08-Jan-27",
       "max": 1781.94,
       "customer": "GOLD",
-      "color": "GOLDEN STAR 5D (MDM TINT, WFBPP)",
+      "color": "GOLDEN STAR 5D",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19666,7 +19666,7 @@
       "first_exf": "01-Jan-27",
       "max": 2488.8,
       "customer": "GOLD",
-      "color": "TINTY NIGHT 5D (DK, WFB)",
+      "color": "TINTY NIGHT 5D",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19766,7 +19766,7 @@
       "first_exf": "01-Jan-27",
       "max": 4960.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO DARK (DARK, WFP)",
+      "color": "EVERLASTING INDIGO DARK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19872,7 +19872,7 @@
       "first_exf": "15-Jan-27",
       "max": 13566.0,
       "customer": "LEVIS",
-      "color": "GROUP THINK (POX RINSE, LIGHT WFP)",
+      "color": "GROUP THINK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -19978,7 +19978,7 @@
       "first_exf": "15-Jan-27",
       "max": 1632.0,
       "customer": "GOLD",
-      "color": "BRUNCH BLUE (ACID, WFP, MDM)",
+      "color": "BRUNCH BLUE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -20078,7 +20078,7 @@
       "first_exf": "01-Jan-27",
       "max": 3011.0,
       "customer": "GOLD",
-      "color": "LUNA LSS (LIGHT, FBW)",
+      "color": "LUNA LSS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -20178,7 +20178,7 @@
       "first_exf": "01-Jan-27",
       "max": 4822.0,
       "customer": "GOLD",
-      "color": "INDIGO VOID (DK, WFP)",
+      "color": "INDIGO VOID",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -20278,7 +20278,7 @@
       "first_exf": "17-Dec-26",
       "max": 5071.0,
       "customer": "LEVIS",
-      "color": "SOFT BLACK (NO DP)",
+      "color": "SOFT BLACK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -20378,7 +20378,7 @@
       "first_exf": "18-Dec-26",
       "max": 7534.0,
       "customer": "GOLD",
-      "color": "SNORKEL BLUE LSS (WFP, OVERALL PP)",
+      "color": "SNORKEL BLUE LSS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -20478,7 +20478,7 @@
       "first_exf": "01-Jan-27",
       "max": 1574.88,
       "customer": "GOLD",
-      "color": "TERRA NOVA( WFP, STONE ACID)",
+      "color": "TERRA NOVA",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -20578,7 +20578,7 @@
       "first_exf": "31-Dec-26",
       "max": 19579.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO MED (WFP, MDM)",
+      "color": "EVERLASTING INDIGO MED",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -20678,7 +20678,7 @@
       "first_exf": "01-Jan-27",
       "max": 3607.74,
       "customer": "RED",
-      "color": "DRIFTING DREAM (NO DP, LIGHT, RELEASE HEM)",
+      "color": "DRIFTING DREAM",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -20778,7 +20778,7 @@
       "first_exf": "25-Dec-26",
       "max": 4266.0,
       "customer": "LEVIS",
-      "color": "MOBILE GARDEN (EX LT, DYESTAR ACID)",
+      "color": "MOBILE GARDEN",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -21078,7 +21078,7 @@
       "first_exf": "08-Jan-27",
       "max": 4221.78,
       "customer": "GOLD",
-      "color": "JACKSON SQUARE (DK? WFP?)",
+      "color": "JACKSON SQUARE",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -21178,7 +21178,7 @@
       "first_exf": "05-Feb-27",
       "max": 4451.28,
       "customer": "LEVIS",
-      "color": "IN YOUR FACE NO DMG (WFP LT, TINT)",
+      "color": "IN YOUR FACE NO DMG",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -21278,7 +21278,7 @@
       "first_exf": "31-Dec-26",
       "max": 1572.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO DARK (DARK, WFP)",
+      "color": "EVERLASTING INDIGO DARK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -21378,7 +21378,7 @@
       "first_exf": "31-Dec-26",
       "max": 12996.0,
       "customer": "LEVIS",
-      "color": "EVERLASTING INDIGO DARK (DARK, WFP)",
+      "color": "EVERLASTING INDIGO DARK",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -21678,7 +21678,7 @@
       "first_exf": "22-Jan-27",
       "max": 18087.0,
       "customer": "GOLD",
-      "color": "OVER THE MOON (MDM, WFP )",
+      "color": "OVER THE MOON",
       "operations": {
         "WASHING": {
           "todate": 0.0,
@@ -21778,7 +21778,7 @@
       "first_exf": "31-Dec-26",
       "max": 824.0,
       "customer": "LEVIS",
-      "color": "TALL GLASS OF WATER PLUS (SL. 3BL, WFP)",
+      "color": "TALL GLASS OF WATER PLUS",
       "operations": {
         "WASHING": {
           "todate": 0.0,
