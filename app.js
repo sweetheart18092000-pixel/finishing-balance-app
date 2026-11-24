@@ -7,6 +7,7 @@ let showOnlySelected = false;
 let activeStatusFilter = 'all';
 let sortKey = 'op';
 let sortDir = 1; // 1 = asc, -1 = desc
+let lastRenderedEntries = [];
 
 const htmlEl = document.documentElement;
 const themeToggleBtn = document.getElementById('themeToggleBtn');
@@ -57,6 +58,14 @@ const syncStatusText = document.getElementById('syncStatusText');
 const showSelectedBtn = document.getElementById('showSelectedBtn');
 const clearFilterBtn = document.getElementById('clearFilterBtn');
 const opSearchInput = document.getElementById('opSearchInput');
+
+const openWhatsappBtn = document.getElementById('openWhatsappBtn');
+const waModal = document.getElementById('waModal');
+const closeWaModalBtn = document.getElementById('closeWaModalBtn');
+const waRemarksInput = document.getElementById('waRemarksInput');
+const waPreview = document.getElementById('waPreview');
+const copyWaBtn = document.getElementById('copyWaBtn');
+const sendWaBtn = document.getElementById('sendWaBtn');
 
 function fmtNum(val) {
   if (val === null || val === undefined || isNaN(val)) return '-';
@@ -138,10 +147,15 @@ mainJobInput.addEventListener('input', () => {
   }
 
   const jobs = Object.keys(appData.jobs);
-  const matches = jobs.filter(j => j.toUpperCase().includes(query)).slice(0, 15);
+  const matches = jobs.filter(j => {
+    const info = appData.jobs[j];
+    return j.toUpperCase().includes(query) ||
+      (info.pc9 && info.pc9.toUpperCase().includes(query)) ||
+      (info.color && info.color.toUpperCase().includes(query));
+  }).slice(0, 20);
 
   if (matches.length === 0) {
-    jobSuggestions.innerHTML = '<li class="p-3 text-xs text-slate-400 dark:text-zinc-500 text-center">No M_Job found</li>';
+    jobSuggestions.innerHTML = '<li class="p-3 text-xs text-slate-400 dark:text-zinc-500 text-center">No matching M_Job, PC9, or Color found</li>';
     jobSuggestions.classList.remove('hidden');
     return;
   }
@@ -341,6 +355,7 @@ function renderAllOperations() {
   });
 
   allOpsCount.textContent = `Showing ${entries.length} of ${totalOps} Operations`;
+  lastRenderedEntries = entries;
 
   if (entries.length === 0) {
     opsListContainer.innerHTML = `
@@ -404,6 +419,78 @@ document.addEventListener('click', (e) => {
   if (!mainJobInput.contains(e.target) && !jobSuggestions.contains(e.target)) {
     jobSuggestions.classList.add('hidden');
   }
+});
+
+// WhatsApp Share Logic
+function buildWhatsAppMessage() {
+  if (!currentJob || !currentJobCode) return '';
+
+  const lines = [
+    `*FINISHING STATUS - ${currentJobCode}*`,
+    `PC9: ${currentJob.pc9 || '-'}`,
+    `1st EXF: ${currentJob.first_exf || '-'} | MAX: ${fmtNum(currentJob.max)}`,
+    `Customer: ${currentJob.customer || '-'}`,
+    `Color: ${currentJob.color || '-'}`,
+    ``,
+    `*Operations (TODATE | BUF | BAL):*`
+  ];
+
+  if (lastRenderedEntries.length === 0) {
+    lines.push(`(No operations shown)`);
+  } else {
+    lastRenderedEntries.forEach(([op, s]) => {
+      lines.push(`• ${op}: ${fmtNum(s.todate)} | ${fmtNum(s.buffer)} | *${fmtNum(s.bal)}*`);
+    });
+  }
+
+  const remarks = waRemarksInput.value.trim();
+  if (remarks) {
+    lines.push(``);
+    lines.push(`*Status / Remarks:*`);
+    lines.push(remarks);
+  }
+
+  return lines.join('\n');
+}
+
+function updateWaPreview() {
+  waPreview.textContent = buildWhatsAppMessage();
+}
+
+openWhatsappBtn.addEventListener('click', () => {
+  if (!currentJob) return;
+  updateWaPreview();
+  waModal.classList.remove('hidden');
+});
+
+closeWaModalBtn.addEventListener('click', () => {
+  waModal.classList.add('hidden');
+});
+
+waModal.addEventListener('click', (e) => {
+  if (e.target === waModal) {
+    waModal.classList.add('hidden');
+  }
+});
+
+waRemarksInput.addEventListener('input', updateWaPreview);
+
+copyWaBtn.addEventListener('click', async () => {
+  const text = buildWhatsAppMessage();
+  try {
+    await navigator.clipboard.writeText(text);
+    const old = copyWaBtn.textContent;
+    copyWaBtn.textContent = 'Copied!';
+    setTimeout(() => { copyWaBtn.textContent = old; }, 1500);
+  } catch (err) {
+    console.error('Copy failed:', err);
+  }
+});
+
+sendWaBtn.addEventListener('click', () => {
+  const text = buildWhatsAppMessage();
+  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
 });
 
 // Initial load

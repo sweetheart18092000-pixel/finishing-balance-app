@@ -69,9 +69,9 @@
         <input
           id="mainJobInput"
           type="text"
-          placeholder="Search MAIN_JOB# (e.g. M07443)..."
+          placeholder="Search M_Job, PC9, or Color..."
           autocomplete="off"
-          class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 rounded-xl pl-10 pr-10 py-2.5 text-sm font-bold text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition font-mono uppercase"
+          class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 rounded-xl pl-10 pr-10 py-2.5 text-sm font-bold text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition uppercase"
         />
         <button id="clearJobBtn" class="hidden absolute right-3 top-2.5 text-slate-400 hover:text-slate-700 dark:hover:text-white p-0.5">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -135,6 +135,10 @@
           <button id="clearFilterBtn" class="hidden px-2 py-1 rounded-lg text-[11px] font-bold bg-rose-50 dark:bg-rose-500/15 hover:bg-rose-100 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30 transition">
             Clear
           </button>
+          <button id="openWhatsappBtn" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition flex items-center space-x-1">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.156 5.281-1.375c1.469.797 3.109 1.219 4.75 1.219 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.438 1.344-2 1.422-.516.078-1.172.109-1.891-.125-.438-.141-1-.328-1.719-.641-3.016-1.297-4.984-4.344-5.141-4.547-.141-.203-1.234-1.641-1.234-3.125 0-1.484.766-2.219 1.047-2.516.266-.297.594-.375.797-.375.203 0 .406.016.578.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.109.203-.156.344-.313.516-.156.188-.328.406-.469.547-.156.156-.328.328-.141.641.188.313.844 1.391 1.813 2.25 1.25 1.109 2.297 1.453 2.609 1.609.313.156.5.125.688-.078.188-.219.797-.922 1.016-1.25.219-.313.422-.266.719-.156.297.109 1.875.891 2.188 1.047.313.156.531.234.609.359.078.125.078.734-.172 1.438z"/></svg>
+            <span>WhatsApp</span>
+          </button>
         </div>
       </div>
 
@@ -189,6 +193,45 @@
 
   </main>
 
-  <script src="app.js?v=4"></script>
+  <!-- WhatsApp Share Modal -->
+  <div id="waModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-3">
+    <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-fade-in">
+      <div class="bg-emerald-600 text-white px-4 py-3 flex items-center justify-between">
+        <span class="text-sm font-extrabold">Share on WhatsApp</span>
+        <button id="closeWaModalBtn" class="text-white/80 hover:text-white p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="p-4 space-y-3">
+        <div>
+          <label for="waRemarksInput" class="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-zinc-300 mb-1">
+            Status / Remarks
+          </label>
+          <textarea
+            id="waRemarksInput"
+            rows="2"
+            placeholder="Write status or remarks here (e.g. Urgent for dispatch, Waiting for wash)..."
+            class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs font-medium text-slate-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          ></textarea>
+        </div>
+
+        <div>
+          <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500 mb-1">Message Preview</span>
+          <pre id="waPreview" class="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl p-2.5 text-[11px] font-mono text-slate-700 dark:text-zinc-300 whitespace-pre-wrap max-h-48 overflow-y-auto"></pre>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button id="copyWaBtn" class="py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-800 dark:text-zinc-200 border border-slate-300 dark:border-zinc-700 transition">
+            Copy Text
+          </button>
+          <button id="sendWaBtn" class="py-2.5 px-3 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition">
+            Send WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=5"></script>
 </body>
 </html>
