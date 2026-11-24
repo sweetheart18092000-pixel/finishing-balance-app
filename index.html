@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#1e293b" />
+  <title>Finishing Planner - Operation Bal Tracker</title>
+  <link rel="manifest" href="manifest.json" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 backdrop-blur border-b border-slate-700/60 sticky top-0 z-30 px-4 py-3.5 shadow-md flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-base font-bold leading-tight tracking-tight text-white">Finishing Balance</h1>
+        <p class="text-xs text-slate-400">ALL_DEPART Operation Tracker</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-2">
+      <span id="badgeJobs" class="px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Loading...</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-4 max-w-lg mx-auto w-full space-y-4">
+
+    <!-- Search & Filter Card -->
+    <section class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-4">
+      
+      <!-- Main Job Input -->
+      <div>
+        <label for="mainJobInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+          1. Select or Search MAIN_JOB#
+        </label>
+        <div class="relative">
+          <input
+            id="mainJobInput"
+            type="text"
+            placeholder="Type M_Job (e.g. M07520)..."
+            autocomplete="off"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition shadow-inner font-mono uppercase"
+          />
+          <button id="clearJobBtn" class="hidden absolute right-3 top-3 text-slate-400 hover:text-white">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <!-- Autocomplete Suggestions -->
+        <ul id="jobSuggestions" class="hidden max-h-48 overflow-y-auto bg-slate-900 border border-slate-700 rounded-xl mt-1.5 divide-y divide-slate-800 shadow-2xl z-20"></ul>
+      </div>
+
+      <!-- Operation Selector -->
+      <div>
+        <label for="operationSelect" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
+          2. Select OPERATION
+        </label>
+        <div class="relative">
+          <select
+            id="operationSelect"
+            disabled
+            class="w-full appearance-none bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer pr-10 font-medium"
+          >
+            <option value="">-- Choose Job First --</option>
+          </select>
+          <div class="pointer-events-none absolute right-3 top-3.5 text-slate-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Result Display Card -->
+    <section id="resultCard" class="hidden bg-gradient-to-br from-indigo-950/60 to-slate-800/90 border border-indigo-500/30 rounded-2xl p-5 shadow-2xl text-center space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+        <span class="text-xs uppercase font-bold tracking-wider text-indigo-400">Operation Balance (BAL)</span>
+        <span id="selectedOpTag" class="text-xs font-semibold px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"></span>
+      </div>
+
+      <div class="py-2">
+        <div class="text-5xl font-black tracking-tight text-white" id="balNumber">0</div>
+        <p class="text-xs text-slate-400 mt-1">Remaining Balance Pieces</p>
+      </div>
+
+      <!-- Job Details Grid -->
+      <div class="grid grid-cols-2 gap-2 text-left pt-2 border-t border-slate-700/60 text-xs">
+        <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Style (PC9)</span>
+          <span id="detailStyle" class="font-semibold text-slate-200 mt-0.5 block truncate">-</span>
+        </div>
+        <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Cut Quantity</span>
+          <span id="detailCut" class="font-semibold text-slate-200 mt-0.5 block">-</span>
+        </div>
+        <div class="col-span-2 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Wash</span>
+          <span id="detailWash" class="font-semibold text-slate-200 mt-0.5 block truncate">-</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- All Operations List for Job -->
+    <section id="allOpsCard" class="hidden bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 shadow-xl space-y-3">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">All Operations for this M_Job</h3>
+        <span id="allOpsCount" class="text-[11px] text-slate-400"></span>
+      </div>
+      <div id="opsListContainer" class="space-y-1.5 max-h-64 overflow-y-auto pr-1"></div>
+    </section>
+
+    <!-- Offline / File Update Banner -->
+    <section class="bg-slate-800/40 border border-slate-700/40 rounded-xl p-3 text-center text-xs text-slate-400">
+      <div class="flex items-center justify-center space-x-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Synced with FINISHING_PLANNER</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
