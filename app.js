@@ -65,7 +65,9 @@ const closeWaModalBtn = document.getElementById('closeWaModalBtn');
 const waRemarksInput = document.getElementById('waRemarksInput');
 const waPreview = document.getElementById('waPreview');
 const copyWaBtn = document.getElementById('copyWaBtn');
-const sendWaBtn = document.getElementById('sendWaBtn');
+const sendWaPersonalBtn = document.getElementById('sendWaPersonalBtn');
+const sendWaBusinessBtn = document.getElementById('sendWaBusinessBtn');
+const shareNativeBtn = document.getElementById('shareNativeBtn');
 
 function fmtNum(val) {
   if (val === null || val === undefined || isNaN(val)) return '-';
@@ -487,10 +489,42 @@ copyWaBtn.addEventListener('click', async () => {
   }
 });
 
-sendWaBtn.addEventListener('click', () => {
+function openWhatsAppPackage(pkg) {
   const text = buildWhatsAppMessage();
-  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-  window.open(url, '_blank');
+  const encoded = encodeURIComponent(text);
+  const waMeUrl = `https://wa.me/?text=${encoded}`;
+  const isAndroid = /Android/i.test(navigator.userAgent);
+
+  if (isAndroid) {
+    const fallback = encodeURIComponent(waMeUrl);
+    window.location.href = `intent://send?text=${encoded}#Intent;scheme=whatsapp;package=${pkg};S.browser_fallback_url=${fallback};end`;
+  } else {
+    window.open(waMeUrl, '_blank');
+  }
+}
+
+sendWaPersonalBtn.addEventListener('click', () => {
+  openWhatsAppPackage('com.whatsapp');
+});
+
+sendWaBusinessBtn.addEventListener('click', () => {
+  openWhatsAppPackage('com.whatsapp.w4b');
+});
+
+shareNativeBtn.addEventListener('click', async () => {
+  const text = buildWhatsAppMessage();
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: `Finishing Status - ${currentJobCode || ''}`,
+        text: text
+      });
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+    }
+  }
+  window.location.href = `whatsapp://send?text=${encodeURIComponent(text)}`;
 });
 
 // Initial load
