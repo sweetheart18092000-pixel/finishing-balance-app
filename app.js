@@ -1,14 +1,19 @@
 let appData = null;
 let currentJob = null;
+let currentJobCode = null;
 let selectedFilterOps = new Set(JSON.parse(localStorage.getItem('finishing_selected_ops') || '[]'));
+let recentJobs = JSON.parse(localStorage.getItem('finishing_recent_jobs') || '[]');
 let showOnlySelected = false;
+let activeStatusFilter = 'all';
+let sortKey = 'op';
+let sortDir = 1; // 1 = asc, -1 = desc
 
 const htmlEl = document.documentElement;
 const themeToggleBtn = document.getElementById('themeToggleBtn');
 const sunIcon = document.getElementById('sunIcon');
 const moonIcon = document.getElementById('moonIcon');
 
-// Initialize Theme (Default: Clean Light, Toggleable to Dark)
+// Theme Setup
 function applyTheme(theme) {
   if (theme === 'dark') {
     htmlEl.classList.add('dark');
@@ -32,8 +37,8 @@ themeToggleBtn.addEventListener('click', () => {
 const mainJobInput = document.getElementById('mainJobInput');
 const jobSuggestions = document.getElementById('jobSuggestions');
 const clearJobBtn = document.getElementById('clearJobBtn');
-const opSelectWrapper = document.getElementById('opSelectWrapper');
-const operationSelect = document.getElementById('operationSelect');
+const recentJobsBar = document.getElementById('recentJobsBar');
+const recentJobsList = document.getElementById('recentJobsList');
 
 const jobDetailsCard = document.getElementById('jobDetailsCard');
 const detailJobCode = document.getElementById('detailJobCode');
@@ -43,12 +48,6 @@ const detailMax = document.getElementById('detailMax');
 const detailCustomer = document.getElementById('detailCustomer');
 const detailColor = document.getElementById('detailColor');
 
-const resultCard = document.getElementById('resultCard');
-const selectedOpTag = document.getElementById('selectedOpTag');
-const opTodate = document.getElementById('opTodate');
-const opBuffer = document.getElementById('opBuffer');
-const balNumber = document.getElementById('balNumber');
-
 const badgeJobs = document.getElementById('badgeJobs');
 const allOpsCard = document.getElementById('allOpsCard');
 const opsListContainer = document.getElementById('opsListContainer');
@@ -57,6 +56,7 @@ const syncStatusText = document.getElementById('syncStatusText');
 
 const showSelectedBtn = document.getElementById('showSelectedBtn');
 const clearFilterBtn = document.getElementById('clearFilterBtn');
+const opSearchInput = document.getElementById('opSearchInput');
 
 function fmtNum(val) {
   if (val === null || val === undefined || isNaN(val)) return '-';
@@ -72,22 +72,55 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-// Fetch data.json (cache-busted so mobile always gets latest GitHub push)
+// Fetch data.json
 async function loadData() {
   try {
     const response = await fetch('data.json?v=' + Date.now());
     appData = await response.json();
     badgeJobs.textContent = `${appData.total_jobs} Jobs`;
-    badgeJobs.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 backdrop-blur-sm';
+    badgeJobs.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 backdrop-blur-sm';
     if (appData.updated_at) {
       syncStatusText.textContent = `Updated: ${appData.updated_at}`;
     }
+    renderRecentJobs();
   } catch (err) {
     console.error('Failed to load data.json:', err);
     badgeJobs.textContent = 'Sync Error';
-    badgeJobs.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-500/25 text-rose-200 border border-rose-400/30';
+    badgeJobs.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/25 text-rose-200 border border-rose-400/30';
   }
 }
+
+function addRecentJob(jobCode) {
+  recentJobs = [jobCode, ...recentJobs.filter(j => j !== jobCode)].slice(0, 5);
+  localStorage.setItem('finishing_recent_jobs', JSON.stringify(recentJobs));
+  renderRecentJobs();
+}
+
+function renderRecentJobs() {
+  if (!appData || recentJobs.length === 0) {
+    recentJobsBar.classList.add('hidden');
+    return;
+  }
+  const valid = recentJobs.filter(j => appData.jobs[j]);
+  if (valid.length === 0) {
+    recentJobsBar.classList.add('hidden');
+    return;
+  }
+  recentJobsList.innerHTML = valid.map(j => {
+    const active = j === currentJobCode;
+    const cls = active
+      ? 'bg-blue-600 text-white border-blue-600'
+      : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 border-slate-200 dark:border-zinc-700 hover:bg-blue-50';
+    return `<button type="button" data-recent-job="${escapeHtml(j)}" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold border transition shrink-0 ${cls}">${escapeHtml(j)}</button>`;
+  }).join('');
+  recentJobsBar.classList.remove('hidden');
+}
+
+recentJobsList.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-recent-job]');
+  if (!btn) return;
+  selectJob(btn.getAttribute('data-recent-job'));
+});
 
 // Autocomplete logic
 mainJobInput.addEventListener('input', () => {
@@ -99,7 +132,6 @@ mainJobInput.addEventListener('input', () => {
     return;
   }
 
-  // Exact match auto-select
   if (appData.jobs[query]) {
     selectJob(query);
     return;
@@ -144,7 +176,6 @@ mainJobInput.addEventListener('keydown', (e) => {
   }
 });
 
-// Select job from suggestions
 jobSuggestions.addEventListener('click', (e) => {
   const li = e.target.closest('li[data-job]');
   if (!li) return;
@@ -154,12 +185,14 @@ jobSuggestions.addEventListener('click', (e) => {
 function selectJob(jobCode) {
   if (!appData || !appData.jobs[jobCode]) return;
 
+  currentJobCode = jobCode;
   currentJob = appData.jobs[jobCode];
   mainJobInput.value = jobCode;
   clearJobBtn.classList.remove('hidden');
   jobSuggestions.classList.add('hidden');
+  opSearchInput.value = '';
 
-  // Fill Job Details immediately
+  // Fill Job Details
   detailJobCode.textContent = jobCode;
   detailPc9.textContent = currentJob.pc9 || '-';
   detailExf.textContent = currentJob.first_exf || '-';
@@ -168,15 +201,9 @@ function selectJob(jobCode) {
   detailColor.textContent = currentJob.color || '-';
   jobDetailsCard.classList.remove('hidden');
 
-  // Populate Quick Operations Select
-  const ops = Object.keys(currentJob.operations).sort();
-  operationSelect.innerHTML = '<option value="">-- Choose Operation (' + ops.length + ') --</option>' +
-    ops.map(op => `<option value="${escapeHtml(op)}">${escapeHtml(op)}</option>`).join('');
-  opSelectWrapper.classList.remove('hidden');
-
-  resultCard.classList.add('hidden');
-
-  // Render Operations Table
+  addRecentJob(jobCode);
+  updateStatusPills();
+  updateSortIndicators();
   renderAllOperations();
 }
 
@@ -185,51 +212,61 @@ clearJobBtn.addEventListener('click', () => {
   mainJobInput.value = '';
   clearJobBtn.classList.add('hidden');
   jobSuggestions.classList.add('hidden');
-  opSelectWrapper.classList.add('hidden');
   jobDetailsCard.classList.add('hidden');
-  resultCard.classList.add('hidden');
   allOpsCard.classList.add('hidden');
   currentJob = null;
+  currentJobCode = null;
+  renderRecentJobs();
 });
 
-// Operation Change
-operationSelect.addEventListener('change', () => {
-  const selectedOp = operationSelect.value;
-  if (!currentJob || !selectedOp || !currentJob.operations[selectedOp]) {
-    resultCard.classList.add('hidden');
-    highlightActiveRow(null);
-    return;
-  }
-
-  const opData = currentJob.operations[selectedOp];
-  selectedOpTag.textContent = selectedOp;
-  opTodate.textContent = fmtNum(opData.todate);
-  opBuffer.textContent = fmtNum(opData.buffer);
-  balNumber.textContent = fmtNum(opData.bal);
-
-  if (opData.bal < 0) {
-    balNumber.className = 'text-lg font-black font-mono text-rose-300 mt-0.5 block tabular-nums';
-  } else if (opData.bal === 0) {
-    balNumber.className = 'text-lg font-black font-mono text-emerald-300 mt-0.5 block tabular-nums';
-  } else {
-    balNumber.className = 'text-lg font-black font-mono text-white mt-0.5 block tabular-nums';
-  }
-
-  resultCard.classList.remove('hidden');
-  highlightActiveRow(selectedOp);
-});
-
-function highlightActiveRow(activeOp) {
-  const rows = opsListContainer.querySelectorAll('[data-op-row]');
-  rows.forEach(row => {
-    const isMatch = row.getAttribute('data-op-row') === activeOp;
-    row.classList.toggle('ring-2', isMatch);
-    row.classList.toggle('ring-blue-500', isMatch);
-    row.classList.toggle('bg-blue-50', isMatch);
-    row.classList.toggle('dark:bg-blue-950/40', isMatch);
+// Status Filter Pills
+function updateStatusPills() {
+  document.querySelectorAll('.status-pill').forEach(btn => {
+    const active = btn.getAttribute('data-status-filter') === activeStatusFilter;
+    if (active) {
+      btn.className = 'status-pill px-2.5 py-1 rounded-full text-[11px] font-bold border transition shrink-0 bg-blue-600 text-white border-blue-600 shadow-sm';
+    } else {
+      btn.className = 'status-pill px-2.5 py-1 rounded-full text-[11px] font-bold border transition shrink-0 bg-slate-50 dark:bg-zinc-950 text-slate-600 dark:text-zinc-300 border-slate-200 dark:border-zinc-800 hover:bg-slate-100';
+    }
   });
 }
 
+document.querySelectorAll('.status-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeStatusFilter = btn.getAttribute('data-status-filter');
+    updateStatusPills();
+    renderAllOperations();
+  });
+});
+
+// Operation Name Search
+opSearchInput.addEventListener('input', () => {
+  renderAllOperations();
+});
+
+// Column Sorting
+function updateSortIndicators() {
+  document.querySelectorAll('.sort-ind').forEach(el => {
+    const key = el.getAttribute('data-ind');
+    el.textContent = key === sortKey ? (sortDir === 1 ? '▲' : '▼') : '';
+  });
+}
+
+document.querySelectorAll('button[data-sort]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.getAttribute('data-sort');
+    if (sortKey === key) {
+      sortDir *= -1;
+    } else {
+      sortKey = key;
+      sortDir = key === 'op' ? 1 : -1;
+    }
+    updateSortIndicators();
+    renderAllOperations();
+  });
+});
+
+// Selected Checkboxes Filter Buttons
 function updateFilterButtons(totalOps) {
   const checkedInJob = currentJob
     ? Object.keys(currentJob.operations).filter(op => selectedFilterOps.has(op)).length
@@ -240,10 +277,10 @@ function updateFilterButtons(totalOps) {
     clearFilterBtn.classList.remove('hidden');
     if (showOnlySelected) {
       showSelectedBtn.textContent = `Show All (${totalOps})`;
-      showSelectedBtn.className = 'px-3 py-1.5 rounded-xl text-[11px] font-bold bg-slate-700 hover:bg-slate-800 text-white shadow-sm transition';
+      showSelectedBtn.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-700 hover:bg-slate-800 text-white shadow-sm transition';
     } else {
-      showSelectedBtn.textContent = `Selected Only (${checkedInJob})`;
-      showSelectedBtn.className = 'px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition';
+      showSelectedBtn.textContent = `Selected (${checkedInJob})`;
+      showSelectedBtn.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition';
     }
   } else {
     showOnlySelected = false;
@@ -264,26 +301,51 @@ clearFilterBtn.addEventListener('click', () => {
   renderAllOperations();
 });
 
-// Render Operations Table (Checkboxes + TODATE, BUFFER, BAL)
+// Render Operations Table
 function renderAllOperations() {
   if (!currentJob) return;
 
-  let entries = Object.entries(currentJob.operations).sort((a, b) => a[0].localeCompare(b[0]));
+  let entries = Object.entries(currentJob.operations);
   const totalOps = entries.length;
 
   updateFilterButtons(totalOps);
 
+  // Filter: Checked Only
   if (showOnlySelected && selectedFilterOps.size > 0) {
     entries = entries.filter(([op]) => selectedFilterOps.has(op));
-    allOpsCount.textContent = `Showing ${entries.length} of ${totalOps} Selected`;
-  } else {
-    allOpsCount.textContent = `${totalOps} Operations (Check ✓ to filter)`;
   }
+
+  // Filter: Status Pill
+  if (activeStatusFilter === 'pending') {
+    entries = entries.filter(([, s]) => (s.bal ?? 0) > 0);
+  } else if (activeStatusFilter === 'done') {
+    entries = entries.filter(([, s]) => (s.bal ?? 0) === 0);
+  } else if (activeStatusFilter === 'excess') {
+    entries = entries.filter(([, s]) => (s.bal ?? 0) < 0);
+  }
+
+  // Filter: Search Query
+  const opQuery = opSearchInput.value.trim().toUpperCase();
+  if (opQuery) {
+    entries = entries.filter(([op]) => op.toUpperCase().includes(opQuery));
+  }
+
+  // Sort
+  entries.sort((a, b) => {
+    if (sortKey === 'op') {
+      return a[0].localeCompare(b[0]) * sortDir;
+    }
+    const va = a[1][sortKey] ?? 0;
+    const vb = b[1][sortKey] ?? 0;
+    return (va - vb) * sortDir;
+  });
+
+  allOpsCount.textContent = `Showing ${entries.length} of ${totalOps} Operations`;
 
   if (entries.length === 0) {
     opsListContainer.innerHTML = `
       <div class="p-4 text-center text-xs text-slate-500 dark:text-zinc-400 bg-slate-50 dark:bg-zinc-950 rounded-xl border border-slate-200 dark:border-zinc-800">
-        No checked operations in this job. <button onclick="showSelectedBtn.click()" class="text-blue-600 dark:text-sky-400 font-bold underline ml-1">Show All</button>
+        No operations match this filter.
       </div>
     `;
     allOpsCard.classList.remove('hidden');
@@ -294,11 +356,19 @@ function renderAllOperations() {
     const bal = stats.bal ?? 0;
     const isChecked = selectedFilterOps.has(op);
     let balColor = 'text-slate-900 dark:text-zinc-100';
-    if (bal < 0) balColor = 'text-rose-600 dark:text-rose-400';
-    if (bal === 0) balColor = 'text-emerald-600 dark:text-emerald-400';
+    let rowAccent = '';
+    if (bal < 0) {
+      balColor = 'text-rose-600 dark:text-rose-400';
+    } else if (bal === 0) {
+      balColor = 'text-emerald-600 dark:text-emerald-400';
+    }
+
+    const borderCls = isChecked
+      ? 'border-blue-500 dark:border-blue-500 bg-blue-50/60 dark:bg-blue-950/30 ring-1 ring-blue-500/30'
+      : 'border-slate-200/80 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/70 hover:bg-blue-50/40 dark:hover:bg-zinc-800/80';
 
     return `
-      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950/70 hover:bg-blue-50/70 dark:hover:bg-zinc-800 cursor-pointer transition border ${isChecked ? 'border-blue-400 dark:border-blue-600 bg-blue-50/40 dark:bg-blue-950/20' : 'border-slate-200/70 dark:border-zinc-800'} text-xs">
+      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2.5 py-2.5 rounded-xl cursor-pointer transition border ${borderCls} text-xs">
         <div class="col-span-5 flex items-center space-x-2 min-w-0">
           <input type="checkbox" data-op-check="${escapeHtml(op)}" ${isChecked ? 'checked' : ''} class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer shrink-0" />
           <span class="font-semibold text-slate-800 dark:text-zinc-200 truncate" title="${escapeHtml(op)}">${escapeHtml(op)}</span>
@@ -311,33 +381,22 @@ function renderAllOperations() {
   }).join('');
 
   allOpsCard.classList.remove('hidden');
-  if (operationSelect.value) {
-    highlightActiveRow(operationSelect.value);
-  }
 }
 
-// Handle checkbox toggle OR row click
+// Tap anywhere on row (or checkbox) to check/uncheck operation
 opsListContainer.addEventListener('click', (e) => {
-  const checkbox = e.target.closest('input[data-op-check]');
-  if (checkbox) {
-    e.stopPropagation();
-    const opName = checkbox.getAttribute('data-op-check');
-    if (checkbox.checked) {
-      selectedFilterOps.add(opName);
-    } else {
-      selectedFilterOps.delete(opName);
-    }
-    localStorage.setItem('finishing_selected_ops', JSON.stringify(Array.from(selectedFilterOps)));
-    renderAllOperations();
-    return;
-  }
-
   const row = e.target.closest('[data-op-row]');
   if (!row) return;
   const opName = row.getAttribute('data-op-row');
-  operationSelect.value = opName;
-  operationSelect.dispatchEvent(new Event('change'));
-  resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  if (selectedFilterOps.has(opName)) {
+    selectedFilterOps.delete(opName);
+  } else {
+    selectedFilterOps.add(opName);
+  }
+
+  localStorage.setItem('finishing_selected_ops', JSON.stringify(Array.from(selectedFilterOps)));
+  renderAllOperations();
 });
 
 // Close autocomplete when clicking outside
