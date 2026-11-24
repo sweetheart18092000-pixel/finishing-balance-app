@@ -64,6 +64,9 @@ const waModal = document.getElementById('waModal');
 const closeWaModalBtn = document.getElementById('closeWaModalBtn');
 const waRemarksInput = document.getElementById('waRemarksInput');
 const waPreview = document.getElementById('waPreview');
+const waColTodate = document.getElementById('waColTodate');
+const waColBuffer = document.getElementById('waColBuffer');
+const waColBal = document.getElementById('waColBal');
 const copyWaBtn = document.getElementById('copyWaBtn');
 const sendWaPersonalBtn = document.getElementById('sendWaPersonalBtn');
 const sendWaBusinessBtn = document.getElementById('sendWaBusinessBtn');
@@ -424,8 +427,28 @@ document.addEventListener('click', (e) => {
 });
 
 // WhatsApp Share Logic
+const savedWaCols = JSON.parse(localStorage.getItem('finishing_wa_cols') || '{"todate":false,"buffer":false,"bal":true}');
+waColTodate.checked = !!savedWaCols.todate;
+waColBuffer.checked = !!savedWaCols.buffer;
+waColBal.checked = savedWaCols.bal !== false;
+
+function saveWaCols() {
+  localStorage.setItem('finishing_wa_cols', JSON.stringify({
+    todate: waColTodate.checked,
+    buffer: waColBuffer.checked,
+    bal: waColBal.checked
+  }));
+  updateWaPreview();
+}
+
+[waColTodate, waColBuffer, waColBal].forEach(cb => cb.addEventListener('change', saveWaCols));
+
 function buildWhatsAppMessage() {
   if (!currentJob || !currentJobCode) return '';
+
+  const showTodate = waColTodate.checked;
+  const showBuffer = waColBuffer.checked;
+  const showBal = waColBal.checked;
 
   const lines = [
     `*FINISHING STATUS - ${currentJobCode}*`,
@@ -434,14 +457,26 @@ function buildWhatsAppMessage() {
     `Customer: ${currentJob.customer || '-'}`,
     `Color: ${currentJob.color || '-'}`,
     ``,
-    `*Operations (TODATE | BUF | BAL):*`
+    `*Operations:*`
   ];
 
   if (lastRenderedEntries.length === 0) {
     lines.push(`(No operations shown)`);
   } else {
     lastRenderedEntries.forEach(([op, s]) => {
-      lines.push(`• ${op}: ${fmtNum(s.todate)} | ${fmtNum(s.buffer)} | *${fmtNum(s.bal)}*`);
+      const parts = [];
+      if (showTodate) parts.push(`TODATE: ${fmtNum(s.todate)}`);
+      if (showBuffer) parts.push(`BUF: ${fmtNum(s.buffer)}`);
+      if (showBal) parts.push(`BAL: *${fmtNum(s.bal)}*`);
+
+      if (parts.length === 0) {
+        lines.push(`• ${op}`);
+      } else if (parts.length === 1) {
+        lines.push(`• ${op} — ${parts[0]}`);
+      } else {
+        lines.push(`• *${op}*`);
+        lines.push(`  ${parts.join(' | ')}`);
+      }
     });
   }
 
