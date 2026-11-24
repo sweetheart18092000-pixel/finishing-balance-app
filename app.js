@@ -2,6 +2,32 @@ let appData = null;
 let currentJob = null;
 let selectedFilterOps = new Set(JSON.parse(localStorage.getItem('finishing_selected_ops') || '[]'));
 
+const htmlEl = document.documentElement;
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const sunIcon = document.getElementById('sunIcon');
+const moonIcon = document.getElementById('moonIcon');
+
+// Initialize Theme (Default: Clean Light, Toggleable to Dark)
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    htmlEl.classList.add('dark');
+    sunIcon.classList.remove('hidden');
+    moonIcon.classList.add('hidden');
+  } else {
+    htmlEl.classList.remove('dark');
+    sunIcon.classList.add('hidden');
+    moonIcon.classList.remove('hidden');
+  }
+  localStorage.setItem('finishing_theme', theme);
+}
+
+applyTheme(localStorage.getItem('finishing_theme') || 'light');
+
+themeToggleBtn.addEventListener('click', () => {
+  const isDark = htmlEl.classList.contains('dark');
+  applyTheme(isDark ? 'light' : 'dark');
+});
+
 const mainJobInput = document.getElementById('mainJobInput');
 const jobSuggestions = document.getElementById('jobSuggestions');
 const clearJobBtn = document.getElementById('clearJobBtn');
@@ -53,15 +79,15 @@ async function loadData() {
   try {
     const response = await fetch('data.json?v=' + Date.now());
     appData = await response.json();
-    badgeJobs.textContent = `${appData.total_jobs} M_Jobs`;
-    badgeJobs.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+    badgeJobs.textContent = `${appData.total_jobs} Jobs`;
+    badgeJobs.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 backdrop-blur-sm';
     if (appData.updated_at) {
       syncStatusText.textContent = `Updated: ${appData.updated_at}`;
     }
   } catch (err) {
     console.error('Failed to load data.json:', err);
     badgeJobs.textContent = 'Sync Error';
-    badgeJobs.className = 'px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-500/20 text-rose-300 border border-rose-500/30';
+    badgeJobs.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-500/25 text-rose-200 border border-rose-400/30';
   }
 }
 
@@ -75,7 +101,7 @@ mainJobInput.addEventListener('input', () => {
     return;
   }
 
-  // Exact match auto-select if user types full M_Job
+  // Exact match auto-select
   if (appData.jobs[query]) {
     selectJob(query);
     return;
@@ -85,7 +111,7 @@ mainJobInput.addEventListener('input', () => {
   const matches = jobs.filter(j => j.toUpperCase().includes(query)).slice(0, 15);
 
   if (matches.length === 0) {
-    jobSuggestions.innerHTML = '<li class="p-3 text-xs text-slate-400 text-center">No M_Job found</li>';
+    jobSuggestions.innerHTML = '<li class="p-3 text-xs text-slate-400 dark:text-zinc-500 text-center">No M_Job found</li>';
     jobSuggestions.classList.remove('hidden');
     return;
   }
@@ -93,15 +119,15 @@ mainJobInput.addEventListener('input', () => {
   jobSuggestions.innerHTML = matches.map(m => {
     const jobInfo = appData.jobs[m];
     return `
-      <li data-job="${escapeHtml(m)}" class="p-3 hover:bg-slate-800 cursor-pointer transition flex items-center justify-between">
+      <li data-job="${escapeHtml(m)}" class="p-3 hover:bg-blue-50 dark:hover:bg-zinc-800 cursor-pointer transition flex items-center justify-between">
         <div class="min-w-0 pr-2">
           <div class="flex items-center space-x-2">
-            <span class="font-bold text-white font-mono text-sm">${escapeHtml(m)}</span>
-            ${jobInfo.customer ? `<span class="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/25">${escapeHtml(jobInfo.customer)}</span>` : ''}
+            <span class="font-extrabold text-slate-900 dark:text-white font-mono text-sm">${escapeHtml(m)}</span>
+            ${jobInfo.customer ? `<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-100 dark:bg-sky-500/15 text-blue-700 dark:text-sky-300">${escapeHtml(jobInfo.customer)}</span>` : ''}
           </div>
-          <span class="text-xs text-slate-400 block truncate">${escapeHtml(jobInfo.pc9 || '')} ${jobInfo.color ? '• ' + escapeHtml(jobInfo.color) : ''}</span>
+          <span class="text-xs text-slate-500 dark:text-zinc-400 block truncate mt-0.5">${escapeHtml(jobInfo.pc9 || '')} ${jobInfo.color ? '• ' + escapeHtml(jobInfo.color) : ''}</span>
         </div>
-        <span class="text-[10px] shrink-0 bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">
+        <span class="text-[10px] font-bold shrink-0 bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 px-2 py-0.5 rounded-md border border-slate-200 dark:border-zinc-700">
           ${Object.keys(jobInfo.operations).length} Ops
         </span>
       </li>
@@ -185,11 +211,11 @@ operationSelect.addEventListener('change', () => {
   balNumber.textContent = fmtNum(opData.bal);
 
   if (opData.bal < 0) {
-    balNumber.className = 'text-lg font-black font-mono text-rose-400 mt-0.5 block';
+    balNumber.className = 'text-lg font-black font-mono text-rose-300 mt-0.5 block tabular-nums';
   } else if (opData.bal === 0) {
-    balNumber.className = 'text-lg font-black font-mono text-emerald-400 mt-0.5 block';
+    balNumber.className = 'text-lg font-black font-mono text-emerald-300 mt-0.5 block tabular-nums';
   } else {
-    balNumber.className = 'text-lg font-black font-mono text-white mt-0.5 block';
+    balNumber.className = 'text-lg font-black font-mono text-white mt-0.5 block tabular-nums';
   }
 
   resultCard.classList.remove('hidden');
@@ -201,8 +227,9 @@ function highlightActiveRow(activeOp) {
   rows.forEach(row => {
     const isMatch = row.getAttribute('data-op-row') === activeOp;
     row.classList.toggle('ring-2', isMatch);
-    row.classList.toggle('ring-indigo-500', isMatch);
-    row.classList.toggle('bg-indigo-950/50', isMatch);
+    row.classList.toggle('ring-blue-500', isMatch);
+    row.classList.toggle('bg-blue-50', isMatch);
+    row.classList.toggle('dark:bg-blue-950/40', isMatch);
   });
 }
 
@@ -221,17 +248,16 @@ clearFilterBtn.addEventListener('click', () => {
 });
 
 function renderFilterChips(ops) {
-  const activeInJob = ops.filter(op => selectedFilterOps.has(op));
   selectedChipsCount.textContent = `${selectedFilterOps.size} selected`;
   clearFilterBtn.classList.toggle('hidden', selectedFilterOps.size === 0);
 
   filterChipsContainer.innerHTML = ops.map(op => {
     const isSelected = selectedFilterOps.has(op);
     const cls = isSelected
-      ? 'bg-indigo-600 text-white border-indigo-400 shadow-sm'
-      : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700';
+      ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+      : 'bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border-slate-300 dark:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-800';
     return `
-      <button type="button" data-chip-op="${escapeHtml(op)}" class="px-2.5 py-1 rounded-full text-[11px] font-medium border transition ${cls}">
+      <button type="button" data-chip-op="${escapeHtml(op)}" class="px-2.5 py-1 rounded-full text-[11px] font-semibold border transition ${cls}">
         ${isSelected ? '✓ ' : ''}${escapeHtml(op)}
       </button>
     `;
@@ -262,8 +288,7 @@ function renderAllOperations() {
   const totalOps = entries.length;
 
   if (selectedFilterOps.size > 0) {
-    const filtered = entries.filter(([op]) => selectedFilterOps.has(op));
-    entries = filtered;
+    entries = entries.filter(([op]) => selectedFilterOps.has(op));
     allOpsCount.textContent = `Showing ${entries.length} of ${totalOps} (Filtered)`;
   } else {
     allOpsCount.textContent = `${totalOps} Operations`;
@@ -271,8 +296,8 @@ function renderAllOperations() {
 
   if (entries.length === 0) {
     opsListContainer.innerHTML = `
-      <div class="p-4 text-center text-xs text-slate-400 bg-slate-900/50 rounded-xl border border-slate-800">
-        No matching operations in current filter. <button onclick="clearFilterBtn.click()" class="text-indigo-400 underline ml-1">Show All</button>
+      <div class="p-4 text-center text-xs text-slate-500 dark:text-zinc-400 bg-slate-50 dark:bg-zinc-950 rounded-xl border border-slate-200 dark:border-zinc-800">
+        No matching operations in current filter. <button onclick="clearFilterBtn.click()" class="text-blue-600 dark:text-sky-400 font-bold underline ml-1">Show All</button>
       </div>
     `;
     allOpsCard.classList.remove('hidden');
@@ -281,16 +306,16 @@ function renderAllOperations() {
 
   opsListContainer.innerHTML = entries.map(([op, stats]) => {
     const bal = stats.bal ?? 0;
-    let balColor = 'text-slate-100';
-    if (bal < 0) balColor = 'text-rose-400';
-    if (bal === 0) balColor = 'text-emerald-400';
+    let balColor = 'text-slate-900 dark:text-zinc-100';
+    if (bal < 0) balColor = 'text-rose-600 dark:text-rose-400';
+    if (bal === 0) balColor = 'text-emerald-600 dark:text-emerald-400';
 
     return `
-      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2.5 py-2 rounded-xl bg-slate-900/60 hover:bg-slate-700/60 cursor-pointer transition border border-slate-800/80 text-xs">
-        <div class="col-span-5 font-medium text-slate-200 truncate pr-1" title="${escapeHtml(op)}">${escapeHtml(op)}</div>
-        <div class="col-span-2 text-right font-mono text-sky-300 text-[11px]">${fmtNum(stats.todate)}</div>
-        <div class="col-span-2 text-right font-mono text-amber-300 text-[11px]">${fmtNum(stats.buffer)}</div>
-        <div class="col-span-3 text-right font-mono font-bold ${balColor}">${fmtNum(bal)}</div>
+      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950/70 hover:bg-blue-50/70 dark:hover:bg-zinc-800 cursor-pointer transition border border-slate-200/70 dark:border-zinc-800 text-xs">
+        <div class="col-span-5 font-semibold text-slate-800 dark:text-zinc-200 truncate pr-1" title="${escapeHtml(op)}">${escapeHtml(op)}</div>
+        <div class="col-span-2 text-right font-mono font-medium text-blue-700 dark:text-sky-400 text-[11px] tabular-nums">${fmtNum(stats.todate)}</div>
+        <div class="col-span-2 text-right font-mono font-medium text-amber-600 dark:text-amber-400 text-[11px] tabular-nums">${fmtNum(stats.buffer)}</div>
+        <div class="col-span-3 text-right font-mono font-extrabold ${balColor} tabular-nums">${fmtNum(bal)}</div>
       </div>
     `;
   }).join('');
