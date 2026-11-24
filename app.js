@@ -11,7 +11,10 @@ let lastRenderedEntries = [];
 let homeMode = localStorage.getItem('finishing_home_mode') || 'near'; // 'near' | 'neg'
 let nearSortBy = localStorage.getItem('finishing_near_sort') || 'pct'; // 'pct' | 'exf'
 let lastHomeItems = [];
-let waShareMode = 'job'; // 'job' | 'summary'
+let waShareMode = 'job'; // 'job' | 'summary' | 'transmission'
+let activeHomeTab = localStorage.getItem('finishing_home_tab') || 'masters'; // 'masters' | 'transmission'
+let transViewMode = 'jobs'; // 'jobs' | 'unique'
+let lastTransItems = [];
 
 const htmlEl = document.documentElement;
 const themeToggleBtn = document.getElementById('themeToggleBtn');
@@ -72,6 +75,24 @@ const nearCustomerSelect = document.getElementById('nearCustomerSelect');
 const nearSortBtn = document.getElementById('nearSortBtn');
 const nearRightColHdr = document.getElementById('nearRightColHdr');
 const nearWhatsappBtn = document.getElementById('nearWhatsappBtn');
+
+const homeTabsBar = document.getElementById('homeTabsBar');
+const tabMastersBtn = document.getElementById('tabMastersBtn');
+const tabTransBtn = document.getElementById('tabTransBtn');
+const tabMastersCount = document.getElementById('tabMastersCount');
+const tabTransCount = document.getElementById('tabTransCount');
+const transmissionCard = document.getElementById('transmissionCard');
+const transModeJobsBtn = document.getElementById('transModeJobsBtn');
+const transModeUniqueBtn = document.getElementById('transModeUniqueBtn');
+const transUniqueCount = document.getElementById('transUniqueCount');
+const transWhatsappBtn = document.getElementById('transWhatsappBtn');
+const transFiltersRow = document.getElementById('transFiltersRow');
+const transSearchInput = document.getElementById('transSearchInput');
+const transPersonSelect = document.getElementById('transPersonSelect');
+const transStatusSelect = document.getElementById('transStatusSelect');
+const transTableHeader = document.getElementById('transTableHeader');
+const transList = document.getElementById('transList');
+
 const refreshDataBtn = document.getElementById('refreshDataBtn');
 const refreshIcon = document.getElementById('refreshIcon');
 const backHomeBtn = document.getElementById('backHomeBtn');
@@ -149,11 +170,12 @@ async function loadData(isManual = false) {
       syncStatusText.textContent = `Updated: ${appData.updated_at}`;
     }
     initNearClosingControls();
+    initTransmissionControls();
     renderRecentJobs();
     if (currentJobCode && appData.jobs[currentJobCode]) {
       selectJob(currentJobCode, true);
     } else {
-      renderNearClosingJobs();
+      renderHomeTab();
     }
   } catch (err) {
     console.error('Failed to load data.json:', err);
@@ -342,6 +364,181 @@ nearClosingList.addEventListener('click', (e) => {
   selectJob(row.getAttribute('data-near-job'));
 });
 
+function renderHomeTab() {
+  if (!appData || currentJob) {
+    if (homeTabsBar) homeTabsBar.classList.add('hidden');
+    nearClosingCard.classList.add('hidden');
+    transmissionCard.classList.add('hidden');
+    return;
+  }
+
+  if (homeTabsBar) homeTabsBar.classList.remove('hidden');
+  tabMastersCount.textContent = appData.total_jobs || Object.keys(appData.jobs || {}).length;
+  const transTotal = appData.transmission ? appData.transmission.total_jobs : 0;
+  tabTransCount.textContent = transTotal;
+
+  if (activeHomeTab === 'transmission') {
+    tabTransBtn.className = 'py-1.5 px-2 rounded-lg text-xs font-extrabold transition bg-indigo-600 text-white shadow-xs flex items-center justify-center space-x-1.5';
+    tabMastersBtn.className = 'py-1.5 px-2 rounded-lg text-xs font-extrabold transition text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800 flex items-center justify-center space-x-1.5';
+    nearClosingCard.classList.add('hidden');
+    renderTransmission();
+  } else {
+    tabMastersBtn.className = 'py-1.5 px-2 rounded-lg text-xs font-extrabold transition bg-blue-600 text-white shadow-xs flex items-center justify-center space-x-1.5';
+    tabTransBtn.className = 'py-1.5 px-2 rounded-lg text-xs font-extrabold transition text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800 flex items-center justify-center space-x-1.5';
+    transmissionCard.classList.add('hidden');
+    renderNearClosingJobs();
+  }
+}
+
+tabMastersBtn.addEventListener('click', () => {
+  activeHomeTab = 'masters';
+  localStorage.setItem('finishing_home_tab', activeHomeTab);
+  renderHomeTab();
+});
+
+tabTransBtn.addEventListener('click', () => {
+  activeHomeTab = 'transmission';
+  localStorage.setItem('finishing_home_tab', activeHomeTab);
+  renderHomeTab();
+});
+
+function initTransmissionControls() {
+  const trans = appData?.transmission;
+  if (!trans) return;
+  transUniqueCount.textContent = (trans.unique_m_jobs || []).length;
+
+  const persons = Array.from(new Set(trans.jobs.map(j => j.person).filter(Boolean))).sort();
+  transPersonSelect.innerHTML = `<option value="">All Person</option>` +
+    persons.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
+
+  const statuses = Array.from(new Set(trans.jobs.map(j => j.job_status).filter(Boolean))).sort();
+  transStatusSelect.innerHTML = `<option value="">All Status</option>` +
+    statuses.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
+}
+
+transModeJobsBtn.addEventListener('click', () => {
+  transViewMode = 'jobs';
+  transModeJobsBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-indigo-600 text-white shadow-xs transition';
+  transModeUniqueBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold text-slate-600 dark:text-zinc-300 bg-white/70 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 transition';
+  transFiltersRow.classList.remove('hidden');
+  transTableHeader.classList.remove('hidden');
+  renderTransmission();
+});
+
+transModeUniqueBtn.addEventListener('click', () => {
+  transViewMode = 'unique';
+  transModeUniqueBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-indigo-600 text-white shadow-xs transition';
+  transModeJobsBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold text-slate-600 dark:text-zinc-300 bg-white/70 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 transition';
+  transFiltersRow.classList.add('hidden');
+  transTableHeader.classList.add('hidden');
+  renderTransmission();
+});
+
+[transSearchInput, transPersonSelect, transStatusSelect].forEach(el => {
+  el.addEventListener('input', renderTransmission);
+  el.addEventListener('change', renderTransmission);
+});
+
+function renderTransmission() {
+  if (!appData || currentJob || activeHomeTab !== 'transmission') {
+    transmissionCard.classList.add('hidden');
+    return;
+  }
+
+  const trans = appData.transmission || { total_jobs: 0, unique_m_jobs: [], jobs: [] };
+
+  if (transViewMode === 'unique') {
+    const uniq = trans.unique_m_jobs || [];
+    if (uniq.length === 0) {
+      transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No Unique M_Jobs found.</div>';
+    } else {
+      transList.innerHTML = uniq.map((mj, idx) => {
+        const count = trans.jobs.filter(j => j.m_job === mj).length;
+        const info = appData.jobs[mj];
+        return `
+          <div data-trans-mjob="${escapeHtml(mj)}" class="px-3 py-2 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
+            <div class="min-w-0">
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] font-bold text-slate-400 w-5">${idx + 1}.</span>
+                <span class="font-mono font-extrabold text-xs text-indigo-700 dark:text-sky-400">${escapeHtml(mj)}</span>
+                ${info?.customer ? `<span class="text-[9px] font-bold px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300">${escapeHtml(info.customer)}</span>` : ''}
+              </div>
+              ${info?.color ? `<div class="text-[11px] font-bold text-slate-700 dark:text-zinc-200 truncate pl-7 mt-0.5">${escapeHtml(info.color)}</div>` : ''}
+            </div>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 shrink-0">${count} Jobs</span>
+          </div>
+        `;
+      }).join('');
+    }
+    transmissionCard.classList.remove('hidden');
+    return;
+  }
+
+  const q = transSearchInput.value.trim().toUpperCase();
+  const pFilter = transPersonSelect.value;
+  const sFilter = transStatusSelect.value;
+
+  const filtered = trans.jobs.filter(j => {
+    if (pFilter && j.person !== pFilter) return false;
+    if (sFilter && j.job_status !== sFilter) return false;
+    if (q) {
+      return j.job_no.toUpperCase().includes(q) ||
+        j.m_job.toUpperCase().includes(q) ||
+        j.style.toUpperCase().includes(q) ||
+        j.wash.toUpperCase().includes(q) ||
+        j.person.toUpperCase().includes(q) ||
+        j.country.toUpperCase().includes(q);
+    }
+    return true;
+  });
+
+  lastTransItems = filtered;
+
+  if (filtered.length === 0) {
+    transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No pending transmission jobs match.</div>';
+  } else {
+    transList.innerHTML = filtered.map(j => `
+      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="grid grid-cols-[1fr_70px_76px] gap-1.5 items-center px-2.5 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
+        <div class="min-w-0">
+          <div class="flex items-center space-x-1.5 min-w-0">
+            <span class="font-mono font-extrabold text-xs text-indigo-700 dark:text-sky-400 shrink-0">${escapeHtml(j.job_no)}</span>
+            ${j.m_job ? `<span class="text-[10px] font-mono font-bold px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-sky-300 shrink-0">${escapeHtml(j.m_job)}</span>` : ''}
+            <span class="text-[10px] text-slate-400 truncate">${escapeHtml(j.style)}</span>
+          </div>
+          <div class="text-[11px] font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(j.wash || '-')}</div>
+          <div class="flex items-center space-x-1.5 text-[9.5px] text-slate-500 dark:text-zinc-400 mt-0.5 truncate">
+            <span>${escapeHtml(j.person || '-')}</span>
+            <span>•</span>
+            <span class="font-semibold text-amber-700 dark:text-amber-400">${escapeHtml(j.job_status || '-')}</span>
+            <span>•</span>
+            <span>${escapeHtml(j.country || '-')}</span>
+          </div>
+        </div>
+        <div class="text-center leading-tight">
+          ${getExfBadgeHtml(j.plan_ex)}
+          <span class="block text-[8.5px] text-slate-400 mt-0.5 truncate">${escapeHtml(j.ship_seq)}</span>
+        </div>
+        <div class="text-right">
+          <div class="text-xs font-mono font-extrabold text-slate-800 dark:text-zinc-100 tabular-nums">${fmtNum(j.pack)}</div>
+          <div class="text-[9.5px] font-mono text-slate-400 tabular-nums">/ ${fmtNum(j.order_qty)}</div>
+          <div class="text-[9.5px] font-mono font-bold ${j.short > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'} tabular-nums">Sh: ${fmtNum(j.short)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  transmissionCard.classList.remove('hidden');
+}
+
+transList.addEventListener('click', (e) => {
+  const row = e.target.closest('[data-trans-mjob]');
+  if (!row) return;
+  const mj = row.getAttribute('data-trans-mjob');
+  if (mj && appData?.jobs[mj]) {
+    selectJob(mj);
+  }
+});
+
 function addRecentJob(jobCode) {
   recentJobs = [jobCode, ...recentJobs.filter(j => j !== jobCode)].slice(0, 5);
   localStorage.setItem('finishing_recent_jobs', JSON.stringify(recentJobs));
@@ -470,7 +667,9 @@ function selectJob(jobCode, fromPopState = false) {
   jobDetailsCard.classList.remove('hidden');
 
   addRecentJob(jobCode);
+  if (homeTabsBar) homeTabsBar.classList.add('hidden');
   nearClosingCard.classList.add('hidden');
+  transmissionCard.classList.add('hidden');
   updateStatusPills();
   updateSortIndicators();
   renderAllOperations();
@@ -490,7 +689,7 @@ function resetToHome(fromPopState = false) {
   currentJob = null;
   currentJobCode = null;
   renderRecentJobs();
-  renderNearClosingJobs();
+  renderHomeTab();
   if (!fromPopState && window.location.hash.startsWith('#job=')) {
     history.replaceState(null, '', window.location.pathname + window.location.search);
   }
@@ -840,9 +1039,47 @@ function buildWhatsAppSummaryMessage() {
   return lines.join('\n');
 }
 
+function buildWhatsAppTransmissionMessage() {
+  const trans = appData?.transmission || { unique_m_jobs: [], jobs: [] };
+  const lines = [];
+
+  if (transViewMode === 'unique') {
+    const uniq = trans.unique_m_jobs || [];
+    lines.push(`*TRANSMISSION UNIQUE M_JOBS (${uniq.length})*`, ``);
+    uniq.forEach((mj, idx) => {
+      const cnt = trans.jobs.filter(j => j.m_job === mj).length;
+      lines.push(`${idx + 1}. *${mj}* (${cnt} jobs)`);
+    });
+  } else {
+    lines.push(`*TRANSMISSION PENDING JOBS (${lastTransItems.length})*`, ``);
+    if (lastTransItems.length === 0) {
+      lines.push('(No jobs found)');
+    } else {
+      lastTransItems.slice(0, 45).forEach((j, idx) => {
+        lines.push(`${idx + 1}. *${j.job_no}* (${j.m_job || '-'}) — ${j.wash}`);
+        lines.push(`   Pack: ${fmtNum(j.pack)}/${fmtNum(j.order_qty)} | ${j.person} | ${j.job_status} | EX: ${j.plan_ex}`);
+      });
+      if (lastTransItems.length > 45) {
+        lines.push(`...and ${lastTransItems.length - 45} more`);
+      }
+    }
+  }
+
+  const remarks = waRemarksInput.value.trim();
+  if (remarks) {
+    lines.push(``);
+    lines.push(`*Status / Remarks:*`);
+    lines.push(remarks);
+  }
+  return lines.join('\n');
+}
+
 function buildWhatsAppMessage() {
   if (waShareMode === 'summary') {
     return buildWhatsAppSummaryMessage();
+  }
+  if (waShareMode === 'transmission') {
+    return buildWhatsAppTransmissionMessage();
   }
   if (!currentJob || !currentJobCode) return '';
 
@@ -924,6 +1161,15 @@ nearWhatsappBtn.addEventListener('click', () => {
   waModal.classList.remove('hidden');
 });
 
+transWhatsappBtn.addEventListener('click', () => {
+  if (!appData) return;
+  waShareMode = 'transmission';
+  if (waColsBlock) waColsBlock.classList.add('hidden');
+  renderQuickRemarks();
+  updateWaPreview();
+  waModal.classList.remove('hidden');
+});
+
 closeWaModalBtn.addEventListener('click', () => {
   waModal.classList.add('hidden');
 });
@@ -955,7 +1201,7 @@ copyWaBtn.addEventListener('click', async () => {
 function resetAfterSend() {
   waModal.classList.add('hidden');
   waRemarksInput.value = '';
-  if (waShareMode === 'summary') {
+  if (waShareMode === 'summary' || waShareMode === 'transmission') {
     return;
   }
   selectedFilterOps.clear();
