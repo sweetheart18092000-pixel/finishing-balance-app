@@ -467,6 +467,13 @@ jobSuggestions.addEventListener('click', (e) => {
 function selectJob(jobCode, fromPopState = false) {
   if (!appData || !appData.jobs[jobCode]) return;
 
+  if (currentJobCode !== jobCode) {
+    selectedFilterOps.clear();
+    showOnlySelected = false;
+    activeStatusFilter = 'all';
+    localStorage.setItem('finishing_selected_ops', JSON.stringify([]));
+  }
+
   currentJobCode = jobCode;
   currentJob = appData.jobs[jobCode];
   mainJobInput.value = jobCode;
@@ -500,6 +507,11 @@ function resetToHome(fromPopState = false) {
   jobSuggestions.classList.add('hidden');
   jobDetailsCard.classList.add('hidden');
   allOpsCard.classList.add('hidden');
+  selectedFilterOps.clear();
+  showOnlySelected = false;
+  activeStatusFilter = 'all';
+  opSearchInput.value = '';
+  localStorage.setItem('finishing_selected_ops', JSON.stringify([]));
   currentJob = null;
   currentJobCode = null;
   renderRecentJobs();
