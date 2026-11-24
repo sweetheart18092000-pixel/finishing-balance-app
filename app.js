@@ -463,10 +463,20 @@ function buildWhatsAppMessage() {
     `*Operations:*`
   ];
 
-  if (lastRenderedEntries.length === 0) {
+  let opsToSend = lastRenderedEntries;
+  if (selectedFilterOps.size > 0) {
+    const checkedEntries = Object.entries(currentJob.operations)
+      .filter(([op]) => selectedFilterOps.has(op))
+      .sort((a, b) => (a[1].seq ?? 9999) - (b[1].seq ?? 9999));
+    if (checkedEntries.length > 0) {
+      opsToSend = checkedEntries;
+    }
+  }
+
+  if (opsToSend.length === 0) {
     lines.push(`(No operations shown)`);
   } else {
-    lastRenderedEntries.forEach(([op, s]) => {
+    opsToSend.forEach(([op, s]) => {
       const parts = [];
       if (showTodate) parts.push(`TODATE: ${fmtNum(s.todate)}`);
       if (showBuffer) parts.push(`BUF: ${fmtNum(s.buffer)}`);
