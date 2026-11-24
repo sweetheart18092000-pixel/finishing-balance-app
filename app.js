@@ -63,6 +63,7 @@ const selectAllOpsCheckbox = document.getElementById('selectAllOpsCheckbox');
 const nearClosingCard = document.getElementById('nearClosingCard');
 const nearClosingList = document.getElementById('nearClosingList');
 const nearClosingCount = document.getElementById('nearClosingCount');
+const backHomeBtn = document.getElementById('backHomeBtn');
 
 const openWhatsappBtn = document.getElementById('openWhatsappBtn');
 const waModal = document.getElementById('waModal');
@@ -261,7 +262,7 @@ jobSuggestions.addEventListener('click', (e) => {
   selectJob(li.getAttribute('data-job'));
 });
 
-function selectJob(jobCode) {
+function selectJob(jobCode, fromPopState = false) {
   if (!appData || !appData.jobs[jobCode]) return;
 
   currentJobCode = jobCode;
@@ -270,6 +271,10 @@ function selectJob(jobCode) {
   clearJobBtn.classList.remove('hidden');
   jobSuggestions.classList.add('hidden');
   opSearchInput.value = '';
+
+  if (!fromPopState) {
+    history.pushState({ job: jobCode }, '', `#job=${encodeURIComponent(jobCode)}`);
+  }
 
   // Fill Job Details
   detailJobCode.textContent = jobCode;
@@ -287,8 +292,7 @@ function selectJob(jobCode) {
   renderAllOperations();
 }
 
-// Clear button
-clearJobBtn.addEventListener('click', () => {
+function resetToHome(fromPopState = false) {
   mainJobInput.value = '';
   clearJobBtn.classList.add('hidden');
   jobSuggestions.classList.add('hidden');
@@ -298,6 +302,38 @@ clearJobBtn.addEventListener('click', () => {
   currentJobCode = null;
   renderRecentJobs();
   renderNearClosingJobs();
+  if (!fromPopState && window.location.hash.startsWith('#job=')) {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+}
+
+// Clear button
+clearJobBtn.addEventListener('click', () => {
+  if (window.location.hash.startsWith('#job=')) {
+    history.back();
+  } else {
+    resetToHome();
+  }
+});
+
+backHomeBtn.addEventListener('click', () => {
+  if (window.location.hash.startsWith('#job=')) {
+    history.back();
+  } else {
+    resetToHome();
+  }
+});
+
+window.addEventListener('popstate', (e) => {
+  if (!waModal.classList.contains('hidden')) {
+    waModal.classList.add('hidden');
+    return;
+  }
+  if (e.state && e.state.job) {
+    selectJob(e.state.job, true);
+  } else {
+    resetToHome(true);
+  }
 });
 
 // Status Filter Pills
