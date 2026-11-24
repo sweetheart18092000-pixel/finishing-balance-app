@@ -69,12 +69,8 @@ const nearClosingList = document.getElementById('nearClosingList');
 const nearClosingCount = document.getElementById('nearClosingCount');
 const nearOpSelect = document.getElementById('nearOpSelect');
 const nearCustomerSelect = document.getElementById('nearCustomerSelect');
-const nearPctInput = document.getElementById('nearPctInput');
-const nearPctWrapper = document.getElementById('nearPctWrapper');
 const nearSortBtn = document.getElementById('nearSortBtn');
 const nearRightColHdr = document.getElementById('nearRightColHdr');
-const modeNearBtn = document.getElementById('modeNearBtn');
-const modeNegBtn = document.getElementById('modeNegBtn');
 const nearWhatsappBtn = document.getElementById('nearWhatsappBtn');
 const refreshDataBtn = document.getElementById('refreshDataBtn');
 const refreshIcon = document.getElementById('refreshIcon');
@@ -207,35 +203,26 @@ function getExfBadgeHtml(exfStr) {
 }
 
 function updateHomeModeUI() {
-  if (homeMode === 'neg') {
-    modeNegBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition bg-rose-600 text-white shadow-xs';
-    modeNearBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition text-slate-600 dark:text-zinc-300';
-    nearClosingCount.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-600 text-white';
-    nearPctWrapper.classList.add('hidden');
-    if (nearRightColHdr) nearRightColHdr.textContent = 'NEG BAL';
+  if (nearRightColHdr) nearRightColHdr.textContent = 'BAL / MAX';
+  if (nearSortBy === 'exf') {
+    nearSortBtn.textContent = 'EXF';
+  } else if (nearSortBy === 'bal') {
+    nearSortBtn.textContent = 'BAL';
   } else {
-    modeNearBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition bg-emerald-600 text-white shadow-xs';
-    modeNegBtn.className = 'px-2 py-0.5 rounded-md text-[10px] font-extrabold transition text-slate-600 dark:text-zinc-300';
-    nearClosingCount.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white';
-    nearPctWrapper.classList.remove('hidden');
-    if (nearRightColHdr) nearRightColHdr.textContent = 'BAL / MAX';
+    nearSortBtn.textContent = 'Sheet';
   }
-  nearSortBtn.textContent = nearSortBy === 'exf' ? 'Sort: EXF' : (homeMode === 'neg' ? 'Sort: BAL' : 'Sort: %');
 }
 
 function initNearClosingControls() {
   if (!appData) return;
   const ops = appData.operations_list || [];
   const savedOp = localStorage.getItem('finishing_near_op') || (ops.includes('PACKING A') ? 'PACKING A' : (ops[0] || ''));
-  const savedPct = localStorage.getItem('finishing_near_pct') || '20';
   const savedCust = localStorage.getItem('finishing_near_cust') || '';
 
-  const opOptions = [`<option value="__ALL__">ALL OPS</option>`].concat(
-    ops.map(op => `<option value="${escapeHtml(op)}">${escapeHtml(op)}</option>`)
-  );
-  nearOpSelect.innerHTML = opOptions.join('');
-  nearOpSelect.value = (savedOp === '__ALL__' || ops.includes(savedOp)) ? savedOp : (ops.includes('PACKING A') ? 'PACKING A' : '__ALL__');
-  nearPctInput.value = savedPct;
+  nearOpSelect.innerHTML = ops.map(op =>
+    `<option value="${escapeHtml(op)}">${escapeHtml(op)}</option>`
+  ).join('');
+  nearOpSelect.value = ops.includes(savedOp) ? savedOp : (ops.includes('PACKING A') ? 'PACKING A' : (ops[0] || ''));
 
   const customers = Array.from(new Set(
     Object.values(appData.jobs).map(j => (j.customer || '').trim()).filter(Boolean)
@@ -244,27 +231,9 @@ function initNearClosingControls() {
     customers.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
   nearCustomerSelect.value = customers.includes(savedCust) ? savedCust : '';
 
+  if (!['sheet', 'exf', 'bal'].includes(nearSortBy)) nearSortBy = 'sheet';
   updateHomeModeUI();
 }
-
-modeNearBtn.addEventListener('click', () => {
-  homeMode = 'near';
-  localStorage.setItem('finishing_home_mode', homeMode);
-  if (nearOpSelect.value === '__ALL__') {
-    const ops = appData?.operations_list || [];
-    nearOpSelect.value = ops.includes('PACKING A') ? 'PACKING A' : (ops[0] || '');
-    localStorage.setItem('finishing_near_op', nearOpSelect.value);
-  }
-  updateHomeModeUI();
-  renderNearClosingJobs();
-});
-
-modeNegBtn.addEventListener('click', () => {
-  homeMode = 'neg';
-  localStorage.setItem('finishing_home_mode', homeMode);
-  updateHomeModeUI();
-  renderNearClosingJobs();
-});
 
 nearOpSelect.addEventListener('change', () => {
   localStorage.setItem('finishing_near_op', nearOpSelect.value);
@@ -276,13 +245,9 @@ nearCustomerSelect.addEventListener('change', () => {
   renderNearClosingJobs();
 });
 
-nearPctInput.addEventListener('input', () => {
-  localStorage.setItem('finishing_near_pct', nearPctInput.value);
-  renderNearClosingJobs();
-});
-
 nearSortBtn.addEventListener('click', () => {
-  nearSortBy = nearSortBy === 'exf' ? 'pct' : 'exf';
+  const order = ['sheet', 'exf', 'bal'];
+  nearSortBy = order[(order.indexOf(nearSortBy) + 1) % order.length];
   localStorage.setItem('finishing_near_sort', nearSortBy);
   updateHomeModeUI();
   renderNearClosingJobs();
@@ -296,101 +261,76 @@ function renderNearClosingJobs() {
 
   const targetOp = nearOpSelect.value || 'PACKING A';
   const targetCust = nearCustomerSelect.value || '';
-  const maxPct = parseFloat(nearPctInput.value);
-  const threshold = isNaN(maxPct) || maxPct <= 0 ? 20 : maxPct;
 
   const items = [];
   for (const [mj, j] of Object.entries(appData.jobs)) {
     if (targetCust && (j.customer || '').trim() !== targetCust) continue;
     const mx = j.max || 0;
     const ops = j.operations || {};
-
-    if (homeMode === 'neg') {
-      if (targetOp === '__ALL__') {
-        const negOps = Object.entries(ops).filter(([, s]) => (s.bal ?? 0) < 0);
-        if (negOps.length > 0) {
-          negOps.sort((a, b) => a[1].bal - b[1].bal);
-          const worstOp = negOps[0][0];
-          const worstBal = negOps[0][1].bal;
-          items.push({
-            mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '',
-            cust: j.customer || '', bal: worstBal, mx, pct: 0,
-            negLabel: negOps.length > 1 ? `${worstOp} (+${negOps.length - 1} more)` : worstOp
-          });
-        }
-      } else {
-        const opObj = ops[targetOp];
-        if (opObj && (opObj.bal ?? 0) < 0) {
-          items.push({
-            mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '',
-            cust: j.customer || '', bal: opObj.bal, mx, pct: 0, negLabel: targetOp
-          });
-        }
-      }
-    } else {
-      if (targetOp === '__ALL__') continue;
-      const opObj = ops[targetOp];
-      if (opObj && mx > 0) {
-        const bal = opObj.bal ?? 0;
-        const pct = (bal / mx) * 100;
-        if (bal > 0 && pct <= threshold) {
-          items.push({
-            mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '',
-            cust: j.customer || '', bal, mx, pct
-          });
-        }
-      }
-    }
+    const opObj = ops[targetOp];
+    const hasOp = !!opObj;
+    const bal = hasOp ? (opObj.bal ?? 0) : null;
+    items.push({
+      mj,
+      color: j.color || '-',
+      pc9: j.pc9 || '',
+      exf: j.first_exf || '',
+      cust: j.customer || '',
+      bal,
+      mx,
+      hasOp
+    });
   }
 
   if (nearSortBy === 'exf') {
     items.sort((a, b) => {
       const da = parseExfDate(a.exf);
       const db = parseExfDate(b.exf);
-      if (!da && !db) return a.pct - b.pct;
+      if (!da && !db) return 0;
       if (!da) return 1;
       if (!db) return -1;
       return da - db;
     });
-  } else if (homeMode === 'neg') {
-    items.sort((a, b) => a.bal - b.bal);
-  } else {
-    items.sort((a, b) => a.pct - b.pct);
+  } else if (nearSortBy === 'bal') {
+    items.sort((a, b) => {
+      const va = a.hasOp ? a.bal : 9999999;
+      const vb = b.hasOp ? b.bal : 9999999;
+      return va - vb;
+    });
   }
 
   lastHomeItems = items;
   nearClosingCount.textContent = items.length;
 
   if (items.length === 0) {
-    const emptyMsg = homeMode === 'neg'
-      ? 'No jobs with Negative BAL.'
-      : (targetOp === '__ALL__' ? 'Please select a specific Operation.' : `No jobs with ${escapeHtml(targetOp)} ≤ ${threshold}%.`);
-    nearClosingList.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">${emptyMsg}</div>`;
+    nearClosingList.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">No Master jobs found.</div>`;
   } else {
-    nearClosingList.innerHTML = items.map(item => `
-      <div data-near-job="${escapeHtml(item.mj)}" class="grid grid-cols-[1fr_72px_88px] gap-1.5 items-center px-2.5 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
-        <div class="min-w-0">
-          <div class="flex items-center space-x-1.5 min-w-0">
-            <span class="font-mono font-extrabold text-xs text-blue-700 dark:text-sky-400 shrink-0">${escapeHtml(item.mj)}</span>
-            <span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500 truncate">${escapeHtml(item.pc9)}</span>
-            ${item.cust ? `<span class="text-[9px] font-bold px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(item.cust)}</span>` : ''}
+    nearClosingList.innerHTML = items.map(item => {
+      let balCls = 'text-slate-800 dark:text-zinc-100';
+      if (item.hasOp) {
+        if (item.bal < 0) balCls = 'text-rose-600 dark:text-rose-400';
+        else if (item.bal === 0) balCls = 'text-emerald-600 dark:text-emerald-400';
+      }
+      return `
+        <div data-near-job="${escapeHtml(item.mj)}" class="grid grid-cols-[1fr_72px_88px] gap-1.5 items-center px-2.5 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
+          <div class="min-w-0">
+            <div class="flex items-center space-x-1.5 min-w-0">
+              <span class="font-mono font-extrabold text-xs text-blue-700 dark:text-sky-400 shrink-0">${escapeHtml(item.mj)}</span>
+              <span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500 truncate">${escapeHtml(item.pc9)}</span>
+              ${item.cust ? `<span class="text-[9px] font-bold px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(item.cust)}</span>` : ''}
+            </div>
+            <div class="text-[11px] font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(item.color)}</div>
           </div>
-          <div class="text-[11px] font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(item.color)}</div>
-          ${homeMode === 'neg' ? `<div class="text-[9.5px] font-bold text-rose-600 dark:text-rose-400 truncate mt-0.5">${escapeHtml(item.negLabel)}</div>` : ''}
+          <div class="text-center leading-tight">
+            ${getExfBadgeHtml(item.exf)}
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-mono font-extrabold ${balCls} tabular-nums leading-tight">${item.hasOp ? fmtNum(item.bal) : '-'}</div>
+            <span class="text-[9.5px] font-normal text-slate-400 tabular-nums">/ ${fmtNum(item.mx)}</span>
+          </div>
         </div>
-        <div class="text-center leading-tight">
-          ${getExfBadgeHtml(item.exf)}
-        </div>
-        <div class="text-right">
-          ${homeMode === 'neg'
-            ? `<div class="text-sm font-mono font-black text-rose-600 dark:text-rose-400 tabular-nums">${fmtNum(item.bal)}</div>
-               <span class="text-[9px] font-bold text-slate-400">Negative</span>`
-            : `<div class="text-xs font-mono font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums leading-tight">${fmtNum(item.bal)}<span class="text-[9.5px] font-normal text-slate-400 block">/ ${fmtNum(item.mx)}</span></div>
-               <span class="inline-block mt-0.5 px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 tabular-nums">${item.pct.toFixed(1)}% left</span>`
-          }
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   nearClosingCard.classList.remove('hidden');
@@ -874,26 +814,21 @@ function saveWaCols() {
 [waColTodate, waColBuffer, waColBal].forEach(cb => cb.addEventListener('change', saveWaCols));
 
 function buildWhatsAppSummaryMessage() {
-  const targetOp = nearOpSelect.value === '__ALL__' ? 'ALL OPS' : (nearOpSelect.value || 'PACKING A');
+  const targetOp = nearOpSelect.value || 'PACKING A';
   const cust = nearCustomerSelect.value || 'All Customers';
-  const threshold = nearPctInput.value || '20';
-  const title = homeMode === 'neg'
-    ? `*NEGATIVE BAL ALERT (${targetOp} | ${cust})*`
-    : `*NEAR CLOSING JOBS (${targetOp} ≤ ${threshold}% | ${cust})*`;
+  const title = `*ALL MASTERS (${targetOp} | ${cust})*`;
 
   const lines = [title, ``];
   if (lastHomeItems.length === 0) {
     lines.push('(No jobs found)');
   } else {
-    lastHomeItems.forEach((item, idx) => {
-      if (homeMode === 'neg') {
-        lines.push(`${idx + 1}. *${item.mj}* (${item.pc9 || '-'}) — ${item.color}`);
-        lines.push(`   ${item.negLabel}: *${fmtNum(item.bal)}* | EXF: ${item.exf || '-'}`);
-      } else {
-        lines.push(`${idx + 1}. *${item.mj}* (${item.pc9 || '-'}) — ${item.color}`);
-        lines.push(`   BAL: *${fmtNum(item.bal)}* / ${fmtNum(item.mx)} (${item.pct.toFixed(1)}%) | EXF: ${item.exf || '-'}`);
-      }
+    lastHomeItems.slice(0, 50).forEach((item, idx) => {
+      lines.push(`${idx + 1}. *${item.mj}* (${item.pc9 || '-'}) — ${item.color}`);
+      lines.push(`   BAL: *${item.hasOp ? fmtNum(item.bal) : '-'}* / ${fmtNum(item.mx)} | EXF: ${item.exf || '-'}`);
     });
+    if (lastHomeItems.length > 50) {
+      lines.push(`...and ${lastHomeItems.length - 50} more`);
+    }
   }
 
   const remarks = waRemarksInput.value.trim();
