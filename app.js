@@ -254,6 +254,9 @@ function updateStatusPills() {
 document.querySelectorAll('.status-pill').forEach(btn => {
   btn.addEventListener('click', () => {
     activeStatusFilter = btn.getAttribute('data-status-filter');
+    selectedFilterOps.clear();
+    showOnlySelected = false;
+    localStorage.setItem('finishing_selected_ops', JSON.stringify([]));
     updateStatusPills();
     renderAllOperations();
   });
