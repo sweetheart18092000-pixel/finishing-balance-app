@@ -58,6 +58,7 @@ const syncStatusText = document.getElementById('syncStatusText');
 const showSelectedBtn = document.getElementById('showSelectedBtn');
 const clearFilterBtn = document.getElementById('clearFilterBtn');
 const opSearchInput = document.getElementById('opSearchInput');
+const selectAllOpsCheckbox = document.getElementById('selectAllOpsCheckbox');
 
 const openWhatsappBtn = document.getElementById('openWhatsappBtn');
 const waModal = document.getElementById('waModal');
@@ -365,6 +366,12 @@ function renderAllOperations() {
   allOpsCount.textContent = `Showing ${entries.length} of ${totalOps} Operations`;
   lastRenderedEntries = entries;
 
+  if (selectAllOpsCheckbox) {
+    const visibleCheckedCount = entries.filter(([op]) => selectedFilterOps.has(op)).length;
+    selectAllOpsCheckbox.checked = entries.length > 0 && visibleCheckedCount === entries.length;
+    selectAllOpsCheckbox.indeterminate = visibleCheckedCount > 0 && visibleCheckedCount < entries.length;
+  }
+
   if (entries.length === 0) {
     opsListContainer.innerHTML = `
       <div class="p-4 text-center text-xs text-slate-500 dark:text-zinc-400 bg-slate-50 dark:bg-zinc-950 rounded-xl border border-slate-200 dark:border-zinc-800">
@@ -405,6 +412,18 @@ function renderAllOperations() {
 
   allOpsCard.classList.remove('hidden');
 }
+
+// Select All / Deselect All visible operations
+selectAllOpsCheckbox.addEventListener('change', () => {
+  if (!currentJob || lastRenderedEntries.length === 0) return;
+  if (selectAllOpsCheckbox.checked) {
+    lastRenderedEntries.forEach(([op]) => selectedFilterOps.add(op));
+  } else {
+    lastRenderedEntries.forEach(([op]) => selectedFilterOps.delete(op));
+  }
+  localStorage.setItem('finishing_selected_ops', JSON.stringify(Array.from(selectedFilterOps)));
+  renderAllOperations();
+});
 
 // Tap anywhere on row (or checkbox) to check/uncheck operation
 opsListContainer.addEventListener('click', (e) => {

@@ -162,13 +162,12 @@
 
       <!-- Unified Clean Table Container -->
       <div class="border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden">
-        <!-- Sortable Table Header -->
-        <div class="grid grid-cols-[1fr_66px_58px_68px] gap-1 px-2.5 py-2 bg-slate-100 dark:bg-zinc-800/90 text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-zinc-300 border-b border-slate-200 dark:border-zinc-700/80 select-none">
-          <button data-sort="op" class="flex items-center space-x-1.5 text-left hover:text-blue-600 dark:hover:text-sky-400">
-            <span class="w-3.5 text-center text-slate-400">✓</span>
+        <!-- Table Header -->
+        <div class="grid grid-cols-[1fr_66px_58px_68px] gap-1 px-2.5 py-2 bg-slate-100 dark:bg-zinc-800/90 text-[10px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-zinc-300 border-b border-slate-200 dark:border-zinc-700/80 select-none items-center">
+          <div class="flex items-center space-x-2 text-left">
+            <input type="checkbox" id="selectAllOpsCheckbox" title="Select All Visible" class="w-3.5 h-3.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer shrink-0" />
             <span>OPERATION</span>
-            <span class="sort-ind" data-ind="op"></span>
-          </button>
+          </div>
           <button data-sort="todate" class="text-right hover:text-blue-600 dark:hover:text-sky-400">
             TODATE <span class="sort-ind" data-ind="todate"></span>
           </button>
@@ -260,6 +259,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=12"></script>
+  <script src="app.js?v=13"></script>
 </body>
 </html>
