@@ -106,10 +106,36 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-// Register Offline Service Worker
+// Register Offline Service Worker & Desktop/Mobile PWA Install Prompt
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
+
+let deferredPrompt = null;
+const installAppBtn = document.getElementById('installAppBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (installAppBtn) installAppBtn.classList.remove('hidden');
+});
+
+if (installAppBtn) {
+  installAppBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      installAppBtn.classList.add('hidden');
+    }
+    deferredPrompt = null;
+  });
+}
+
+window.addEventListener('appinstalled', () => {
+  if (installAppBtn) installAppBtn.classList.add('hidden');
+  deferredPrompt = null;
+});
 
 // Fetch data.json
 async function loadData(isManual = false) {

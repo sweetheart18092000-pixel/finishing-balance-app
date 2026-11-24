@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#1e3a8a" />
   <title>Finishing Planner - Operation Bal Tracker</title>
   <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -45,6 +47,9 @@
     </div>
 
     <div class="flex items-center space-x-1.5">
+      <button id="installAppBtn" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm transition">
+        + Install
+      </button>
       <span id="badgeJobs" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/15 text-white border border-white/20">Loading...</span>
       <button id="refreshDataBtn" aria-label="Refresh Data" title="Refresh Data" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white transition">
         <svg id="refreshIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -310,6 +315,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=19"></script>
+  <script src="app.js?v=20"></script>
 </body>
 </html>
