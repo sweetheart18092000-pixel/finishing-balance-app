@@ -84,6 +84,7 @@ const openWhatsappBtn = document.getElementById('openWhatsappBtn');
 const waModal = document.getElementById('waModal');
 const closeWaModalBtn = document.getElementById('closeWaModalBtn');
 const waRemarksInput = document.getElementById('waRemarksInput');
+const quickRemarksContainer = document.getElementById('quickRemarksContainer');
 const waPreview = document.getElementById('waPreview');
 const waColTodate = document.getElementById('waColTodate');
 const waColBuffer = document.getElementById('waColBuffer');
@@ -795,7 +796,67 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// WhatsApp Share Logic
+// WhatsApp Share Logic + Smart Auto-Learning Quick Remarks
+const DEFAULT_QUICK_REMARKS = [
+  'Shortage Issue',
+  'Size Issue',
+  'Must Close Today',
+  'Waiting For Close'
+];
+let remarkCounts = JSON.parse(localStorage.getItem('finishing_remark_counts') || '{}');
+
+function getQuickRemarksList() {
+  const learned = Object.entries(remarkCounts)
+    .filter(([text, count]) => count >= 2 && !DEFAULT_QUICK_REMARKS.some(d => d.toLowerCase() === text.toLowerCase()))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([text]) => text);
+  return [...DEFAULT_QUICK_REMARKS, ...learned];
+}
+
+function renderQuickRemarks() {
+  if (!quickRemarksContainer) return;
+  const list = getQuickRemarksList();
+  const currentText = waRemarksInput.value.trim().toLowerCase();
+  quickRemarksContainer.innerHTML = list.map(r => {
+    const isActive = currentText.includes(r.toLowerCase());
+    const cls = isActive
+      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+      : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-200 border-slate-300 dark:border-zinc-700 hover:bg-emerald-50 dark:hover:bg-zinc-700';
+    return `<button type="button" data-quick-remark="${escapeHtml(r)}" class="px-2 py-1 rounded-full text-[10.5px] font-bold border transition ${cls}">${escapeHtml(r)}</button>`;
+  }).join('');
+}
+
+function trackRemarkUsage(rawText) {
+  const cleaned = rawText.trim();
+  if (!cleaned) return;
+  // Split by comma/newline so individual phrases are learned if user combines them
+  cleaned.split(/[\n,]+/).map(s => s.trim()).filter(s => s.length >= 3 && s.length <= 45).forEach(part => {
+    if (DEFAULT_QUICK_REMARKS.some(d => d.toLowerCase() === part.toLowerCase())) return;
+    const existingKey = Object.keys(remarkCounts).find(k => k.toLowerCase() === part.toLowerCase()) || part;
+    remarkCounts[existingKey] = (remarkCounts[existingKey] || 0) + 1;
+  });
+  localStorage.setItem('finishing_remark_counts', JSON.stringify(remarkCounts));
+}
+
+if (quickRemarksContainer) {
+  quickRemarksContainer.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-quick-remark]');
+    if (!btn) return;
+    const remark = btn.getAttribute('data-quick-remark');
+    const parts = waRemarksInput.value.split(',').map(s => s.trim()).filter(Boolean);
+    const idx = parts.findIndex(p => p.toLowerCase() === remark.toLowerCase());
+    if (idx >= 0) {
+      parts.splice(idx, 1);
+    } else {
+      parts.push(remark);
+    }
+    waRemarksInput.value = parts.join(', ');
+    renderQuickRemarks();
+    updateWaPreview();
+  });
+}
+
 const savedWaCols = JSON.parse(localStorage.getItem('finishing_wa_cols') || '{"todate":false,"buffer":false,"bal":true}');
 waColTodate.checked = !!savedWaCols.todate;
 waColBuffer.checked = !!savedWaCols.buffer;
@@ -914,6 +975,7 @@ openWhatsappBtn.addEventListener('click', () => {
   if (!currentJob) return;
   waShareMode = 'job';
   if (waColsBlock) waColsBlock.classList.remove('hidden');
+  renderQuickRemarks();
   updateWaPreview();
   waModal.classList.remove('hidden');
 });
@@ -922,6 +984,7 @@ nearWhatsappBtn.addEventListener('click', () => {
   if (!appData) return;
   waShareMode = 'summary';
   if (waColsBlock) waColsBlock.classList.add('hidden');
+  renderQuickRemarks();
   updateWaPreview();
   waModal.classList.remove('hidden');
 });
@@ -936,9 +999,13 @@ waModal.addEventListener('click', (e) => {
   }
 });
 
-waRemarksInput.addEventListener('input', updateWaPreview);
+waRemarksInput.addEventListener('input', () => {
+  renderQuickRemarks();
+  updateWaPreview();
+});
 
 copyWaBtn.addEventListener('click', async () => {
+  trackRemarkUsage(waRemarksInput.value);
   const text = buildWhatsAppMessage();
   try {
     await navigator.clipboard.writeText(text);
@@ -966,6 +1033,7 @@ function resetAfterSend() {
 }
 
 function openWhatsAppPackage(pkg) {
+  trackRemarkUsage(waRemarksInput.value);
   const text = buildWhatsAppMessage();
   const encoded = encodeURIComponent(text);
   const waMeUrl = `https://wa.me/?text=${encoded}`;
@@ -990,6 +1058,7 @@ sendWaBusinessBtn.addEventListener('click', () => {
 });
 
 shareNativeBtn.addEventListener('click', async () => {
+  trackRemarkUsage(waRemarksInput.value);
   const text = buildWhatsAppMessage();
   if (navigator.share) {
     try {
