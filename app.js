@@ -5,7 +5,7 @@ let selectedFilterOps = new Set(JSON.parse(localStorage.getItem('finishing_selec
 let recentJobs = JSON.parse(localStorage.getItem('finishing_recent_jobs') || '[]');
 let showOnlySelected = false;
 let activeStatusFilter = 'all';
-let sortKey = 'op';
+let sortKey = 'seq';
 let sortDir = 1; // 1 = asc, -1 = desc
 let lastRenderedEntries = [];
 
@@ -243,9 +243,9 @@ function updateStatusPills() {
   document.querySelectorAll('.status-pill').forEach(btn => {
     const active = btn.getAttribute('data-status-filter') === activeStatusFilter;
     if (active) {
-      btn.className = 'status-pill px-2.5 py-1 rounded-full text-[11px] font-bold border transition shrink-0 bg-blue-600 text-white border-blue-600 shadow-sm';
+      btn.className = 'status-pill px-2 py-0.5 rounded-full text-[10px] font-bold border transition shrink-0 bg-blue-600 text-white border-blue-600 shadow-sm';
     } else {
-      btn.className = 'status-pill px-2.5 py-1 rounded-full text-[11px] font-bold border transition shrink-0 bg-slate-50 dark:bg-zinc-950 text-slate-600 dark:text-zinc-300 border-slate-200 dark:border-zinc-800 hover:bg-slate-100';
+      btn.className = 'status-pill px-2 py-0.5 rounded-full text-[10px] font-bold border transition shrink-0 bg-slate-50 dark:bg-zinc-950 text-slate-600 dark:text-zinc-300 border-slate-200 dark:border-zinc-800 hover:bg-slate-100';
     }
   });
 }
@@ -351,6 +351,9 @@ function renderAllOperations() {
 
   // Sort
   entries.sort((a, b) => {
+    if (sortKey === 'seq') {
+      return ((a[1].seq ?? 9999) - (b[1].seq ?? 9999)) * sortDir;
+    }
     if (sortKey === 'op') {
       return a[0].localeCompare(b[0]) * sortDir;
     }
@@ -388,14 +391,14 @@ function renderAllOperations() {
       : 'border-slate-200/80 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/70 hover:bg-blue-50/40 dark:hover:bg-zinc-800/80';
 
     return `
-      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2.5 py-2.5 rounded-xl cursor-pointer transition border ${borderCls} text-xs">
-        <div class="col-span-5 flex items-center space-x-2 min-w-0">
-          <input type="checkbox" data-op-check="${escapeHtml(op)}" ${isChecked ? 'checked' : ''} class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer shrink-0" />
+      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2 py-1.5 rounded-lg cursor-pointer transition border ${borderCls} text-[11px]">
+        <div class="col-span-5 flex items-center space-x-1.5 min-w-0">
+          <input type="checkbox" data-op-check="${escapeHtml(op)}" ${isChecked ? 'checked' : ''} class="w-3.5 h-3.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer shrink-0" />
           <span class="font-semibold text-slate-800 dark:text-zinc-200 truncate" title="${escapeHtml(op)}">${escapeHtml(op)}</span>
         </div>
-        <div class="col-span-2 text-right font-mono font-medium text-blue-700 dark:text-sky-400 text-[11px] tabular-nums">${fmtNum(stats.todate)}</div>
-        <div class="col-span-2 text-right font-mono font-medium text-amber-600 dark:text-amber-400 text-[11px] tabular-nums">${fmtNum(stats.buffer)}</div>
-        <div class="col-span-3 text-right font-mono font-extrabold ${balColor} tabular-nums">${fmtNum(bal)}</div>
+        <div class="col-span-2 text-right font-mono font-medium text-blue-700 dark:text-sky-400 text-[10.5px] tabular-nums">${fmtNum(stats.todate)}</div>
+        <div class="col-span-2 text-right font-mono font-medium text-amber-600 dark:text-amber-400 text-[10.5px] tabular-nums">${fmtNum(stats.buffer)}</div>
+        <div class="col-span-3 text-right font-mono font-extrabold ${balColor} text-[11px] tabular-nums">${fmtNum(bal)}</div>
       </div>
     `;
   }).join('');
