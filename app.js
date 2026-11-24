@@ -1,6 +1,7 @@
 let appData = null;
 let currentJob = null;
 let selectedFilterOps = new Set(JSON.parse(localStorage.getItem('finishing_selected_ops') || '[]'));
+let showOnlySelected = false;
 
 const htmlEl = document.documentElement;
 const themeToggleBtn = document.getElementById('themeToggleBtn');
@@ -54,11 +55,8 @@ const opsListContainer = document.getElementById('opsListContainer');
 const allOpsCount = document.getElementById('allOpsCount');
 const syncStatusText = document.getElementById('syncStatusText');
 
-const toggleFilterBtn = document.getElementById('toggleFilterBtn');
+const showSelectedBtn = document.getElementById('showSelectedBtn');
 const clearFilterBtn = document.getElementById('clearFilterBtn');
-const filterChipsPanel = document.getElementById('filterChipsPanel');
-const filterChipsContainer = document.getElementById('filterChipsContainer');
-const selectedChipsCount = document.getElementById('selectedChipsCount');
 
 function fmtNum(val) {
   if (val === null || val === undefined || isNaN(val)) return '-';
@@ -178,8 +176,7 @@ function selectJob(jobCode) {
 
   resultCard.classList.add('hidden');
 
-  // Render Filter Chips & Operations Table
-  renderFilterChips(ops);
+  // Render Operations Table
   renderAllOperations();
 }
 
@@ -233,71 +230,60 @@ function highlightActiveRow(activeOp) {
   });
 }
 
-// Filter Chips toggle & multi-select
-toggleFilterBtn.addEventListener('click', () => {
-  filterChipsPanel.classList.toggle('hidden');
+function updateFilterButtons(totalOps) {
+  const checkedInJob = currentJob
+    ? Object.keys(currentJob.operations).filter(op => selectedFilterOps.has(op)).length
+    : 0;
+
+  if (selectedFilterOps.size > 0) {
+    showSelectedBtn.classList.remove('hidden');
+    clearFilterBtn.classList.remove('hidden');
+    if (showOnlySelected) {
+      showSelectedBtn.textContent = `Show All (${totalOps})`;
+      showSelectedBtn.className = 'px-3 py-1.5 rounded-xl text-[11px] font-bold bg-slate-700 hover:bg-slate-800 text-white shadow-sm transition';
+    } else {
+      showSelectedBtn.textContent = `Selected Only (${checkedInJob})`;
+      showSelectedBtn.className = 'px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition';
+    }
+  } else {
+    showOnlySelected = false;
+    showSelectedBtn.classList.add('hidden');
+    clearFilterBtn.classList.add('hidden');
+  }
+}
+
+showSelectedBtn.addEventListener('click', () => {
+  showOnlySelected = !showOnlySelected;
+  renderAllOperations();
 });
 
 clearFilterBtn.addEventListener('click', () => {
   selectedFilterOps.clear();
+  showOnlySelected = false;
   localStorage.setItem('finishing_selected_ops', JSON.stringify([]));
-  if (currentJob) {
-    renderFilterChips(Object.keys(currentJob.operations).sort());
-    renderAllOperations();
-  }
-});
-
-function renderFilterChips(ops) {
-  selectedChipsCount.textContent = `${selectedFilterOps.size} selected`;
-  clearFilterBtn.classList.toggle('hidden', selectedFilterOps.size === 0);
-
-  filterChipsContainer.innerHTML = ops.map(op => {
-    const isSelected = selectedFilterOps.has(op);
-    const cls = isSelected
-      ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-      : 'bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border-slate-300 dark:border-zinc-700 hover:bg-slate-100 dark:hover:bg-zinc-800';
-    return `
-      <button type="button" data-chip-op="${escapeHtml(op)}" class="px-2.5 py-1 rounded-full text-[11px] font-semibold border transition ${cls}">
-        ${isSelected ? '✓ ' : ''}${escapeHtml(op)}
-      </button>
-    `;
-  }).join('');
-}
-
-filterChipsContainer.addEventListener('click', (e) => {
-  const btn = e.target.closest('button[data-chip-op]');
-  if (!btn || !currentJob) return;
-  const op = btn.getAttribute('data-chip-op');
-
-  if (selectedFilterOps.has(op)) {
-    selectedFilterOps.delete(op);
-  } else {
-    selectedFilterOps.add(op);
-  }
-
-  localStorage.setItem('finishing_selected_ops', JSON.stringify(Array.from(selectedFilterOps)));
-  renderFilterChips(Object.keys(currentJob.operations).sort());
   renderAllOperations();
 });
 
-// Render Operations Table (TODATE, BUFFER, BAL)
+// Render Operations Table (Checkboxes + TODATE, BUFFER, BAL)
 function renderAllOperations() {
   if (!currentJob) return;
 
   let entries = Object.entries(currentJob.operations).sort((a, b) => a[0].localeCompare(b[0]));
   const totalOps = entries.length;
 
-  if (selectedFilterOps.size > 0) {
+  updateFilterButtons(totalOps);
+
+  if (showOnlySelected && selectedFilterOps.size > 0) {
     entries = entries.filter(([op]) => selectedFilterOps.has(op));
-    allOpsCount.textContent = `Showing ${entries.length} of ${totalOps} (Filtered)`;
+    allOpsCount.textContent = `Showing ${entries.length} of ${totalOps} Selected`;
   } else {
-    allOpsCount.textContent = `${totalOps} Operations`;
+    allOpsCount.textContent = `${totalOps} Operations (Check ✓ to filter)`;
   }
 
   if (entries.length === 0) {
     opsListContainer.innerHTML = `
       <div class="p-4 text-center text-xs text-slate-500 dark:text-zinc-400 bg-slate-50 dark:bg-zinc-950 rounded-xl border border-slate-200 dark:border-zinc-800">
-        No matching operations in current filter. <button onclick="clearFilterBtn.click()" class="text-blue-600 dark:text-sky-400 font-bold underline ml-1">Show All</button>
+        No checked operations in this job. <button onclick="showSelectedBtn.click()" class="text-blue-600 dark:text-sky-400 font-bold underline ml-1">Show All</button>
       </div>
     `;
     allOpsCard.classList.remove('hidden');
@@ -306,13 +292,17 @@ function renderAllOperations() {
 
   opsListContainer.innerHTML = entries.map(([op, stats]) => {
     const bal = stats.bal ?? 0;
+    const isChecked = selectedFilterOps.has(op);
     let balColor = 'text-slate-900 dark:text-zinc-100';
     if (bal < 0) balColor = 'text-rose-600 dark:text-rose-400';
     if (bal === 0) balColor = 'text-emerald-600 dark:text-emerald-400';
 
     return `
-      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950/70 hover:bg-blue-50/70 dark:hover:bg-zinc-800 cursor-pointer transition border border-slate-200/70 dark:border-zinc-800 text-xs">
-        <div class="col-span-5 font-semibold text-slate-800 dark:text-zinc-200 truncate pr-1" title="${escapeHtml(op)}">${escapeHtml(op)}</div>
+      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2.5 py-2.5 rounded-xl bg-slate-50 dark:bg-zinc-950/70 hover:bg-blue-50/70 dark:hover:bg-zinc-800 cursor-pointer transition border ${isChecked ? 'border-blue-400 dark:border-blue-600 bg-blue-50/40 dark:bg-blue-950/20' : 'border-slate-200/70 dark:border-zinc-800'} text-xs">
+        <div class="col-span-5 flex items-center space-x-2 min-w-0">
+          <input type="checkbox" data-op-check="${escapeHtml(op)}" ${isChecked ? 'checked' : ''} class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer shrink-0" />
+          <span class="font-semibold text-slate-800 dark:text-zinc-200 truncate" title="${escapeHtml(op)}">${escapeHtml(op)}</span>
+        </div>
         <div class="col-span-2 text-right font-mono font-medium text-blue-700 dark:text-sky-400 text-[11px] tabular-nums">${fmtNum(stats.todate)}</div>
         <div class="col-span-2 text-right font-mono font-medium text-amber-600 dark:text-amber-400 text-[11px] tabular-nums">${fmtNum(stats.buffer)}</div>
         <div class="col-span-3 text-right font-mono font-extrabold ${balColor} tabular-nums">${fmtNum(bal)}</div>
@@ -326,8 +316,22 @@ function renderAllOperations() {
   }
 }
 
-// Click row to view selected operation card
+// Handle checkbox toggle OR row click
 opsListContainer.addEventListener('click', (e) => {
+  const checkbox = e.target.closest('input[data-op-check]');
+  if (checkbox) {
+    e.stopPropagation();
+    const opName = checkbox.getAttribute('data-op-check');
+    if (checkbox.checked) {
+      selectedFilterOps.add(opName);
+    } else {
+      selectedFilterOps.delete(opName);
+    }
+    localStorage.setItem('finishing_selected_ops', JSON.stringify(Array.from(selectedFilterOps)));
+    renderAllOperations();
+    return;
+  }
+
   const row = e.target.closest('[data-op-row]');
   if (!row) return;
   const opName = row.getAttribute('data-op-row');

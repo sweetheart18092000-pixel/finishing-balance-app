@@ -166,27 +166,21 @@
           <span id="allOpsCount" class="text-[11px] font-medium text-slate-500 dark:text-zinc-400"></span>
         </div>
         <div class="flex items-center space-x-1.5">
-          <button id="toggleFilterBtn" class="px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-50 dark:bg-zinc-800 hover:bg-blue-100 dark:hover:bg-zinc-700 text-blue-700 dark:text-sky-400 border border-blue-200 dark:border-zinc-700 transition">
-            Filter Ops
+          <button id="showSelectedBtn" class="hidden px-3 py-1.5 rounded-xl text-[11px] font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition">
+            Show Selected (0)
           </button>
           <button id="clearFilterBtn" class="hidden px-2.5 py-1.5 rounded-xl text-[11px] font-bold bg-rose-50 dark:bg-rose-500/15 hover:bg-rose-100 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30 transition">
-            Show All
+            Clear
           </button>
         </div>
-      </div>
-
-      <!-- Clickable Operation Filter Chips -->
-      <div id="filterChipsPanel" class="hidden bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl p-2.5 space-y-2">
-        <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-zinc-400 font-medium">
-          <span>Tap operations to filter:</span>
-          <span id="selectedChipsCount" class="text-blue-600 dark:text-sky-400 font-bold">0 selected</span>
-        </div>
-        <div id="filterChipsContainer" class="flex flex-wrap gap-1.5 max-h-44 overflow-y-auto"></div>
       </div>
 
       <!-- Table Header -->
       <div class="grid grid-cols-12 gap-1 px-2.5 py-2 bg-slate-100 dark:bg-zinc-800/80 rounded-xl text-[10px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-zinc-400 border border-slate-200/70 dark:border-zinc-700/70">
-        <div class="col-span-5">OPERATION</div>
+        <div class="col-span-5 flex items-center space-x-2">
+          <span class="w-4 text-center">✓</span>
+          <span>OPERATION</span>
+        </div>
         <div class="col-span-2 text-right">TODATE</div>
         <div class="col-span-2 text-right">BUFFER</div>
         <div class="col-span-3 text-right">BAL</div>
@@ -206,6 +200,6 @@
 
   </main>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
