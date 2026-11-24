@@ -386,19 +386,19 @@ function renderAllOperations() {
       balColor = 'text-emerald-600 dark:text-emerald-400';
     }
 
-    const borderCls = isChecked
-      ? 'border-blue-500 dark:border-blue-500 bg-blue-50/60 dark:bg-blue-950/30 ring-1 ring-blue-500/30'
-      : 'border-slate-200/80 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/70 hover:bg-blue-50/40 dark:hover:bg-zinc-800/80';
+    const rowCls = isChecked
+      ? 'bg-blue-50/90 dark:bg-blue-950/35'
+      : 'bg-white dark:bg-zinc-900 even:bg-slate-50/60 dark:even:bg-zinc-950/40 hover:bg-blue-50/40 dark:hover:bg-zinc-800/70';
 
     return `
-      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-12 gap-1 items-center px-2 py-1.5 rounded-lg cursor-pointer transition border ${borderCls} text-[11px]">
-        <div class="col-span-5 flex items-center space-x-1.5 min-w-0">
+      <div data-op-row="${escapeHtml(op)}" class="grid grid-cols-[1fr_58px_52px_62px] gap-1 items-center px-2.5 py-2 cursor-pointer transition ${rowCls} text-[11px]">
+        <div class="flex items-center space-x-2 min-w-0">
           <input type="checkbox" data-op-check="${escapeHtml(op)}" ${isChecked ? 'checked' : ''} class="w-3.5 h-3.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer shrink-0" />
           <span class="font-semibold text-slate-800 dark:text-zinc-200 truncate" title="${escapeHtml(op)}">${escapeHtml(op)}</span>
         </div>
-        <div class="col-span-2 text-right font-mono font-medium text-blue-700 dark:text-sky-400 text-[10.5px] tabular-nums">${fmtNum(stats.todate)}</div>
-        <div class="col-span-2 text-right font-mono font-medium text-amber-600 dark:text-amber-400 text-[10.5px] tabular-nums">${fmtNum(stats.buffer)}</div>
-        <div class="col-span-3 text-right font-mono font-extrabold ${balColor} text-[11px] tabular-nums">${fmtNum(bal)}</div>
+        <div class="text-right font-mono font-medium text-blue-700 dark:text-sky-400 text-[11px] tabular-nums">${fmtNum(stats.todate)}</div>
+        <div class="text-right font-mono font-medium text-amber-600 dark:text-amber-400 text-[11px] tabular-nums">${fmtNum(stats.buffer)}</div>
+        <div class="text-right font-mono font-extrabold ${balColor} text-[11.5px] tabular-nums">${fmtNum(bal)}</div>
       </div>
     `;
   }).join('');

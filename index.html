@@ -58,7 +58,7 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 p-2 max-w-lg mx-auto w-full space-y-2">
+  <main class="flex-1 p-2 max-w-xl mx-auto w-full space-y-2">
 
     <!-- Search Card -->
     <section class="bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 rounded-xl p-2 shadow-sm space-y-1.5">
@@ -88,34 +88,35 @@
       <ul id="jobSuggestions" class="hidden max-h-52 overflow-y-auto bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg divide-y divide-slate-100 dark:divide-zinc-800 shadow-xl z-20"></ul>
     </section>
 
-    <!-- Job Details Card (Ultra-Compact Ticket) -->
-    <section id="jobDetailsCard" class="hidden bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-zinc-800/80 dark:to-zinc-800/40 px-2.5 py-1.5 border-b border-slate-200/80 dark:border-zinc-800 flex items-center justify-between">
+    <!-- Job Details Card (Clean Unified Ticket) -->
+    <section id="jobDetailsCard" class="hidden bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+      <div class="bg-slate-50 dark:bg-zinc-800/70 px-3 py-1.5 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between">
         <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-800 dark:text-sky-400">Job Details</span>
         <span id="detailJobCode" class="text-[11px] font-mono font-extrabold px-2 py-0.5 rounded bg-blue-600 text-white">-</span>
       </div>
 
-      <div class="p-2 grid grid-cols-2 gap-1.5 text-[11px]">
-        <div class="bg-slate-50 dark:bg-zinc-950/70 px-2 py-1 rounded-lg border border-slate-200/70 dark:border-zinc-800 flex items-center justify-between">
-          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold">PC9</span>
-          <span id="detailPc9" class="font-bold text-slate-800 dark:text-zinc-100 truncate ml-1">-</span>
+      <div class="grid grid-cols-4 divide-x divide-slate-200/80 dark:divide-zinc-800 text-[11px] border-b border-slate-200/80 dark:border-zinc-800">
+        <div class="px-2 py-1.5 min-w-0">
+          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold block leading-none">PC9</span>
+          <span id="detailPc9" class="font-bold text-slate-800 dark:text-zinc-100 truncate block mt-0.5">-</span>
         </div>
-        <div class="bg-slate-50 dark:bg-zinc-950/70 px-2 py-1 rounded-lg border border-slate-200/70 dark:border-zinc-800 flex items-center justify-between">
-          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold">EXF</span>
-          <span id="detailExf" class="font-bold text-amber-600 dark:text-amber-400 truncate ml-1">-</span>
+        <div class="px-2 py-1.5 min-w-0">
+          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold block leading-none">1st EXF</span>
+          <span id="detailExf" class="font-bold text-amber-600 dark:text-amber-400 truncate block mt-0.5">-</span>
         </div>
-        <div class="bg-slate-50 dark:bg-zinc-950/70 px-2 py-1 rounded-lg border border-slate-200/70 dark:border-zinc-800 flex items-center justify-between">
-          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold">MAX</span>
-          <span id="detailMax" class="font-extrabold font-mono text-emerald-600 dark:text-emerald-400 tabular-nums ml-1">-</span>
+        <div class="px-2 py-1.5 min-w-0">
+          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold block leading-none">MAX</span>
+          <span id="detailMax" class="font-extrabold font-mono text-emerald-600 dark:text-emerald-400 tabular-nums truncate block mt-0.5">-</span>
         </div>
-        <div class="bg-slate-50 dark:bg-zinc-950/70 px-2 py-1 rounded-lg border border-slate-200/70 dark:border-zinc-800 flex items-center justify-between">
-          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold">CUST</span>
-          <span id="detailCustomer" class="font-bold text-blue-700 dark:text-sky-400 truncate ml-1">-</span>
+        <div class="px-2 py-1.5 min-w-0">
+          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold block leading-none">CUST</span>
+          <span id="detailCustomer" class="font-bold text-blue-700 dark:text-sky-400 truncate block mt-0.5">-</span>
         </div>
-        <div class="col-span-2 bg-slate-50 dark:bg-zinc-950/70 px-2 py-1 rounded-lg border border-slate-200/70 dark:border-zinc-800 flex items-baseline space-x-1.5">
-          <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold shrink-0">COLOR</span>
-          <span id="detailColor" class="font-bold text-slate-800 dark:text-zinc-100 text-[10px] leading-tight break-words">-</span>
-        </div>
+      </div>
+
+      <div class="px-2.5 py-1.5 flex items-baseline space-x-1.5 bg-white dark:bg-zinc-900">
+        <span class="text-slate-400 dark:text-zinc-500 text-[9px] uppercase font-bold shrink-0">COLOR:</span>
+        <span id="detailColor" class="font-semibold text-slate-800 dark:text-zinc-100 text-[11px] leading-snug break-words">-</span>
       </div>
     </section>
 
@@ -159,26 +160,29 @@
         />
       </div>
 
-      <!-- Sortable Table Header -->
-      <div class="grid grid-cols-12 gap-1 px-2 py-1.5 bg-slate-100 dark:bg-zinc-800/90 rounded-lg text-[9.5px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-zinc-300 border border-slate-200/70 dark:border-zinc-700/70 select-none">
-        <button data-sort="op" class="col-span-5 flex items-center space-x-1 text-left hover:text-blue-600 dark:hover:text-sky-400">
-          <span class="w-3.5 text-center text-slate-400">✓</span>
-          <span>OPERATION</span>
-          <span class="sort-ind" data-ind="op"></span>
-        </button>
-        <button data-sort="todate" class="col-span-2 text-right hover:text-blue-600 dark:hover:text-sky-400">
-          TODATE <span class="sort-ind" data-ind="todate"></span>
-        </button>
-        <button data-sort="buffer" class="col-span-2 text-right hover:text-blue-600 dark:hover:text-sky-400">
-          BUF <span class="sort-ind" data-ind="buffer"></span>
-        </button>
-        <button data-sort="bal" class="col-span-3 text-right hover:text-blue-600 dark:hover:text-sky-400">
-          BAL <span class="sort-ind" data-ind="bal"></span>
-        </button>
-      </div>
+      <!-- Unified Clean Table Container -->
+      <div class="border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden">
+        <!-- Sortable Table Header -->
+        <div class="grid grid-cols-[1fr_58px_52px_62px] gap-1 px-2.5 py-2 bg-slate-100 dark:bg-zinc-800/90 text-[9.5px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-zinc-300 border-b border-slate-200 dark:border-zinc-700/80 select-none">
+          <button data-sort="op" class="flex items-center space-x-1.5 text-left hover:text-blue-600 dark:hover:text-sky-400">
+            <span class="w-3.5 text-center text-slate-400">✓</span>
+            <span>OPERATION</span>
+            <span class="sort-ind" data-ind="op"></span>
+          </button>
+          <button data-sort="todate" class="text-right hover:text-blue-600 dark:hover:text-sky-400">
+            TODATE <span class="sort-ind" data-ind="todate"></span>
+          </button>
+          <button data-sort="buffer" class="text-right hover:text-blue-600 dark:hover:text-sky-400">
+            BUF <span class="sort-ind" data-ind="buffer"></span>
+          </button>
+          <button data-sort="bal" class="text-right hover:text-blue-600 dark:hover:text-sky-400">
+            BAL <span class="sort-ind" data-ind="bal"></span>
+          </button>
+        </div>
 
-      <!-- Table Rows -->
-      <div id="opsListContainer" class="space-y-1"></div>
+        <!-- Table Rows -->
+        <div id="opsListContainer" class="divide-y divide-slate-100 dark:divide-zinc-800/80"></div>
+      </div>
     </section>
 
     <!-- Sync Status Banner -->
@@ -256,6 +260,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=9"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>
