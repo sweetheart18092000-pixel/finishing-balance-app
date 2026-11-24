@@ -1,10 +1,10 @@
-const CACHE_NAME = 'finishing-tracker-v1';
+const CACHE_NAME = 'finishing-tracker-v2';
 const ASSETS = [
   './',
   './index.html',
   './app.js',
-  './manifest.json',
-  './data.json'
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -22,9 +22,9 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Network-first strategy so online users always get latest data, with offline fallback
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  if (event.request.url.includes('manifest.json')) return;
   event.respondWith(
     fetch(event.request)
       .then((response) => {
