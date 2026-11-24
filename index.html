@@ -28,6 +28,9 @@
     .tabular-nums { font-variant-numeric: tabular-nums; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type="number"] { -moz-appearance: textfield; }
   </style>
 </head>
 <body class="bg-slate-100 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 min-h-screen flex flex-col antialiased transition-colors duration-200 selection:bg-blue-600 selection:text-white">
@@ -128,7 +131,7 @@
           </select>
           <div id="nearPctWrapper" class="col-span-2 flex items-center justify-center space-x-0.5 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1 py-1">
             <span class="text-[9px] font-bold text-slate-400">≤</span>
-            <input id="nearPctInput" type="number" min="1" max="100" value="20" class="w-7 text-center font-mono font-extrabold text-emerald-700 dark:text-emerald-400 bg-transparent focus:outline-none text-[11px]" />
+            <input id="nearPctInput" type="text" inputmode="numeric" pattern="[0-9]*" value="20" class="w-7 text-center font-mono font-extrabold text-emerald-700 dark:text-emerald-400 bg-transparent focus:outline-none text-[11px]" />
             <span class="text-[9px] font-bold text-slate-400">%</span>
           </div>
           <button id="nearSortBtn" type="button" title="Toggle Sort (% vs EXF)" class="col-span-2 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1.5 py-1 text-[10px] font-extrabold text-blue-700 dark:text-sky-400 hover:bg-blue-50 transition truncate">
