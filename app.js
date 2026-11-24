@@ -63,6 +63,8 @@ const selectAllOpsCheckbox = document.getElementById('selectAllOpsCheckbox');
 const nearClosingCard = document.getElementById('nearClosingCard');
 const nearClosingList = document.getElementById('nearClosingList');
 const nearClosingCount = document.getElementById('nearClosingCount');
+const nearOpSelect = document.getElementById('nearOpSelect');
+const nearPctInput = document.getElementById('nearPctInput');
 const backHomeBtn = document.getElementById('backHomeBtn');
 
 const openWhatsappBtn = document.getElementById('openWhatsappBtn');
@@ -102,6 +104,7 @@ async function loadData() {
     if (appData.updated_at) {
       syncStatusText.textContent = `Updated: ${appData.updated_at}`;
     }
+    initNearClosingControls();
     renderRecentJobs();
     renderNearClosingJobs();
   } catch (err) {
@@ -111,22 +114,47 @@ async function loadData() {
   }
 }
 
+function initNearClosingControls() {
+  if (!appData) return;
+  const ops = appData.operations_list || [];
+  const savedOp = localStorage.getItem('finishing_near_op') || (ops.includes('PACKING A') ? 'PACKING A' : (ops[0] || ''));
+  const savedPct = localStorage.getItem('finishing_near_pct') || '20';
+
+  nearOpSelect.innerHTML = ops.map(op =>
+    `<option value="${escapeHtml(op)}" ${op === savedOp ? 'selected' : ''}>${escapeHtml(op)}</option>`
+  ).join('');
+  nearPctInput.value = savedPct;
+}
+
+nearOpSelect.addEventListener('change', () => {
+  localStorage.setItem('finishing_near_op', nearOpSelect.value);
+  renderNearClosingJobs();
+});
+
+nearPctInput.addEventListener('input', () => {
+  localStorage.setItem('finishing_near_pct', nearPctInput.value);
+  renderNearClosingJobs();
+});
+
 function renderNearClosingJobs() {
   if (!appData || currentJob) {
     nearClosingCard.classList.add('hidden');
     return;
   }
 
+  const targetOp = nearOpSelect.value || 'PACKING A';
+  const maxPct = parseFloat(nearPctInput.value);
+  const threshold = isNaN(maxPct) || maxPct <= 0 ? 20 : maxPct;
+
   const near = [];
   for (const [mj, j] of Object.entries(appData.jobs)) {
     const mx = j.max || 0;
     const ops = j.operations || {};
-    const opVals = Object.values(ops);
-    const pack = ops['PACKING A'] || ops['PACKING'] || (opVals.length ? opVals[opVals.length - 1] : null);
-    if (pack && mx > 0) {
-      const bal = pack.bal ?? 0;
+    const opObj = ops[targetOp];
+    if (opObj && mx > 0) {
+      const bal = opObj.bal ?? 0;
       const pct = (bal / mx) * 100;
-      if (bal > 0 && pct <= 20) {
+      if (bal > 0 && pct <= threshold) {
         near.push({ mj, color: j.color || '-', pc9: j.pc9 || '', exf: j.first_exf || '', bal, mx, pct });
       }
     }
@@ -136,7 +164,7 @@ function renderNearClosingJobs() {
   nearClosingCount.textContent = near.length;
 
   if (near.length === 0) {
-    nearClosingList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No jobs near closing right now.</div>';
+    nearClosingList.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">No jobs with ${escapeHtml(targetOp)} ≤ ${threshold}%.</div>`;
   } else {
     nearClosingList.innerHTML = near.map(item => `
       <div data-near-job="${escapeHtml(item.mj)}" class="px-3 py-2 hover:bg-emerald-50/60 dark:hover:bg-zinc-800/80 cursor-pointer transition flex items-center justify-between gap-2">
@@ -307,34 +335,33 @@ function resetToHome(fromPopState = false) {
   }
 }
 
-// Clear button
+// Clear & Back buttons (always reset immediately, and clean history)
 clearJobBtn.addEventListener('click', () => {
-  if (window.location.hash.startsWith('#job=')) {
-    history.back();
-  } else {
-    resetToHome();
-  }
+  resetToHome();
 });
 
 backHomeBtn.addEventListener('click', () => {
-  if (window.location.hash.startsWith('#job=')) {
-    history.back();
-  } else {
-    resetToHome();
-  }
+  resetToHome();
 });
 
-window.addEventListener('popstate', (e) => {
+function handleRouteBack() {
   if (!waModal.classList.contains('hidden')) {
     waModal.classList.add('hidden');
     return;
   }
-  if (e.state && e.state.job) {
-    selectJob(e.state.job, true);
-  } else {
-    resetToHome(true);
+  const hash = window.location.hash;
+  if (hash.startsWith('#job=')) {
+    const code = decodeURIComponent(hash.slice(5));
+    if (appData && appData.jobs[code]) {
+      selectJob(code, true);
+      return;
+    }
   }
-});
+  resetToHome(true);
+}
+
+window.addEventListener('popstate', handleRouteBack);
+window.addEventListener('hashchange', handleRouteBack);
 
 // Status Filter Pills
 function updateStatusPills() {

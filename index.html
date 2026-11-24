@@ -90,12 +90,19 @@
 
     <!-- Near Closing Jobs Card (Visible when no job is selected) -->
     <section id="nearClosingCard" class="hidden bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
-      <div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-zinc-800/80 dark:to-zinc-800/40 px-3 py-2 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between">
-        <div>
+      <div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-zinc-800/80 dark:to-zinc-800/40 px-3 py-2 border-b border-slate-200 dark:border-zinc-800 space-y-1.5">
+        <div class="flex items-center justify-between">
           <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">Near Closing Jobs</h3>
-          <p class="text-[9.5px] text-slate-500 dark:text-zinc-400">Packing Balance ≤ 20% remaining (Tap to open)</p>
+          <span id="nearClosingCount" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white">0</span>
         </div>
-        <span id="nearClosingCount" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white">0</span>
+        <div class="flex items-center space-x-1.5">
+          <select id="nearOpSelect" class="flex-1 min-w-0 bg-white dark:bg-zinc-900 border border-emerald-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-emerald-500"></select>
+          <div class="flex items-center space-x-0.5 bg-white dark:bg-zinc-900 border border-emerald-200 dark:border-zinc-700 rounded-lg px-2 py-1 shrink-0">
+            <span class="text-[10px] font-bold text-slate-500 dark:text-zinc-400">≤</span>
+            <input id="nearPctInput" type="number" min="1" max="100" value="20" class="w-10 text-center font-mono font-extrabold text-emerald-700 dark:text-emerald-400 bg-transparent focus:outline-none text-[11px]" />
+            <span class="text-[10px] font-bold text-slate-500 dark:text-zinc-400">%</span>
+          </div>
+        </div>
       </div>
       <div id="nearClosingList" class="divide-y divide-slate-100 dark:divide-zinc-800/80"></div>
     </section>
@@ -276,6 +283,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=16"></script>
+  <script src="app.js?v=17"></script>
 </body>
 </html>
