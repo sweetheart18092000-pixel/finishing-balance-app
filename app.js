@@ -665,39 +665,29 @@ function renderTransmission() {
 
       return `
       <div data-trans-mjob="${escapeHtml(j.m_job)}" class="px-3 py-2.5 hover:bg-blue-50/40 dark:hover:bg-zinc-800/70 cursor-pointer transition space-y-1.5">
-        <!-- Top Row: M_JOB + JOB# + STYLE | PLAN-EX -->
-        <div class="flex items-center justify-between gap-2">
-          <div class="flex items-center space-x-1.5 min-w-0">
-            ${j.m_job ? `<span class="px-1.5 py-0.5 rounded-md bg-blue-600 text-white font-mono font-bold text-[10px] shrink-0">${escapeHtml(j.m_job)}</span>` : ''}
-            <span class="font-mono font-extrabold text-xs text-slate-900 dark:text-white shrink-0">${escapeHtml(j.job_no)}</span>
-            <span class="font-mono text-[10.5px] text-slate-400 dark:text-zinc-500 truncate">${escapeHtml(j.style || '')}</span>
-          </div>
-          <span class="text-[11px] font-bold text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(shortDate)}</span>
+        <!-- Line 1: M_JOB | JOB# | STYLE | PLAN-EX | WASH -->
+        <div class="flex items-center space-x-1.5 min-w-0">
+          ${j.m_job ? `<span class="px-1.5 py-0.5 rounded-md bg-blue-600 text-white font-mono font-bold text-[10px] shrink-0">${escapeHtml(j.m_job)}</span>` : ''}
+          <span class="font-mono font-extrabold text-xs text-slate-900 dark:text-white shrink-0">${escapeHtml(j.job_no)}</span>
+          <span class="font-mono text-[10.5px] text-slate-400 dark:text-zinc-500 shrink-0">${escapeHtml(j.style || '')}</span>
+          <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-[10px] font-bold text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(shortDate)}</span>
+          <span class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate">${escapeHtml(j.wash || '-')}</span>
         </div>
 
-        <!-- Middle Row: WASH + COUNTRY | PACK / ORD (SH) -->
-        <div class="flex items-baseline justify-between gap-2">
-          <div class="min-w-0">
-            <span class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate block">${escapeHtml(j.wash || '-')}</span>
-          </div>
-          <div class="flex items-baseline space-x-1.5 font-mono shrink-0 tabular-nums">
-            <span class="text-xs font-extrabold text-slate-900 dark:text-white">${fmtNum(j.pack)}</span>
-            <span class="text-[10.5px] text-slate-400">/ ${fmtNum(j.order_qty)}</span>
-            <span class="text-[10.5px] font-extrabold ${shortCls}">(${fmtNum(j.short)})</span>
-          </div>
-        </div>
-
-        <!-- Bottom Row: Clean Metadata -->
+        <!-- Line 2: STATUS | PERSON | MODE | COUNTRY | PL LOCK — Right: ORDER | PACK | (SHORT) -->
         <div class="flex items-center justify-between gap-2 text-[10px] text-slate-500 dark:text-zinc-400">
-          <div class="flex items-center space-x-1.5 truncate">
+          <div class="flex items-center flex-wrap gap-x-1.5 gap-y-0.5 min-w-0">
             <span class="px-1.5 py-0.5 rounded font-bold ${statusBadgeCls}">${escapeHtml(j.job_status || '-')}</span>
             <span class="font-medium text-slate-600 dark:text-zinc-300">${escapeHtml(j.person || '-')}</span>
-            <span>•</span>
-            <span class="text-indigo-600 dark:text-indigo-400 font-semibold">${escapeHtml(j.mode || '-')}</span>
-          </div>
-          <div class="flex items-center space-x-1.5 shrink-0">
-            <span class="text-slate-400">${escapeHtml(j.country || '')}</span>
+            <span class="text-indigo-600 dark:text-indigo-400 font-semibold">• ${escapeHtml(j.mode || '-')}</span>
+            <span class="text-slate-500 dark:text-zinc-400">• ${escapeHtml(j.country || '-')}</span>
             <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 font-bold text-slate-600 dark:text-zinc-300">${escapeHtml(j.pl_lock || '-')}</span>
+          </div>
+          <div class="flex items-baseline space-x-1 font-mono shrink-0 tabular-nums">
+            <span class="text-[10.5px] text-slate-500 dark:text-zinc-400">${fmtNum(j.order_qty)}</span>
+            <span class="text-slate-300 dark:text-zinc-600">|</span>
+            <span class="text-xs font-extrabold text-slate-900 dark:text-white">${fmtNum(j.pack)}</span>
+            <span class="text-[10.5px] font-extrabold ${shortCls}">(${fmtNum(j.short)})</span>
           </div>
         </div>
       </div>
