@@ -89,6 +89,7 @@ const transUniqueCount = document.getElementById('transUniqueCount');
 const transWhatsappBtn = document.getElementById('transWhatsappBtn');
 const transFiltersRow = document.getElementById('transFiltersRow');
 const transSearchInput = document.getElementById('transSearchInput');
+const transResetAllBtn = document.getElementById('transResetAllBtn');
 const transTableHeader = document.getElementById('transTableHeader');
 const transList = document.getElementById('transList');
 
@@ -403,16 +404,16 @@ tabTransBtn.addEventListener('click', () => {
 
 const transMultiFilters = {};
 
-function createMultiFilter(containerId, defaultLabel, alignRight = false) {
+function createMultiFilter(containerId, defaultLabel, shortTag, alignRight = false) {
   const container = document.getElementById(containerId);
   const selected = new Set();
-  const state = { container, defaultLabel, selected };
+  const state = { container, defaultLabel, shortTag, selected };
   if (!container) return state;
 
   container.innerHTML = `
-    <button type="button" class="mf-btn w-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 flex items-center justify-between focus:outline-none focus:ring-1 focus:ring-indigo-500">
+    <button type="button" class="mf-btn w-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-[11px] font-bold text-slate-700 dark:text-zinc-200 flex items-center justify-between focus:outline-none focus:ring-1 focus:ring-indigo-500 transition">
       <span class="mf-label truncate">${escapeHtml(defaultLabel)}</span>
-      <span class="text-[9px] text-slate-400 ml-1">▾</span>
+      <span class="text-[9px] text-slate-400 ml-1 shrink-0">▾</span>
     </button>
     <div class="mf-drop hidden absolute ${alignRight ? 'right-0' : 'left-0'} mt-1 w-52 max-h-60 overflow-y-auto bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl z-30 p-1.5 space-y-0.5">
       <div class="flex items-center justify-between px-2 py-1 border-b border-slate-100 dark:border-zinc-800 mb-1">
@@ -432,13 +433,19 @@ function createMultiFilter(containerId, defaultLabel, alignRight = false) {
   let currentOptions = [];
 
   function updateLabel() {
+    const isActive = selected.size > 0 && selected.size < currentOptions.length;
     if (selected.size === 0 || (currentOptions.length > 0 && selected.size === currentOptions.length)) {
       labelEl.textContent = defaultLabel;
     } else if (selected.size === 1) {
-      labelEl.textContent = Array.from(selected)[0];
+      labelEl.textContent = `${shortTag}: ${Array.from(selected)[0]}`;
     } else {
-      labelEl.textContent = `${selected.size} Selected`;
+      labelEl.textContent = `${shortTag}: ${selected.size} sel`;
     }
+    btn.classList.toggle('border-indigo-400', isActive);
+    btn.classList.toggle('bg-indigo-50/70', isActive);
+    btn.classList.toggle('dark:bg-indigo-950/40', isActive);
+    btn.classList.toggle('text-indigo-700', isActive);
+    btn.classList.toggle('dark:text-sky-300', isActive);
   }
 
   btn.addEventListener('click', (e) => {
@@ -472,6 +479,12 @@ function createMultiFilter(containerId, defaultLabel, alignRight = false) {
     renderTransmission();
   });
 
+  state.reset = () => {
+    selected.clear();
+    listEl.querySelectorAll('input.mf-cb').forEach(cb => { cb.checked = false; });
+    updateLabel();
+  };
+
   state.setOptions = (options) => {
     currentOptions = options;
     listEl.innerHTML = options.map(opt => `
@@ -498,10 +511,10 @@ function initTransmissionControls() {
   transUniqueCount.textContent = (trans.unique_m_jobs || []).length;
 
   if (!transMultiFilters.plLock) {
-    transMultiFilters.plLock = createMultiFilter('transPlLockFilter', 'All PL Lock', false);
-    transMultiFilters.person = createMultiFilter('transPersonFilter', 'All Person', true);
-    transMultiFilters.mode = createMultiFilter('transModeFilter', 'All Mode', false);
-    transMultiFilters.status = createMultiFilter('transStatusFilter', 'All Status', true);
+    transMultiFilters.plLock = createMultiFilter('transPlLockFilter', 'All PL Lock', 'PL', false);
+    transMultiFilters.person = createMultiFilter('transPersonFilter', 'All Person', 'Person', true);
+    transMultiFilters.mode = createMultiFilter('transModeFilter', 'All Mode', 'Mode', false);
+    transMultiFilters.status = createMultiFilter('transStatusFilter', 'All Status', 'Status', true);
   }
 
   const plLocks = Array.from(new Set(trans.jobs.map(j => j.pl_lock).filter(Boolean))).sort();
@@ -513,6 +526,14 @@ function initTransmissionControls() {
   transMultiFilters.person.setOptions(persons);
   transMultiFilters.mode.setOptions(modes);
   transMultiFilters.status.setOptions(statuses);
+}
+
+if (transResetAllBtn) {
+  transResetAllBtn.addEventListener('click', () => {
+    transSearchInput.value = '';
+    Object.values(transMultiFilters).forEach(f => f.reset && f.reset());
+    renderTransmission();
+  });
 }
 
 transModeJobsBtn.addEventListener('click', () => {
@@ -565,6 +586,15 @@ function renderTransmission() {
     }
     return true;
   });
+
+  const anyFilterActive = Boolean(q) ||
+    (plSet && plSet.size > 0) ||
+    (pSet && pSet.size > 0) ||
+    (mSet && mSet.size > 0) ||
+    (sSet && sSet.size > 0);
+  if (transResetAllBtn) {
+    transResetAllBtn.classList.toggle('hidden', !anyFilterActive);
+  }
 
   lastTransItems = filtered;
   if (tabTransCount) {
