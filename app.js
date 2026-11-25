@@ -330,27 +330,33 @@ function renderNearClosingJobs() {
     nearClosingList.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">No Master jobs found.</div>`;
   } else {
     nearClosingList.innerHTML = items.map(item => {
-      let balCls = 'text-slate-800 dark:text-zinc-100';
+      let balCls = 'text-slate-900 dark:text-zinc-100';
+      let accentBorder = 'border-l-blue-600';
       if (item.hasOp) {
-        if (item.bal < 0) balCls = 'text-rose-600 dark:text-rose-400';
-        else if (item.bal === 0) balCls = 'text-emerald-600 dark:text-emerald-400';
+        if (item.bal < 0) {
+          balCls = 'text-rose-600 dark:text-rose-400';
+          accentBorder = 'border-l-rose-500';
+        } else if (item.bal === 0) {
+          balCls = 'text-emerald-600 dark:text-emerald-400';
+          accentBorder = 'border-l-emerald-500';
+        }
       }
       return `
-        <div data-near-job="${escapeHtml(item.mj)}" class="grid grid-cols-[1fr_72px_88px] gap-1.5 items-center px-2.5 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
+        <div data-near-job="${escapeHtml(item.mj)}" class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 border-l-[3px] ${accentBorder} grid grid-cols-[1fr_72px_88px] gap-1.5 items-center px-3 py-2.5 shadow-2xs hover:shadow-sm hover:border-blue-300 dark:hover:border-zinc-700 cursor-pointer transition">
           <div class="min-w-0">
             <div class="flex items-center space-x-1.5 min-w-0">
-              <span class="font-mono font-extrabold text-xs text-blue-700 dark:text-sky-400 shrink-0">${escapeHtml(item.mj)}</span>
-              <span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500 truncate">${escapeHtml(item.pc9)}</span>
-              ${item.cust ? `<span class="text-[9px] font-bold px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(item.cust)}</span>` : ''}
+              <span class="px-1.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-sky-300 font-mono font-extrabold text-[10.5px] shrink-0">${escapeHtml(item.mj)}</span>
+              <span class="text-[10.5px] font-mono text-slate-400 dark:text-zinc-500 truncate">${escapeHtml(item.pc9)}</span>
+              ${item.cust ? `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(item.cust)}</span>` : ''}
             </div>
-            <div class="text-[11px] font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(item.color)}</div>
+            <div class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate mt-1">${escapeHtml(item.color)}</div>
           </div>
           <div class="text-center leading-tight">
             ${getExfBadgeHtml(item.exf)}
           </div>
           <div class="text-right">
             <div class="text-xs font-mono font-extrabold ${balCls} tabular-nums leading-tight">${item.hasOp ? fmtNum(item.bal) : '-'}</div>
-            <span class="text-[9.5px] font-normal text-slate-400 tabular-nums">/ ${fmtNum(item.mx)}</span>
+            <span class="text-[10px] font-normal text-slate-400 tabular-nums">/ ${fmtNum(item.mx)}</span>
           </div>
         </div>
       `;
