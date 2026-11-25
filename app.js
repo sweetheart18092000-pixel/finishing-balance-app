@@ -664,32 +664,41 @@ function renderTransmission() {
       const shortCls = j.short > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400';
 
       return `
-      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="grid grid-cols-[68px_1fr_88px_78px] divide-x divide-slate-200/80 dark:divide-zinc-800 items-stretch hover:bg-blue-50/50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/60 dark:even:bg-zinc-950/35 text-[11px]">
-        <!-- Col 1: M_JOB & JOB# -->
-        <div class="px-2 py-2 flex flex-col justify-center font-mono leading-tight">
-          <span class="font-extrabold text-blue-700 dark:text-sky-400 truncate">${escapeHtml(j.m_job || '-')}</span>
-          <span class="font-bold text-indigo-600 dark:text-indigo-300 text-[10.5px] mt-0.5 truncate">${escapeHtml(j.job_no)}</span>
+      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="px-3 py-2.5 hover:bg-blue-50/40 dark:hover:bg-zinc-800/70 cursor-pointer transition space-y-1.5">
+        <!-- Top Row: M_JOB + JOB# + STYLE | PLAN-EX -->
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center space-x-1.5 min-w-0">
+            ${j.m_job ? `<span class="px-1.5 py-0.5 rounded-md bg-blue-600 text-white font-mono font-bold text-[10px] shrink-0">${escapeHtml(j.m_job)}</span>` : ''}
+            <span class="font-mono font-extrabold text-xs text-slate-900 dark:text-white shrink-0">${escapeHtml(j.job_no)}</span>
+            <span class="font-mono text-[10.5px] text-slate-400 dark:text-zinc-500 truncate">${escapeHtml(j.style || '')}</span>
+          </div>
+          <span class="text-[11px] font-bold text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(shortDate)}</span>
         </div>
 
-        <!-- Col 2: WASH / STYLE / COUNTRY • MODE -->
-        <div class="px-2 py-2 min-w-0 flex flex-col justify-center leading-tight">
-          <span class="font-bold text-slate-800 dark:text-zinc-100 truncate">${escapeHtml(j.wash || '-')}</span>
-          <span class="text-[9.5px] font-mono text-slate-400 dark:text-zinc-500 truncate mt-0.5">${escapeHtml(j.style || '-')} • ${escapeHtml(j.country || '-')}</span>
-          <span class="text-[9.5px] font-semibold text-indigo-600 dark:text-indigo-400 truncate mt-0.5">${escapeHtml(j.mode || '-')}</span>
+        <!-- Middle Row: WASH + COUNTRY | PACK / ORD (SH) -->
+        <div class="flex items-baseline justify-between gap-2">
+          <div class="min-w-0">
+            <span class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate block">${escapeHtml(j.wash || '-')}</span>
+          </div>
+          <div class="flex items-baseline space-x-1.5 font-mono shrink-0 tabular-nums">
+            <span class="text-xs font-extrabold text-slate-900 dark:text-white">${fmtNum(j.pack)}</span>
+            <span class="text-[10.5px] text-slate-400">/ ${fmtNum(j.order_qty)}</span>
+            <span class="text-[10.5px] font-extrabold ${shortCls}">(${fmtNum(j.short)})</span>
+          </div>
         </div>
 
-        <!-- Col 3: STATUS / PERSON / LOCK -->
-        <div class="px-2 py-2 min-w-0 flex flex-col justify-center leading-tight">
-          <span class="px-1 py-0.5 rounded font-bold text-[9px] ${statusBadgeCls} inline-block truncate w-fit max-w-full">${escapeHtml(j.job_status || '-')}</span>
-          <span class="text-[9.5px] text-slate-600 dark:text-zinc-300 truncate mt-0.5 font-medium">${escapeHtml(j.person || '-')}</span>
-          <span class="text-[9px] font-bold text-slate-400 dark:text-zinc-500 truncate mt-0.5">${escapeHtml(j.pl_lock || '-')}</span>
-        </div>
-
-        <!-- Col 4: PLAN-EX / PACK / ORD / SHORT -->
-        <div class="px-2 py-2 text-right flex flex-col justify-center font-mono tabular-nums leading-tight">
-          <span class="text-[10px] font-bold text-slate-600 dark:text-zinc-300">${escapeHtml(shortDate)}</span>
-          <span class="font-extrabold text-slate-900 dark:text-white text-[11px] mt-0.5">${fmtNum(j.pack)}</span>
-          <span class="text-[9px] text-slate-400">/${fmtNum(j.order_qty)} • <span class="font-extrabold ${shortCls}">${fmtNum(j.short)}</span></span>
+        <!-- Bottom Row: Clean Metadata -->
+        <div class="flex items-center justify-between gap-2 text-[10px] text-slate-500 dark:text-zinc-400">
+          <div class="flex items-center space-x-1.5 truncate">
+            <span class="px-1.5 py-0.5 rounded font-bold ${statusBadgeCls}">${escapeHtml(j.job_status || '-')}</span>
+            <span class="font-medium text-slate-600 dark:text-zinc-300">${escapeHtml(j.person || '-')}</span>
+            <span>•</span>
+            <span class="text-indigo-600 dark:text-indigo-400 font-semibold">${escapeHtml(j.mode || '-')}</span>
+          </div>
+          <div class="flex items-center space-x-1.5 shrink-0">
+            <span class="text-slate-400">${escapeHtml(j.country || '')}</span>
+            <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 font-bold text-slate-600 dark:text-zinc-300">${escapeHtml(j.pl_lock || '-')}</span>
+          </div>
         </div>
       </div>
     `;
