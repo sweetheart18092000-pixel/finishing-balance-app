@@ -84,6 +84,7 @@ const tabTransCount = document.getElementById('tabTransCount');
 const transmissionCard = document.getElementById('transmissionCard');
 const transModeJobsBtn = document.getElementById('transModeJobsBtn');
 const transModeUniqueBtn = document.getElementById('transModeUniqueBtn');
+const transFilteredCount = document.getElementById('transFilteredCount');
 const transUniqueCount = document.getElementById('transUniqueCount');
 const transWhatsappBtn = document.getElementById('transWhatsappBtn');
 const transFiltersRow = document.getElementById('transFiltersRow');
@@ -579,6 +580,11 @@ function renderTransmission() {
   });
 
   lastTransItems = filtered;
+  if (transFilteredCount) {
+    transFilteredCount.textContent = filtered.length === trans.jobs.length
+      ? `${trans.jobs.length}`
+      : `${filtered.length} / ${trans.jobs.length}`;
+  }
 
   if (filtered.length === 0) {
     transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No pending transmission jobs match.</div>';
