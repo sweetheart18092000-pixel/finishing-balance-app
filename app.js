@@ -366,6 +366,32 @@ nearClosingList.addEventListener('click', (e) => {
   selectJob(row.getAttribute('data-near-job'));
 });
 
+function getFilteredTransmissionJobs() {
+  const trans = appData?.transmission || { total_jobs: 0, unique_m_jobs: [], jobs: [] };
+  const q = transSearchInput.value.trim().toUpperCase();
+  const plSet = transMultiFilters.plLock?.selected;
+  const pSet = transMultiFilters.person?.selected;
+  const mSet = transMultiFilters.mode?.selected;
+  const sSet = transMultiFilters.status?.selected;
+
+  return trans.jobs.filter(j => {
+    if (plSet && plSet.size > 0 && !plSet.has(j.pl_lock)) return false;
+    if (pSet && pSet.size > 0 && !pSet.has(j.person)) return false;
+    if (mSet && mSet.size > 0 && !mSet.has(j.mode)) return false;
+    if (sSet && sSet.size > 0 && !sSet.has(j.job_status)) return false;
+    if (q) {
+      return j.job_no.toUpperCase().includes(q) ||
+        j.m_job.toUpperCase().includes(q) ||
+        j.style.toUpperCase().includes(q) ||
+        j.wash.toUpperCase().includes(q) ||
+        j.person.toUpperCase().includes(q) ||
+        j.mode.toUpperCase().includes(q) ||
+        j.country.toUpperCase().includes(q);
+    }
+    return true;
+  });
+}
+
 function renderHomeTab() {
   if (!appData || currentJob) {
     if (homeTabsBar) homeTabsBar.classList.add('hidden');
@@ -376,8 +402,7 @@ function renderHomeTab() {
 
   if (homeTabsBar) homeTabsBar.classList.remove('hidden');
   tabMastersCount.textContent = appData.total_jobs || Object.keys(appData.jobs || {}).length;
-  const transTotal = appData.transmission ? appData.transmission.total_jobs : 0;
-  tabTransCount.textContent = transTotal;
+  tabTransCount.textContent = getFilteredTransmissionJobs().length;
 
   if (activeHomeTab === 'transmission') {
     tabTransBtn.className = 'py-1.5 px-2 rounded-lg text-xs font-extrabold transition bg-indigo-600 text-white shadow-xs flex items-center justify-center space-x-1.5';
@@ -512,17 +537,26 @@ function initTransmissionControls() {
   if (!trans) return;
   transUniqueCount.textContent = (trans.unique_m_jobs || []).length;
 
+  let isFirstInit = false;
   if (!transMultiFilters.plLock) {
     transMultiFilters.plLock = createMultiFilter('transPlLockFilter', 'All PL Lock', 'PL', false);
     transMultiFilters.person = createMultiFilter('transPersonFilter', 'All Person', 'Person', true);
     transMultiFilters.mode = createMultiFilter('transModeFilter', 'All Mode', 'Mode', false);
     transMultiFilters.status = createMultiFilter('transStatusFilter', 'All Status', 'Status', true);
+    isFirstInit = true;
   }
 
   const plLocks = Array.from(new Set(trans.jobs.map(j => j.pl_lock).filter(Boolean))).sort();
   const persons = Array.from(new Set(trans.jobs.map(j => j.person).filter(Boolean))).sort();
   const modes = Array.from(new Set(trans.jobs.map(j => j.mode).filter(Boolean))).sort();
   const statuses = Array.from(new Set(trans.jobs.map(j => j.job_status).filter(Boolean))).sort();
+
+  if (isFirstInit) {
+    plLocks.filter(v => v.toUpperCase() !== 'LOCK').forEach(v => transMultiFilters.plLock.selected.add(v));
+    persons.filter(v => v.toUpperCase() !== 'OK').forEach(v => transMultiFilters.person.selected.add(v));
+    modes.filter(v => v.toUpperCase() !== 'TBD').forEach(v => transMultiFilters.mode.selected.add(v));
+    statuses.filter(v => !['SHIPPED', 'FINAL', 'READY FOR PICKUP', 'TRANSMITTED'].includes(v.toUpperCase())).forEach(v => transMultiFilters.status.selected.add(v));
+  }
 
   transMultiFilters.plLock.setOptions(plLocks);
   transMultiFilters.person.setOptions(persons);
