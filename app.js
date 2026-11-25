@@ -90,7 +90,13 @@ const transFiltersRow = document.getElementById('transFiltersRow');
 const transSearchInput = document.getElementById('transSearchInput');
 const transPersonSelect = document.getElementById('transPersonSelect');
 const transStatusSelect = document.getElementById('transStatusSelect');
-const transModeSelect = document.getElementById('transModeSelect');
+const transModeWrapper = document.getElementById('transModeWrapper');
+const transModeBtn = document.getElementById('transModeBtn');
+const transModeBtnLabel = document.getElementById('transModeBtnLabel');
+const transModeDropdown = document.getElementById('transModeDropdown');
+const transModeClearBtn = document.getElementById('transModeClearBtn');
+const transModeChecksContainer = document.getElementById('transModeChecksContainer');
+let selectedTransModes = new Set();
 const transTableHeader = document.getElementById('transTableHeader');
 const transList = document.getElementById('transList');
 
@@ -417,9 +423,57 @@ function initTransmissionControls() {
     statuses.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
 
   const modes = Array.from(new Set(trans.jobs.map(j => j.mode).filter(Boolean))).sort();
-  transModeSelect.innerHTML = `<option value="">All Mode</option>` +
-    modes.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join('');
+  if (transModeChecksContainer) {
+    transModeChecksContainer.innerHTML = modes.map(m => `
+      <label class="flex items-center space-x-2 px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 cursor-pointer text-[11px] font-semibold text-slate-800 dark:text-zinc-100">
+        <input type="checkbox" value="${escapeHtml(m)}" ${selectedTransModes.has(m) ? 'checked' : ''} class="trans-mode-cb w-3.5 h-3.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 shrink-0" />
+        <span class="truncate">${escapeHtml(m)}</span>
+      </label>
+    `).join('');
+  }
+  updateTransModeLabel();
 }
+
+function updateTransModeLabel() {
+  if (!transModeBtnLabel) return;
+  if (selectedTransModes.size === 0) {
+    transModeBtnLabel.textContent = 'All Mode';
+  } else if (selectedTransModes.size === 1) {
+    transModeBtnLabel.textContent = Array.from(selectedTransModes)[0];
+  } else {
+    transModeBtnLabel.textContent = `${selectedTransModes.size} Modes`;
+  }
+}
+
+transModeBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  transModeDropdown.classList.toggle('hidden');
+});
+
+transModeChecksContainer.addEventListener('change', (e) => {
+  const cb = e.target.closest('input.trans-mode-cb');
+  if (!cb) return;
+  if (cb.checked) {
+    selectedTransModes.add(cb.value);
+  } else {
+    selectedTransModes.delete(cb.value);
+  }
+  updateTransModeLabel();
+  renderTransmission();
+});
+
+transModeClearBtn.addEventListener('click', () => {
+  selectedTransModes.clear();
+  transModeChecksContainer.querySelectorAll('input.trans-mode-cb').forEach(cb => { cb.checked = false; });
+  updateTransModeLabel();
+  renderTransmission();
+});
+
+document.addEventListener('click', (e) => {
+  if (transModeWrapper && !transModeWrapper.contains(e.target)) {
+    transModeDropdown.classList.add('hidden');
+  }
+});
 
 transModeJobsBtn.addEventListener('click', () => {
   transViewMode = 'jobs';
@@ -439,7 +493,7 @@ transModeUniqueBtn.addEventListener('click', () => {
   renderTransmission();
 });
 
-[transSearchInput, transPersonSelect, transStatusSelect, transModeSelect].forEach(el => {
+[transSearchInput, transPersonSelect, transStatusSelect].forEach(el => {
   el.addEventListener('input', renderTransmission);
   el.addEventListener('change', renderTransmission);
 });
@@ -482,12 +536,11 @@ function renderTransmission() {
   const q = transSearchInput.value.trim().toUpperCase();
   const pFilter = transPersonSelect.value;
   const sFilter = transStatusSelect.value;
-  const mFilter = transModeSelect.value;
 
   const filtered = trans.jobs.filter(j => {
     if (pFilter && j.person !== pFilter) return false;
     if (sFilter && j.job_status !== sFilter) return false;
-    if (mFilter && j.mode !== mFilter) return false;
+    if (selectedTransModes.size > 0 && !selectedTransModes.has(j.mode)) return false;
     if (q) {
       return j.job_no.toUpperCase().includes(q) ||
         j.m_job.toUpperCase().includes(q) ||
