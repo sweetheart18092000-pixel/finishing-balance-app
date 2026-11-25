@@ -178,12 +178,29 @@
         </div>
       </div>
 
-      <div id="transTableHeader" class="grid grid-cols-[1fr_70px_76px] gap-1.5 px-2.5 py-1.5 bg-slate-100 dark:bg-zinc-800/90 text-[9.5px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-zinc-400 border-b border-slate-200 dark:border-zinc-800">
-        <div>JOB / M_JOB / WASH</div>
-        <div class="text-center">PLAN-EX</div>
-        <div class="text-right">PACK / ORD</div>
+      <div id="transTableWrapper" class="overflow-x-auto border-t border-slate-200 dark:border-zinc-800">
+        <table id="transTable" class="w-full text-left border-collapse whitespace-nowrap text-[11px]">
+          <thead id="transTableHeader" class="bg-slate-100 dark:bg-zinc-800/90 text-[9.5px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-zinc-300 border-b border-slate-200 dark:border-zinc-700">
+            <tr class="divide-x divide-slate-200/80 dark:divide-zinc-700/60">
+              <th class="px-2.5 py-2">JOB#</th>
+              <th class="px-2 py-2">M_JOB</th>
+              <th class="px-2 py-2">STYLE</th>
+              <th class="px-2.5 py-2">WASH</th>
+              <th class="px-2 py-2 text-right">ORDER</th>
+              <th class="px-2 py-2 text-right">PACK</th>
+              <th class="px-2 py-2 text-right">SHORT</th>
+              <th class="px-2 py-2 text-center">PLAN-EX</th>
+              <th class="px-2 py-2">STATUS</th>
+              <th class="px-2 py-2">PERSON</th>
+              <th class="px-2 py-2">MODE</th>
+              <th class="px-2 py-2">LOCK</th>
+              <th class="px-2 py-2">COUNTRY</th>
+            </tr>
+          </thead>
+          <tbody id="transList" class="divide-y divide-slate-200/70 dark:divide-zinc-800"></tbody>
+        </table>
       </div>
-      <div id="transList" class="divide-y divide-slate-100 dark:divide-zinc-800/80"></div>
+      <div id="transUniqueList" class="hidden divide-y divide-slate-100 dark:divide-zinc-800/80"></div>
     </section>
 
     <!-- Job Details Card (Clean Unified Ticket) -->
@@ -366,6 +383,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=32"></script>
+  <script src="app.js?v=33"></script>
 </body>
 </html>

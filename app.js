@@ -91,7 +91,9 @@ const transFiltersRow = document.getElementById('transFiltersRow');
 const transSearchInput = document.getElementById('transSearchInput');
 const transResetAllBtn = document.getElementById('transResetAllBtn');
 const transTableHeader = document.getElementById('transTableHeader');
+const transTableWrapper = document.getElementById('transTableWrapper');
 const transList = document.getElementById('transList');
+const transUniqueList = document.getElementById('transUniqueList');
 
 const refreshDataBtn = document.getElementById('refreshDataBtn');
 const refreshIcon = document.getElementById('refreshIcon');
@@ -611,10 +613,12 @@ function renderTransmission() {
   }
 
   if (transViewMode === 'unique') {
+    if (transTableWrapper) transTableWrapper.classList.add('hidden');
+    if (transUniqueList) transUniqueList.classList.remove('hidden');
     if (filteredUnique.length === 0) {
-      transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No Unique M_Jobs found.</div>';
+      transUniqueList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No Unique M_Jobs found.</div>';
     } else {
-      transList.innerHTML = filteredUnique.map((mj, idx) => {
+      transUniqueList.innerHTML = filteredUnique.map((mj, idx) => {
         const count = filtered.filter(j => j.m_job === mj).length;
         const info = appData.jobs[mj];
         return `
@@ -636,6 +640,9 @@ function renderTransmission() {
     return;
   }
 
+  if (transTableWrapper) transTableWrapper.classList.remove('hidden');
+  if (transUniqueList) transUniqueList.classList.add('hidden');
+
   // Sort active/pending jobs first, SHIPPED/FINAL/TRANSMITTED/LOCK at the bottom
   const doneStatuses = new Set(['SHIPPED', 'FINAL', 'READY FOR PICKUP', 'TRANSMITTED']);
   const sortedFiltered = [...filtered].sort((a, b) => {
@@ -645,46 +652,33 @@ function renderTransmission() {
   });
 
   if (sortedFiltered.length === 0) {
-    transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No transmission jobs match.</div>';
+    transList.innerHTML = '<tr><td colspan="13" class="p-4 text-center text-xs text-slate-400">No transmission jobs match.</td></tr>';
   } else {
     transList.innerHTML = sortedFiltered.map(j => {
       const stUp = (j.job_status || '').toUpperCase();
       const isDone = doneStatuses.has(stUp);
       const shortDate = (j.plan_ex || '-').replace(/-\d{2}$/, '');
-      const dateHtml = isDone
-        ? `<span class="text-[10.5px] font-semibold text-slate-400 dark:text-zinc-500">${escapeHtml(shortDate)}</span>`
-        : getExfBadgeHtml(j.plan_ex);
-
       const statusBadgeCls = isDone
         ? 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
         : 'bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400';
+      const shortCls = j.short > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400';
 
       return `
-      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="grid grid-cols-[1fr_68px_82px] gap-1.5 items-center px-2.5 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
-        <div class="min-w-0">
-          <div class="flex items-center space-x-1.5 min-w-0">
-            <span class="font-mono font-extrabold text-xs text-indigo-700 dark:text-sky-400 shrink-0">${escapeHtml(j.job_no)}</span>
-            ${j.m_job ? `<span class="text-[10px] font-mono font-bold px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-sky-300 shrink-0">${escapeHtml(j.m_job)}</span>` : ''}
-            <span class="text-[10px] text-slate-400 truncate">${escapeHtml(j.style)}</span>
-          </div>
-          <div class="text-[11px] font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(j.wash || '-')}</div>
-          <div class="flex items-center flex-wrap gap-1 text-[9px] text-slate-500 dark:text-zinc-400 mt-1">
-            ${j.pl_lock ? `<span class="px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 font-bold text-slate-700 dark:text-zinc-300">${escapeHtml(j.pl_lock)}</span>` : ''}
-            ${j.job_status ? `<span class="px-1 py-0.5 rounded font-bold ${statusBadgeCls}">${escapeHtml(j.job_status)}</span>` : ''}
-            ${j.person ? `<span class="truncate">${escapeHtml(j.person)}</span>` : ''}
-            ${j.mode ? `<span class="font-semibold text-indigo-600 dark:text-indigo-400">• ${escapeHtml(j.mode)}</span>` : ''}
-            ${j.country ? `<span class="text-slate-400">• ${escapeHtml(j.country)}</span>` : ''}
-          </div>
-        </div>
-        <div class="text-center leading-tight">
-          ${dateHtml}
-          ${j.ship_seq ? `<span class="block text-[8.5px] text-slate-400 mt-0.5 truncate">${escapeHtml(j.ship_seq)}</span>` : ''}
-        </div>
-        <div class="text-right">
-          <div class="text-xs font-mono font-extrabold text-slate-800 dark:text-zinc-100 tabular-nums leading-tight">${fmtNum(j.pack)}<span class="text-[9.5px] font-normal text-slate-400"> / ${fmtNum(j.order_qty)}</span></div>
-          <div class="text-[10px] font-mono font-bold mt-0.5 ${j.short > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'} tabular-nums">Sh: ${fmtNum(j.short)}</div>
-        </div>
-      </div>
+      <tr data-trans-mjob="${escapeHtml(j.m_job)}" class="divide-x divide-slate-200/60 dark:divide-zinc-800/70 hover:bg-blue-50/60 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/70 dark:even:bg-zinc-950/35">
+        <td class="px-2.5 py-2 font-mono font-extrabold text-indigo-700 dark:text-sky-400">${escapeHtml(j.job_no)}</td>
+        <td class="px-2 py-2 font-mono font-bold text-blue-700 dark:text-sky-300">${escapeHtml(j.m_job || '-')}</td>
+        <td class="px-2 py-2 font-mono text-slate-500 dark:text-zinc-400">${escapeHtml(j.style || '-')}</td>
+        <td class="px-2.5 py-2 font-bold text-slate-800 dark:text-zinc-100 max-w-[180px] truncate" title="${escapeHtml(j.wash || '-')}">${escapeHtml(j.wash || '-')}</td>
+        <td class="px-2 py-2 text-right font-mono text-slate-600 dark:text-zinc-300 tabular-nums">${fmtNum(j.order_qty)}</td>
+        <td class="px-2 py-2 text-right font-mono font-extrabold text-slate-900 dark:text-white tabular-nums">${fmtNum(j.pack)}</td>
+        <td class="px-2 py-2 text-right font-mono font-extrabold ${shortCls} tabular-nums">${fmtNum(j.short)}</td>
+        <td class="px-2 py-2 text-center font-semibold text-slate-600 dark:text-zinc-300">${escapeHtml(shortDate)}</td>
+        <td class="px-2 py-2"><span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${statusBadgeCls}">${escapeHtml(j.job_status || '-')}</span></td>
+        <td class="px-2 py-2 text-slate-700 dark:text-zinc-300">${escapeHtml(j.person || '-')}</td>
+        <td class="px-2 py-2 font-semibold text-indigo-600 dark:text-indigo-400">${escapeHtml(j.mode || '-')}</td>
+        <td class="px-2 py-2 font-bold text-slate-600 dark:text-zinc-400">${escapeHtml(j.pl_lock || '-')}</td>
+        <td class="px-2 py-2 text-slate-500 dark:text-zinc-400">${escapeHtml(j.country || '-')}</td>
+      </tr>
     `;
     }).join('');
   }
@@ -700,6 +694,17 @@ transList.addEventListener('click', (e) => {
     selectJob(mj);
   }
 });
+
+if (transUniqueList) {
+  transUniqueList.addEventListener('click', (e) => {
+    const row = e.target.closest('[data-trans-mjob]');
+    if (!row) return;
+    const mj = row.getAttribute('data-trans-mjob');
+    if (mj && appData?.jobs[mj]) {
+      selectJob(mj);
+    }
+  });
+}
 
 function addRecentJob(jobCode) {
   recentJobs = [jobCode, ...recentJobs.filter(j => j !== jobCode)].slice(0, 5);
