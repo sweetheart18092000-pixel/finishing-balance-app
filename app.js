@@ -664,33 +664,32 @@ function renderTransmission() {
       const shortCls = j.short > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400';
 
       return `
-      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="hover:bg-blue-50/50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/60 dark:even:bg-zinc-950/35 text-[11px]">
-        <!-- Grid Row 1: M_JOB | JOB# | STYLE • WASH | PLAN-EX -->
-        <div class="grid grid-cols-[68px_64px_1fr_64px] divide-x divide-slate-200/80 dark:divide-zinc-800 items-center">
-          <div class="px-2 py-1.5 font-mono font-extrabold text-blue-700 dark:text-sky-400 truncate">${escapeHtml(j.m_job || '-')}</div>
-          <div class="px-2 py-1.5 font-mono font-extrabold text-indigo-700 dark:text-indigo-300 truncate">${escapeHtml(j.job_no)}</div>
-          <div class="px-2 py-1.5 min-w-0">
-            <span class="font-mono text-[9.5px] text-slate-400 dark:text-zinc-500 block leading-none">${escapeHtml(j.style || '-')}</span>
-            <span class="font-bold text-slate-800 dark:text-zinc-100 truncate block mt-0.5">${escapeHtml(j.wash || '-')}</span>
-          </div>
-          <div class="px-1.5 py-1.5 text-center font-bold text-slate-700 dark:text-zinc-300 text-[10.5px]">${escapeHtml(shortDate)}</div>
+      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="grid grid-cols-[68px_1fr_88px_78px] divide-x divide-slate-200/80 dark:divide-zinc-800 items-stretch hover:bg-blue-50/50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/60 dark:even:bg-zinc-950/35 text-[11px]">
+        <!-- Col 1: M_JOB & JOB# -->
+        <div class="px-2 py-2 flex flex-col justify-center font-mono leading-tight">
+          <span class="font-extrabold text-blue-700 dark:text-sky-400 truncate">${escapeHtml(j.m_job || '-')}</span>
+          <span class="font-bold text-indigo-600 dark:text-indigo-300 text-[10.5px] mt-0.5 truncate">${escapeHtml(j.job_no)}</span>
         </div>
 
-        <!-- Grid Row 2: COUNTRY • MODE | STATUS • LOCK | PERSON | ORD / PACK (SH) -->
-        <div class="grid grid-cols-[1fr_92px_78px_92px] divide-x divide-slate-200/80 dark:divide-zinc-800 border-t border-slate-100 dark:border-zinc-800/80 items-center text-[10px]">
-          <div class="px-2 py-1 min-w-0">
-            <span class="font-bold text-slate-700 dark:text-zinc-200 truncate block">${escapeHtml(j.country || '-')}</span>
-            <span class="font-semibold text-indigo-600 dark:text-indigo-400 truncate block text-[9.5px]">${escapeHtml(j.mode || '-')}</span>
-          </div>
-          <div class="px-1.5 py-1 min-w-0">
-            <span class="px-1 py-0.2 rounded font-bold text-[9.5px] ${statusBadgeCls} inline-block truncate max-w-full">${escapeHtml(j.job_status || '-')}</span>
-            <span class="block text-[9px] font-bold text-slate-500 dark:text-zinc-400 mt-0.5">${escapeHtml(j.pl_lock || '-')}</span>
-          </div>
-          <div class="px-1.5 py-1 text-slate-600 dark:text-zinc-300 truncate font-medium" title="${escapeHtml(j.person || '-')}">${escapeHtml(j.person || '-')}</div>
-          <div class="px-2 py-1 text-right font-mono tabular-nums leading-tight">
-            <div class="font-extrabold text-slate-900 dark:text-white text-[10.5px]">${fmtNum(j.pack)} <span class="font-normal text-slate-400 text-[9px]">/ ${fmtNum(j.order_qty)}</span></div>
-            <div class="font-extrabold ${shortCls} text-[9.5px]">Sh: ${fmtNum(j.short)}</div>
-          </div>
+        <!-- Col 2: WASH / STYLE / COUNTRY • MODE -->
+        <div class="px-2 py-2 min-w-0 flex flex-col justify-center leading-tight">
+          <span class="font-bold text-slate-800 dark:text-zinc-100 truncate">${escapeHtml(j.wash || '-')}</span>
+          <span class="text-[9.5px] font-mono text-slate-400 dark:text-zinc-500 truncate mt-0.5">${escapeHtml(j.style || '-')} • ${escapeHtml(j.country || '-')}</span>
+          <span class="text-[9.5px] font-semibold text-indigo-600 dark:text-indigo-400 truncate mt-0.5">${escapeHtml(j.mode || '-')}</span>
+        </div>
+
+        <!-- Col 3: STATUS / PERSON / LOCK -->
+        <div class="px-2 py-2 min-w-0 flex flex-col justify-center leading-tight">
+          <span class="px-1 py-0.5 rounded font-bold text-[9px] ${statusBadgeCls} inline-block truncate w-fit max-w-full">${escapeHtml(j.job_status || '-')}</span>
+          <span class="text-[9.5px] text-slate-600 dark:text-zinc-300 truncate mt-0.5 font-medium">${escapeHtml(j.person || '-')}</span>
+          <span class="text-[9px] font-bold text-slate-400 dark:text-zinc-500 truncate mt-0.5">${escapeHtml(j.pl_lock || '-')}</span>
+        </div>
+
+        <!-- Col 4: PLAN-EX / PACK / ORD / SHORT -->
+        <div class="px-2 py-2 text-right flex flex-col justify-center font-mono tabular-nums leading-tight">
+          <span class="text-[10px] font-bold text-slate-600 dark:text-zinc-300">${escapeHtml(shortDate)}</span>
+          <span class="font-extrabold text-slate-900 dark:text-white text-[11px] mt-0.5">${fmtNum(j.pack)}</span>
+          <span class="text-[9px] text-slate-400">/${fmtNum(j.order_qty)} • <span class="font-extrabold ${shortCls}">${fmtNum(j.short)}</span></span>
         </div>
       </div>
     `;
