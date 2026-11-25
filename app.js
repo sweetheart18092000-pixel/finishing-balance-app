@@ -668,31 +668,33 @@ function renderTransmission() {
         : (stUp === 'RESCREEN' ? 'border-l-rose-500' : 'border-l-amber-500');
 
       return `
-      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="border-l-[3px] ${accentBorder} px-3 py-2.5 hover:bg-blue-50/40 dark:hover:bg-zinc-800/70 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30 space-y-1.5">
-        <!-- Line 1: M_JOB | JOB# | STYLE | PLAN-EX | WASH -->
-        <div class="flex items-center space-x-1.5 min-w-0 pb-1.5 border-b border-slate-100 dark:border-zinc-800/80">
-          ${j.m_job ? `<span class="px-1.5 py-0.5 rounded-md bg-blue-600 text-white font-mono font-bold text-[10px] shadow-xs shrink-0">${escapeHtml(j.m_job)}</span>` : ''}
-          <span class="font-mono font-extrabold text-xs text-slate-900 dark:text-white shrink-0">${escapeHtml(j.job_no)}</span>
-          <span class="text-slate-300 dark:text-zinc-700 text-[10px]">|</span>
-          <span class="font-mono text-[10.5px] text-slate-500 dark:text-zinc-400 shrink-0">${escapeHtml(j.style || '')}</span>
-          <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 border border-slate-200/70 dark:border-zinc-700 text-[10px] font-bold text-slate-700 dark:text-zinc-300 shrink-0">${escapeHtml(shortDate)}</span>
-          <span class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate">${escapeHtml(j.wash || '-')}</span>
+      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 border-l-[3px] ${accentBorder} px-3 py-2.5 shadow-2xs hover:shadow-sm hover:border-blue-300 dark:hover:border-zinc-700 cursor-pointer transition space-y-1.5">
+        <!-- Line 1: M_JOB | JOB# | STYLE | WASH — Right: PLAN-EX -->
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center space-x-1.5 min-w-0">
+            ${j.m_job ? `<span class="px-1.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-sky-300 font-mono font-extrabold text-[10px] shrink-0">${escapeHtml(j.m_job)}</span>` : ''}
+            <span class="font-mono font-extrabold text-xs text-slate-900 dark:text-white shrink-0">${escapeHtml(j.job_no)}</span>
+            <span class="font-mono text-[10px] text-slate-400 dark:text-zinc-500 shrink-0">${escapeHtml(j.style || '')}</span>
+            <span class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate">${escapeHtml(j.wash || '-')}</span>
+          </div>
+          <span class="text-[11px] font-bold text-slate-500 dark:text-zinc-400 shrink-0 tabular-nums">${escapeHtml(shortDate)}</span>
         </div>
 
         <!-- Line 2: STATUS | PERSON | MODE | COUNTRY | PL LOCK — Right: ORDER | PACK | (SHORT) -->
         <div class="flex items-center justify-between gap-2 text-[10px] text-slate-500 dark:text-zinc-400">
           <div class="flex items-center flex-wrap gap-x-1.5 gap-y-0.5 min-w-0">
-            <span class="px-1.5 py-0.5 rounded font-bold border border-current/15 ${statusBadgeCls}">${escapeHtml(j.job_status || '-')}</span>
-            <span class="font-semibold text-slate-700 dark:text-zinc-300">${escapeHtml(j.person || '-')}</span>
-            <span class="text-slate-300 dark:text-zinc-700">|</span>
+            <span class="px-1.5 py-0.5 rounded-md font-bold ${statusBadgeCls}">${escapeHtml(j.job_status || '-')}</span>
+            <span class="font-medium text-slate-700 dark:text-zinc-300">${escapeHtml(j.person || '-')}</span>
+            <span>•</span>
             <span class="text-indigo-600 dark:text-indigo-400 font-semibold">${escapeHtml(j.mode || '-')}</span>
-            <span class="text-slate-300 dark:text-zinc-700">|</span>
-            <span class="text-slate-600 dark:text-zinc-400 font-medium">${escapeHtml(j.country || '-')}</span>
-            <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 border border-slate-200/70 dark:border-zinc-700 font-bold text-slate-600 dark:text-zinc-300">${escapeHtml(j.pl_lock || '-')}</span>
+            <span>•</span>
+            <span>${escapeHtml(j.country || '-')}</span>
+            <span>•</span>
+            <span class="font-bold text-slate-600 dark:text-zinc-300">${escapeHtml(j.pl_lock || '-')}</span>
           </div>
-          <div class="flex items-center space-x-1.5 font-mono shrink-0 tabular-nums bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800 rounded-lg px-2 py-0.5">
-            <span class="text-[10.5px] text-slate-500 dark:text-zinc-400">${fmtNum(j.order_qty)}</span>
-            <span class="text-slate-300 dark:text-zinc-700">|</span>
+          <div class="flex items-baseline space-x-1 font-mono shrink-0 tabular-nums">
+            <span class="text-[10.5px] text-slate-400">${fmtNum(j.order_qty)}</span>
+            <span class="text-slate-300 dark:text-zinc-700">/</span>
             <span class="text-xs font-extrabold text-slate-900 dark:text-white">${fmtNum(j.pack)}</span>
             <span class="text-[10.5px] font-extrabold ${shortCls}">(${fmtNum(j.short)})</span>
           </div>
