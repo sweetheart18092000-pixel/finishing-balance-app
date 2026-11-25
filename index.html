@@ -71,7 +71,7 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 p-2 max-w-xl mx-auto w-full space-y-2">
+  <main class="flex-1 p-2 max-w-3xl mx-auto w-full space-y-2">
 
     <!-- Search Card -->
     <section class="bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-zinc-800 rounded-xl p-2 shadow-sm space-y-1.5">
@@ -137,13 +137,22 @@
           </button>
         </div>
       </div>
-      <!-- Masters Table Header -->
-      <div id="nearTableHeader" class="grid grid-cols-[1fr_72px_88px] gap-1.5 px-3 py-1.5 bg-slate-50/90 dark:bg-zinc-900 text-[9.5px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-zinc-500 border-b border-slate-200/70 dark:border-zinc-800">
-        <div>JOB / FINISH</div>
-        <div class="text-center">1st EXF</div>
-        <div id="nearRightColHdr" class="text-right">BAL / MAX</div>
+      <!-- Masters Single-Line Grid -->
+      <div class="overflow-x-auto bg-slate-100/60 dark:bg-zinc-950/50">
+        <div class="min-w-[660px]">
+          <div id="nearTableHeader" class="grid grid-cols-[66px_82px_68px_1fr_58px_66px_64px_64px] gap-1.5 px-3 py-1.5 bg-slate-50/90 dark:bg-zinc-900 text-[9.5px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-zinc-500 border-b border-slate-200/70 dark:border-zinc-800">
+            <div>M_JOB</div>
+            <div>PC9</div>
+            <div>CUSTOMER</div>
+            <div>COLOR</div>
+            <div>SHADE</div>
+            <div class="text-center">1st EXF</div>
+            <div class="text-right">MAX</div>
+            <div id="nearRightColHdr" class="text-right">BAL</div>
+          </div>
+          <div id="nearClosingList" class="p-2 space-y-1.5"></div>
+        </div>
       </div>
-      <div id="nearClosingList" class="p-2 space-y-2 bg-slate-100/60 dark:bg-zinc-950/50"></div>
     </section>
 
     <!-- Transmission Pending Jobs Card -->
@@ -368,6 +377,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=42"></script>
+  <script src="app.js?v=43"></script>
 </body>
 </html>

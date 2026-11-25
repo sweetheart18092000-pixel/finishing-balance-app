@@ -227,7 +227,7 @@ function getExfBadgeHtml(exfStr) {
 }
 
 function updateHomeModeUI() {
-  if (nearRightColHdr) nearRightColHdr.textContent = 'BAL / MAX';
+  if (nearRightColHdr) nearRightColHdr.textContent = 'BAL';
   if (nearSortBy === 'exf') {
     nearSortBtn.textContent = 'EXF';
   } else if (nearSortBy === 'bal') {
@@ -298,6 +298,7 @@ function renderNearClosingJobs() {
       mj,
       color: j.color || '-',
       pc9: j.pc9 || '',
+      shade: j.shade || '-',
       exf: j.first_exf || '',
       cust: j.customer || '',
       bal,
@@ -341,23 +342,17 @@ function renderNearClosingJobs() {
           accentBorder = 'border-l-emerald-500';
         }
       }
+      const shortExf = (item.exf || '-').replace(/-\d{2}$/, '');
       return `
-        <div data-near-job="${escapeHtml(item.mj)}" class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 border-l-[3px] ${accentBorder} grid grid-cols-[1fr_72px_88px] gap-1.5 items-center px-3 py-2.5 shadow-2xs hover:shadow-sm hover:border-blue-300 dark:hover:border-zinc-700 cursor-pointer transition">
-          <div class="min-w-0">
-            <div class="flex items-center space-x-1.5 min-w-0">
-              <span class="px-1.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-sky-300 font-mono font-extrabold text-[10.5px] shrink-0">${escapeHtml(item.mj)}</span>
-              <span class="text-[10.5px] font-mono text-slate-400 dark:text-zinc-500 truncate">${escapeHtml(item.pc9)}</span>
-              ${item.cust ? `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 shrink-0">${escapeHtml(item.cust)}</span>` : ''}
-            </div>
-            <div class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate mt-1">${escapeHtml(item.color)}</div>
-          </div>
-          <div class="text-center leading-tight">
-            ${getExfBadgeHtml(item.exf)}
-          </div>
-          <div class="text-right">
-            <div class="text-xs font-mono font-extrabold ${balCls} tabular-nums leading-tight">${item.hasOp ? fmtNum(item.bal) : '-'}</div>
-            <span class="text-[10px] font-normal text-slate-400 tabular-nums">/ ${fmtNum(item.mx)}</span>
-          </div>
+        <div data-near-job="${escapeHtml(item.mj)}" class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 border-l-[3px] ${accentBorder} grid grid-cols-[66px_82px_68px_1fr_58px_66px_64px_64px] gap-1.5 items-center px-3 py-2 shadow-2xs hover:shadow-sm hover:border-blue-300 dark:hover:border-zinc-700 cursor-pointer transition text-[11px] whitespace-nowrap">
+          <div class="font-mono font-extrabold text-blue-700 dark:text-sky-400 truncate">${escapeHtml(item.mj)}</div>
+          <div class="font-mono text-[10.5px] text-slate-600 dark:text-zinc-300 truncate">${escapeHtml(item.pc9 || '-')}</div>
+          <div class="font-bold text-slate-700 dark:text-zinc-200 truncate text-[10.5px]">${escapeHtml(item.cust || '-')}</div>
+          <div class="font-bold text-slate-800 dark:text-zinc-100 truncate" title="${escapeHtml(item.color)}">${escapeHtml(item.color)}</div>
+          <div class="text-[10px] font-semibold text-slate-500 dark:text-zinc-400 truncate">${escapeHtml(item.shade || '-')}</div>
+          <div class="text-center text-[10.5px] font-bold text-amber-600 dark:text-amber-400">${escapeHtml(shortExf)}</div>
+          <div class="text-right font-mono font-semibold text-slate-500 dark:text-zinc-400 tabular-nums">${fmtNum(item.mx)}</div>
+          <div class="text-right font-mono font-extrabold ${balCls} tabular-nums text-xs">${item.hasOp ? fmtNum(item.bal) : '-'}</div>
         </div>
       `;
     }).join('');
