@@ -342,8 +342,9 @@ function renderNearClosingJobs() {
           accentBorder = 'border-l-emerald-500';
         }
       }
+      const shortExf = (item.exf || '-').replace(/-\d{2}$/, '');
       return `
-        <div data-near-job="${escapeHtml(item.mj)}" class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 border-l-[3px] ${accentBorder} px-3 py-2.5 shadow-2xs hover:shadow-sm hover:border-blue-300 dark:hover:border-zinc-700 cursor-pointer transition space-y-1">
+        <div data-near-job="${escapeHtml(item.mj)}" class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 border-l-[3px] ${accentBorder} px-3 py-2.5 shadow-2xs hover:shadow-sm hover:border-blue-300 dark:hover:border-zinc-700 cursor-pointer transition space-y-1.5">
           <!-- Line 1: M_JOB | PC9 | CUSTOMER | (Right: BAL) -->
           <div class="flex items-center justify-between gap-2">
             <div class="flex items-center space-x-1.5 min-w-0">
@@ -354,18 +355,14 @@ function renderNearClosingJobs() {
             <span class="text-xs font-mono font-extrabold ${balCls} tabular-nums shrink-0">${item.hasOp ? fmtNum(item.bal) : '-'}</span>
           </div>
 
-          <!-- Line 2: COLOR | SHADE | 1st EXF -->
+          <!-- Line 2: COLOR | SHADE | 1st EXF — Right Side: MAX -->
           <div class="flex items-center justify-between gap-2">
             <div class="flex items-center space-x-1.5 min-w-0">
               <span class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate">${escapeHtml(item.color)}</span>
               ${item.shade && item.shade !== '-' ? `<span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500 shrink-0">• ${escapeHtml(item.shade)}</span>` : ''}
+              ${shortExf && shortExf !== '-' ? `<span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 shrink-0">• ${escapeHtml(shortExf)}</span>` : ''}
             </div>
-            <div class="shrink-0 leading-tight text-right">${getExfBadgeHtml(item.exf)}</div>
-          </div>
-
-          <!-- Line 3: Right Side MAX -->
-          <div class="flex justify-end">
-            <span class="text-[10px] font-mono text-slate-400 dark:text-zinc-500 tabular-nums">MAX: <strong class="text-slate-600 dark:text-zinc-300">${fmtNum(item.mx)}</strong></span>
+            <span class="text-[10.5px] font-mono text-slate-500 dark:text-zinc-400 tabular-nums shrink-0">MAX: <strong class="text-slate-700 dark:text-zinc-200">${fmtNum(item.mx)}</strong></span>
           </div>
         </div>
       `;
