@@ -166,28 +166,10 @@
 
         <div id="transFiltersRow" class="grid grid-cols-2 gap-1.5 items-center">
           <input id="transSearchInput" type="text" placeholder="Job#, M_Job, Style, Wash..." autocomplete="off" class="col-span-2 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-2.5 py-1 text-[11px] font-medium text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
-          <select id="transPlLockSelect" class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1.5 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-            <option value="">All PL Lock</option>
-          </select>
-          <select id="transPersonSelect" class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1.5 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-            <option value="">All Person</option>
-          </select>
-          <div class="relative" id="transModeWrapper">
-            <button id="transModeBtn" type="button" class="w-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 flex items-center justify-between focus:outline-none focus:ring-1 focus:ring-indigo-500">
-              <span id="transModeBtnLabel" class="truncate">All Mode</span>
-              <span class="text-[9px] text-slate-400 ml-1">▾</span>
-            </button>
-            <div id="transModeDropdown" class="hidden absolute left-0 mt-1 w-48 max-h-56 overflow-y-auto bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl z-30 p-1.5 space-y-0.5">
-              <div class="flex items-center justify-between px-2 py-1 border-b border-slate-100 dark:border-zinc-800 mb-1">
-                <span class="text-[10px] font-extrabold uppercase text-slate-400">Select Modes</span>
-                <button id="transModeClearBtn" type="button" class="text-[10px] font-bold text-rose-600 dark:text-rose-400 hover:underline">All</button>
-              </div>
-              <div id="transModeChecksContainer" class="space-y-0.5"></div>
-            </div>
-          </div>
-          <select id="transStatusSelect" class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-1.5 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-indigo-500">
-            <option value="">All Status</option>
-          </select>
+          <div id="transPlLockFilter" class="relative"></div>
+          <div id="transPersonFilter" class="relative"></div>
+          <div id="transModeFilter" class="relative"></div>
+          <div id="transStatusFilter" class="relative"></div>
         </div>
       </div>
 
@@ -379,6 +361,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=27"></script>
+  <script src="app.js?v=28"></script>
 </body>
 </html>

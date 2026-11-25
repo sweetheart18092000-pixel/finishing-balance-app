@@ -88,16 +88,6 @@ const transUniqueCount = document.getElementById('transUniqueCount');
 const transWhatsappBtn = document.getElementById('transWhatsappBtn');
 const transFiltersRow = document.getElementById('transFiltersRow');
 const transSearchInput = document.getElementById('transSearchInput');
-const transPlLockSelect = document.getElementById('transPlLockSelect');
-const transPersonSelect = document.getElementById('transPersonSelect');
-const transStatusSelect = document.getElementById('transStatusSelect');
-const transModeWrapper = document.getElementById('transModeWrapper');
-const transModeBtn = document.getElementById('transModeBtn');
-const transModeBtnLabel = document.getElementById('transModeBtnLabel');
-const transModeDropdown = document.getElementById('transModeDropdown');
-const transModeClearBtn = document.getElementById('transModeClearBtn');
-const transModeChecksContainer = document.getElementById('transModeChecksContainer');
-let selectedTransModes = new Set();
 const transTableHeader = document.getElementById('transTableHeader');
 const transList = document.getElementById('transList');
 
@@ -410,75 +400,105 @@ tabTransBtn.addEventListener('click', () => {
   renderHomeTab();
 });
 
+const transMultiFilters = {};
+
+function createMultiFilter(containerId, defaultLabel, alignRight = false) {
+  const container = document.getElementById(containerId);
+  const selected = new Set();
+  const state = { container, defaultLabel, selected };
+  if (!container) return state;
+
+  container.innerHTML = `
+    <button type="button" class="mf-btn w-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-lg px-2 py-1 text-[11px] font-bold text-slate-800 dark:text-zinc-100 flex items-center justify-between focus:outline-none focus:ring-1 focus:ring-indigo-500">
+      <span class="mf-label truncate">${escapeHtml(defaultLabel)}</span>
+      <span class="text-[9px] text-slate-400 ml-1">▾</span>
+    </button>
+    <div class="mf-drop hidden absolute ${alignRight ? 'right-0' : 'left-0'} mt-1 w-48 max-h-56 overflow-y-auto bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl z-30 p-1.5 space-y-0.5">
+      <div class="flex items-center justify-between px-2 py-1 border-b border-slate-100 dark:border-zinc-800 mb-1">
+        <span class="text-[10px] font-extrabold uppercase text-slate-400">${escapeHtml(defaultLabel)}</span>
+        <button type="button" class="mf-clear text-[10px] font-bold text-rose-600 dark:text-rose-400 hover:underline">All</button>
+      </div>
+      <div class="mf-list space-y-0.5"></div>
+    </div>
+  `;
+
+  const btn = container.querySelector('.mf-btn');
+  const drop = container.querySelector('.mf-drop');
+  const labelEl = container.querySelector('.mf-label');
+  const clearBtn = container.querySelector('.mf-clear');
+  const listEl = container.querySelector('.mf-list');
+
+  function updateLabel() {
+    if (selected.size === 0) labelEl.textContent = defaultLabel;
+    else if (selected.size === 1) labelEl.textContent = Array.from(selected)[0];
+    else labelEl.textContent = `${selected.size} Selected`;
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.mf-drop').forEach(d => {
+      if (d !== drop) d.classList.add('hidden');
+    });
+    drop.classList.toggle('hidden');
+  });
+
+  listEl.addEventListener('change', (e) => {
+    const cb = e.target.closest('input.mf-cb');
+    if (!cb) return;
+    if (cb.checked) selected.add(cb.value);
+    else selected.delete(cb.value);
+    updateLabel();
+    renderTransmission();
+  });
+
+  clearBtn.addEventListener('click', () => {
+    selected.clear();
+    listEl.querySelectorAll('input.mf-cb').forEach(cb => { cb.checked = false; });
+    updateLabel();
+    renderTransmission();
+  });
+
+  state.setOptions = (options) => {
+    listEl.innerHTML = options.map(opt => `
+      <label class="flex items-center space-x-2 px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 cursor-pointer text-[11px] font-semibold text-slate-800 dark:text-zinc-100">
+        <input type="checkbox" value="${escapeHtml(opt)}" ${selected.has(opt) ? 'checked' : ''} class="mf-cb w-3.5 h-3.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 shrink-0" />
+        <span class="truncate">${escapeHtml(opt)}</span>
+      </label>
+    `).join('');
+    updateLabel();
+  };
+
+  return state;
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#transFiltersRow')) {
+    document.querySelectorAll('.mf-drop').forEach(d => d.classList.add('hidden'));
+  }
+});
+
 function initTransmissionControls() {
   const trans = appData?.transmission;
   if (!trans) return;
   transUniqueCount.textContent = (trans.unique_m_jobs || []).length;
 
+  if (!transMultiFilters.plLock) {
+    transMultiFilters.plLock = createMultiFilter('transPlLockFilter', 'All PL Lock', false);
+    transMultiFilters.person = createMultiFilter('transPersonFilter', 'All Person', true);
+    transMultiFilters.mode = createMultiFilter('transModeFilter', 'All Mode', false);
+    transMultiFilters.status = createMultiFilter('transStatusFilter', 'All Status', true);
+  }
+
   const plLocks = Array.from(new Set(trans.jobs.map(j => j.pl_lock).filter(Boolean))).sort();
-  transPlLockSelect.innerHTML = `<option value="">All PL Lock</option>` +
-    plLocks.map(l => `<option value="${escapeHtml(l)}">${escapeHtml(l)}</option>`).join('');
-
   const persons = Array.from(new Set(trans.jobs.map(j => j.person).filter(Boolean))).sort();
-  transPersonSelect.innerHTML = `<option value="">All Person</option>` +
-    persons.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
-
-  const statuses = Array.from(new Set(trans.jobs.map(j => j.job_status).filter(Boolean))).sort();
-  transStatusSelect.innerHTML = `<option value="">All Status</option>` +
-    statuses.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
-
   const modes = Array.from(new Set(trans.jobs.map(j => j.mode).filter(Boolean))).sort();
-  if (transModeChecksContainer) {
-    transModeChecksContainer.innerHTML = modes.map(m => `
-      <label class="flex items-center space-x-2 px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 cursor-pointer text-[11px] font-semibold text-slate-800 dark:text-zinc-100">
-        <input type="checkbox" value="${escapeHtml(m)}" ${selectedTransModes.has(m) ? 'checked' : ''} class="trans-mode-cb w-3.5 h-3.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 shrink-0" />
-        <span class="truncate">${escapeHtml(m)}</span>
-      </label>
-    `).join('');
-  }
-  updateTransModeLabel();
+  const statuses = Array.from(new Set(trans.jobs.map(j => j.job_status).filter(Boolean))).sort();
+
+  transMultiFilters.plLock.setOptions(plLocks);
+  transMultiFilters.person.setOptions(persons);
+  transMultiFilters.mode.setOptions(modes);
+  transMultiFilters.status.setOptions(statuses);
 }
-
-function updateTransModeLabel() {
-  if (!transModeBtnLabel) return;
-  if (selectedTransModes.size === 0) {
-    transModeBtnLabel.textContent = 'All Mode';
-  } else if (selectedTransModes.size === 1) {
-    transModeBtnLabel.textContent = Array.from(selectedTransModes)[0];
-  } else {
-    transModeBtnLabel.textContent = `${selectedTransModes.size} Modes`;
-  }
-}
-
-transModeBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  transModeDropdown.classList.toggle('hidden');
-});
-
-transModeChecksContainer.addEventListener('change', (e) => {
-  const cb = e.target.closest('input.trans-mode-cb');
-  if (!cb) return;
-  if (cb.checked) {
-    selectedTransModes.add(cb.value);
-  } else {
-    selectedTransModes.delete(cb.value);
-  }
-  updateTransModeLabel();
-  renderTransmission();
-});
-
-transModeClearBtn.addEventListener('click', () => {
-  selectedTransModes.clear();
-  transModeChecksContainer.querySelectorAll('input.trans-mode-cb').forEach(cb => { cb.checked = false; });
-  updateTransModeLabel();
-  renderTransmission();
-});
-
-document.addEventListener('click', (e) => {
-  if (transModeWrapper && !transModeWrapper.contains(e.target)) {
-    transModeDropdown.classList.add('hidden');
-  }
-});
 
 transModeJobsBtn.addEventListener('click', () => {
   transViewMode = 'jobs';
@@ -498,10 +518,7 @@ transModeUniqueBtn.addEventListener('click', () => {
   renderTransmission();
 });
 
-[transSearchInput, transPlLockSelect, transPersonSelect, transStatusSelect].forEach(el => {
-  el.addEventListener('input', renderTransmission);
-  el.addEventListener('change', renderTransmission);
-});
+transSearchInput.addEventListener('input', renderTransmission);
 
 function renderTransmission() {
   if (!appData || currentJob || activeHomeTab !== 'transmission') {
@@ -539,15 +556,16 @@ function renderTransmission() {
   }
 
   const q = transSearchInput.value.trim().toUpperCase();
-  const plFilter = transPlLockSelect.value;
-  const pFilter = transPersonSelect.value;
-  const sFilter = transStatusSelect.value;
+  const plSet = transMultiFilters.plLock?.selected;
+  const pSet = transMultiFilters.person?.selected;
+  const mSet = transMultiFilters.mode?.selected;
+  const sSet = transMultiFilters.status?.selected;
 
   const filtered = trans.jobs.filter(j => {
-    if (plFilter && j.pl_lock !== plFilter) return false;
-    if (pFilter && j.person !== pFilter) return false;
-    if (sFilter && j.job_status !== sFilter) return false;
-    if (selectedTransModes.size > 0 && !selectedTransModes.has(j.mode)) return false;
+    if (plSet && plSet.size > 0 && !plSet.has(j.pl_lock)) return false;
+    if (pSet && pSet.size > 0 && !pSet.has(j.person)) return false;
+    if (mSet && mSet.size > 0 && !mSet.has(j.mode)) return false;
+    if (sSet && sSet.size > 0 && !sSet.has(j.job_status)) return false;
     if (q) {
       return j.job_no.toUpperCase().includes(q) ||
         j.m_job.toUpperCase().includes(q) ||
