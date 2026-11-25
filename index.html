@@ -137,21 +137,13 @@
           </button>
         </div>
       </div>
-      <!-- Masters Single-Line Grid -->
-      <div class="overflow-x-auto bg-slate-100/60 dark:bg-zinc-950/50">
-        <div class="min-w-[660px]">
-          <div id="nearTableHeader" class="grid grid-cols-[66px_82px_68px_1fr_58px_66px_64px_64px] gap-1.5 px-3 py-1.5 bg-slate-50/90 dark:bg-zinc-900 text-[9.5px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-zinc-500 border-b border-slate-200/70 dark:border-zinc-800">
-            <div>M_JOB</div>
-            <div>PC9</div>
-            <div>CUSTOMER</div>
-            <div>COLOR</div>
-            <div>SHADE</div>
-            <div class="text-center">1st EXF</div>
-            <div class="text-right">MAX</div>
-            <div id="nearRightColHdr" class="text-right">BAL</div>
-          </div>
-          <div id="nearClosingList" class="p-2 space-y-1.5"></div>
+      <!-- Masters Responsive Card List (Fits mobile cleanly, no horizontal scroll) -->
+      <div class="bg-slate-100/60 dark:bg-zinc-950/50">
+        <div id="nearTableHeader" class="px-3 py-1.5 bg-slate-50/90 dark:bg-zinc-900 text-[9.5px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-zinc-500 border-b border-slate-200/70 dark:border-zinc-800 flex items-center justify-between">
+          <span>M_JOB • PC9 • CUST / COLOR • SHADE</span>
+          <span id="nearRightColHdr">BAL / EXF / MAX</span>
         </div>
+        <div id="nearClosingList" class="p-2 space-y-2"></div>
       </div>
     </section>
 
@@ -377,6 +369,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=44"></script>
+  <script src="app.js?v=45"></script>
 </body>
 </html>

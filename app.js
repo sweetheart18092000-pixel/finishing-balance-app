@@ -227,7 +227,7 @@ function getExfBadgeHtml(exfStr) {
 }
 
 function updateHomeModeUI() {
-  if (nearRightColHdr) nearRightColHdr.textContent = 'BAL';
+  if (nearRightColHdr) nearRightColHdr.textContent = 'BAL / EXF / MAX';
   if (nearSortBy === 'exf') {
     nearSortBtn.textContent = 'EXF';
   } else if (nearSortBy === 'bal') {
@@ -342,17 +342,31 @@ function renderNearClosingJobs() {
           accentBorder = 'border-l-emerald-500';
         }
       }
-      const shortExf = (item.exf || '-').replace(/-\d{2}$/, '');
       return `
-        <div data-near-job="${escapeHtml(item.mj)}" class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 border-l-[3px] ${accentBorder} grid grid-cols-[66px_82px_68px_1fr_58px_66px_64px_64px] gap-1.5 items-center px-3 py-2 shadow-2xs hover:shadow-sm hover:border-blue-300 dark:hover:border-zinc-700 cursor-pointer transition text-[11px] whitespace-nowrap">
-          <div class="font-mono font-extrabold text-blue-700 dark:text-sky-400 truncate">${escapeHtml(item.mj)}</div>
-          <div class="font-mono text-[10.5px] text-slate-600 dark:text-zinc-300 truncate">${escapeHtml(item.pc9 || '-')}</div>
-          <div class="font-bold text-slate-700 dark:text-zinc-200 truncate text-[10.5px]">${escapeHtml(item.cust || '-')}</div>
-          <div class="font-bold text-slate-800 dark:text-zinc-100 truncate" title="${escapeHtml(item.color)}">${escapeHtml(item.color)}</div>
-          <div class="text-[10px] font-semibold text-slate-500 dark:text-zinc-400 truncate">${escapeHtml(item.shade || '-')}</div>
-          <div class="text-center text-[10.5px] font-bold text-amber-600 dark:text-amber-400">${escapeHtml(shortExf)}</div>
-          <div class="text-right font-mono font-semibold text-slate-500 dark:text-zinc-400 tabular-nums">${fmtNum(item.mx)}</div>
-          <div class="text-right font-mono font-extrabold ${balCls} tabular-nums text-xs">${item.hasOp ? fmtNum(item.bal) : '-'}</div>
+        <div data-near-job="${escapeHtml(item.mj)}" class="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 border-l-[3px] ${accentBorder} px-3 py-2.5 shadow-2xs hover:shadow-sm hover:border-blue-300 dark:hover:border-zinc-700 cursor-pointer transition space-y-1">
+          <!-- Line 1: M_JOB | PC9 | CUSTOMER | (Right: BAL) -->
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-1.5 min-w-0">
+              <span class="px-1.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-sky-300 font-mono font-extrabold text-[10.5px] shrink-0">${escapeHtml(item.mj)}</span>
+              <span class="text-[10.5px] font-mono text-slate-500 dark:text-zinc-400 shrink-0">${escapeHtml(item.pc9 || '-')}</span>
+              ${item.cust ? `<span class="text-[9.5px] font-bold px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 truncate">${escapeHtml(item.cust)}</span>` : ''}
+            </div>
+            <span class="text-xs font-mono font-extrabold ${balCls} tabular-nums shrink-0">${item.hasOp ? fmtNum(item.bal) : '-'}</span>
+          </div>
+
+          <!-- Line 2: COLOR | SHADE | 1st EXF -->
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-1.5 min-w-0">
+              <span class="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate">${escapeHtml(item.color)}</span>
+              ${item.shade && item.shade !== '-' ? `<span class="text-[10px] font-semibold text-slate-400 dark:text-zinc-500 shrink-0">• ${escapeHtml(item.shade)}</span>` : ''}
+            </div>
+            <div class="shrink-0 leading-tight text-right">${getExfBadgeHtml(item.exf)}</div>
+          </div>
+
+          <!-- Line 3: Right Side MAX -->
+          <div class="flex justify-end">
+            <span class="text-[10px] font-mono text-slate-400 dark:text-zinc-500 tabular-nums">MAX: <strong class="text-slate-600 dark:text-zinc-300">${fmtNum(item.mx)}</strong></span>
+          </div>
         </div>
       `;
     }).join('');
