@@ -414,10 +414,10 @@ function createMultiFilter(containerId, defaultLabel, alignRight = false) {
       <span class="mf-label truncate">${escapeHtml(defaultLabel)}</span>
       <span class="text-[9px] text-slate-400 ml-1">▾</span>
     </button>
-    <div class="mf-drop hidden absolute ${alignRight ? 'right-0' : 'left-0'} mt-1 w-48 max-h-56 overflow-y-auto bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl z-30 p-1.5 space-y-0.5">
+    <div class="mf-drop hidden absolute ${alignRight ? 'right-0' : 'left-0'} mt-1 w-52 max-h-60 overflow-y-auto bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 rounded-xl shadow-xl z-30 p-1.5 space-y-0.5">
       <div class="flex items-center justify-between px-2 py-1 border-b border-slate-100 dark:border-zinc-800 mb-1">
-        <span class="text-[10px] font-extrabold uppercase text-slate-400">${escapeHtml(defaultLabel)}</span>
-        <button type="button" class="mf-clear text-[10px] font-bold text-rose-600 dark:text-rose-400 hover:underline">All</button>
+        <button type="button" class="mf-select-all text-[10px] font-bold text-blue-600 dark:text-sky-400 hover:underline">Select All</button>
+        <button type="button" class="mf-clear text-[10px] font-bold text-rose-600 dark:text-rose-400 hover:underline">Clear</button>
       </div>
       <div class="mf-list space-y-0.5"></div>
     </div>
@@ -426,13 +426,19 @@ function createMultiFilter(containerId, defaultLabel, alignRight = false) {
   const btn = container.querySelector('.mf-btn');
   const drop = container.querySelector('.mf-drop');
   const labelEl = container.querySelector('.mf-label');
+  const selectAllBtn = container.querySelector('.mf-select-all');
   const clearBtn = container.querySelector('.mf-clear');
   const listEl = container.querySelector('.mf-list');
+  let currentOptions = [];
 
   function updateLabel() {
-    if (selected.size === 0) labelEl.textContent = defaultLabel;
-    else if (selected.size === 1) labelEl.textContent = Array.from(selected)[0];
-    else labelEl.textContent = `${selected.size} Selected`;
+    if (selected.size === 0 || (currentOptions.length > 0 && selected.size === currentOptions.length)) {
+      labelEl.textContent = defaultLabel;
+    } else if (selected.size === 1) {
+      labelEl.textContent = Array.from(selected)[0];
+    } else {
+      labelEl.textContent = `${selected.size} Selected`;
+    }
   }
 
   btn.addEventListener('click', (e) => {
@@ -452,6 +458,13 @@ function createMultiFilter(containerId, defaultLabel, alignRight = false) {
     renderTransmission();
   });
 
+  selectAllBtn.addEventListener('click', () => {
+    currentOptions.forEach(opt => selected.add(opt));
+    listEl.querySelectorAll('input.mf-cb').forEach(cb => { cb.checked = true; });
+    updateLabel();
+    renderTransmission();
+  });
+
   clearBtn.addEventListener('click', () => {
     selected.clear();
     listEl.querySelectorAll('input.mf-cb').forEach(cb => { cb.checked = false; });
@@ -460,6 +473,7 @@ function createMultiFilter(containerId, defaultLabel, alignRight = false) {
   });
 
   state.setOptions = (options) => {
+    currentOptions = options;
     listEl.innerHTML = options.map(opt => `
       <label class="flex items-center space-x-2 px-2 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-800 cursor-pointer text-[11px] font-semibold text-slate-800 dark:text-zinc-100">
         <input type="checkbox" value="${escapeHtml(opt)}" ${selected.has(opt) ? 'checked' : ''} class="mf-cb w-3.5 h-3.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 shrink-0" />
@@ -529,33 +543,6 @@ function renderTransmission() {
 
   const trans = appData.transmission || { total_jobs: 0, unique_m_jobs: [], jobs: [] };
 
-  if (transViewMode === 'unique') {
-    const uniq = trans.unique_m_jobs || [];
-    if (uniq.length === 0) {
-      transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No Unique M_Jobs found.</div>';
-    } else {
-      transList.innerHTML = uniq.map((mj, idx) => {
-        const count = trans.jobs.filter(j => j.m_job === mj).length;
-        const info = appData.jobs[mj];
-        return `
-          <div data-trans-mjob="${escapeHtml(mj)}" class="px-3 py-2 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
-            <div class="min-w-0">
-              <div class="flex items-center space-x-2">
-                <span class="text-[10px] font-bold text-slate-400 w-5">${idx + 1}.</span>
-                <span class="font-mono font-extrabold text-xs text-indigo-700 dark:text-sky-400">${escapeHtml(mj)}</span>
-                ${info?.customer ? `<span class="text-[9px] font-bold px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300">${escapeHtml(info.customer)}</span>` : ''}
-              </div>
-              ${info?.color ? `<div class="text-[11px] font-bold text-slate-700 dark:text-zinc-200 truncate pl-7 mt-0.5">${escapeHtml(info.color)}</div>` : ''}
-            </div>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 shrink-0">${count} Jobs</span>
-          </div>
-        `;
-      }).join('');
-    }
-    transmissionCard.classList.remove('hidden');
-    return;
-  }
-
   const q = transSearchInput.value.trim().toUpperCase();
   const plSet = transMultiFilters.plLock?.selected;
   const pSet = transMultiFilters.person?.selected;
@@ -580,10 +567,43 @@ function renderTransmission() {
   });
 
   lastTransItems = filtered;
+  if (tabTransCount) {
+    tabTransCount.textContent = filtered.length;
+  }
   if (transFilteredCount) {
     transFilteredCount.textContent = filtered.length === trans.jobs.length
       ? `${trans.jobs.length}`
       : `${filtered.length} / ${trans.jobs.length}`;
+  }
+  const filteredUnique = Array.from(new Set(filtered.map(j => j.m_job).filter(Boolean)));
+  if (transUniqueCount) {
+    transUniqueCount.textContent = filteredUnique.length;
+  }
+
+  if (transViewMode === 'unique') {
+    if (filteredUnique.length === 0) {
+      transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No Unique M_Jobs found.</div>';
+    } else {
+      transList.innerHTML = filteredUnique.map((mj, idx) => {
+        const count = filtered.filter(j => j.m_job === mj).length;
+        const info = appData.jobs[mj];
+        return `
+          <div data-trans-mjob="${escapeHtml(mj)}" class="px-3 py-2 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
+            <div class="min-w-0">
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] font-bold text-slate-400 w-5">${idx + 1}.</span>
+                <span class="font-mono font-extrabold text-xs text-indigo-700 dark:text-sky-400">${escapeHtml(mj)}</span>
+                ${info?.customer ? `<span class="text-[9px] font-bold px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300">${escapeHtml(info.customer)}</span>` : ''}
+              </div>
+              ${info?.color ? `<div class="text-[11px] font-bold text-slate-700 dark:text-zinc-200 truncate pl-7 mt-0.5">${escapeHtml(info.color)}</div>` : ''}
+            </div>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 shrink-0">${count} Jobs</span>
+          </div>
+        `;
+      }).join('');
+    }
+    transmissionCard.classList.remove('hidden');
+    return;
   }
 
   if (filtered.length === 0) {
