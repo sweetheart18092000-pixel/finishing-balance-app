@@ -115,7 +115,7 @@ const shareNativeBtn = document.getElementById('shareNativeBtn');
 
 function fmtNum(val) {
   if (val === null || val === undefined || isNaN(val)) return '-';
-  return Number(val).toLocaleString(undefined, { maximumFractionDigits: 2 });
+  return Math.round(Number(val)).toLocaleString();
 }
 
 function escapeHtml(str) {
