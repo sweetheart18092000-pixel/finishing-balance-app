@@ -88,6 +88,7 @@ const transUniqueCount = document.getElementById('transUniqueCount');
 const transWhatsappBtn = document.getElementById('transWhatsappBtn');
 const transFiltersRow = document.getElementById('transFiltersRow');
 const transSearchInput = document.getElementById('transSearchInput');
+const transPlLockSelect = document.getElementById('transPlLockSelect');
 const transPersonSelect = document.getElementById('transPersonSelect');
 const transStatusSelect = document.getElementById('transStatusSelect');
 const transModeWrapper = document.getElementById('transModeWrapper');
@@ -414,6 +415,10 @@ function initTransmissionControls() {
   if (!trans) return;
   transUniqueCount.textContent = (trans.unique_m_jobs || []).length;
 
+  const plLocks = Array.from(new Set(trans.jobs.map(j => j.pl_lock).filter(Boolean))).sort();
+  transPlLockSelect.innerHTML = `<option value="">All PL Lock</option>` +
+    plLocks.map(l => `<option value="${escapeHtml(l)}">${escapeHtml(l)}</option>`).join('');
+
   const persons = Array.from(new Set(trans.jobs.map(j => j.person).filter(Boolean))).sort();
   transPersonSelect.innerHTML = `<option value="">All Person</option>` +
     persons.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
@@ -493,7 +498,7 @@ transModeUniqueBtn.addEventListener('click', () => {
   renderTransmission();
 });
 
-[transSearchInput, transPersonSelect, transStatusSelect].forEach(el => {
+[transSearchInput, transPlLockSelect, transPersonSelect, transStatusSelect].forEach(el => {
   el.addEventListener('input', renderTransmission);
   el.addEventListener('change', renderTransmission);
 });
@@ -534,10 +539,12 @@ function renderTransmission() {
   }
 
   const q = transSearchInput.value.trim().toUpperCase();
+  const plFilter = transPlLockSelect.value;
   const pFilter = transPersonSelect.value;
   const sFilter = transStatusSelect.value;
 
   const filtered = trans.jobs.filter(j => {
+    if (plFilter && j.pl_lock !== plFilter) return false;
     if (pFilter && j.person !== pFilter) return false;
     if (sFilter && j.job_status !== sFilter) return false;
     if (selectedTransModes.size > 0 && !selectedTransModes.has(j.mode)) return false;
@@ -568,6 +575,7 @@ function renderTransmission() {
           </div>
           <div class="text-[11px] font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(j.wash || '-')}</div>
           <div class="flex items-center space-x-1.5 text-[9.5px] text-slate-500 dark:text-zinc-400 mt-0.5 truncate">
+            ${j.pl_lock ? `<span class="font-bold text-slate-700 dark:text-zinc-300">${escapeHtml(j.pl_lock)}</span><span>•</span>` : ''}
             <span>${escapeHtml(j.person || '-')}</span>
             <span>•</span>
             <span class="font-semibold text-amber-700 dark:text-amber-400">${escapeHtml(j.job_status || '-')}</span>
