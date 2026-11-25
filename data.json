@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25 15:16:24",
+  "updated_at": "2026-11-25 15:32:09",
   "total_jobs": 201,
   "operations_list": [
     "4 HOLE BUTTON",
@@ -73,6 +73,7 @@
     "M07520": {
       "main_job": "M07520",
       "pc9": "A7141-0010",
+      "shade": "LIGHT",
       "first_exf": "04-Dec-26",
       "max": 56591.0,
       "customer": "RED",
@@ -203,6 +204,7 @@
     "M07890": {
       "main_job": "M07890",
       "pc9": "A4694-0086",
+      "shade": "DARK",
       "first_exf": "03-Dec-26",
       "max": 2378.0,
       "customer": "LEVIS",
@@ -303,6 +305,7 @@
     "M07696": {
       "main_job": "M07696",
       "pc9": "A3410-0215",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 3181.0,
       "customer": "LEVIS",
@@ -421,6 +424,7 @@
     "M07609": {
       "main_job": "M07609",
       "pc9": "94354-0086",
+      "shade": "DARK BLACK",
       "first_exf": "18-Dec-26",
       "max": 1224.0,
       "customer": "GOLD",
@@ -521,6 +525,7 @@
     "M07638": {
       "main_job": "M07638",
       "pc9": "38264-0047",
+      "shade": "WHITE",
       "first_exf": "27-Nov-26",
       "max": 2520.42,
       "customer": "RED",
@@ -621,6 +626,7 @@
     "M07701": {
       "main_job": "M07701",
       "pc9": "18759-0299",
+      "shade": "MEDIUM",
       "first_exf": "03-Dec-26",
       "max": 23427.0,
       "customer": "LEVIS",
@@ -739,6 +745,7 @@
     "M07256": {
       "main_job": "M07256",
       "pc9": "A2898-0011",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 2448.0,
       "customer": "GOLD",
@@ -845,6 +852,7 @@
     "M07680": {
       "main_job": "M07680",
       "pc9": "A7805-0002",
+      "shade": "DARK",
       "first_exf": "22-Jan-27",
       "max": 1224.0,
       "customer": "GOLD",
@@ -945,6 +953,7 @@
     "M07747": {
       "main_job": "M07747",
       "pc9": "19632-0183",
+      "shade": "MEDIUM",
       "first_exf": "03-Dec-26",
       "max": 1153.62,
       "customer": "LEVIS",
@@ -1045,6 +1054,7 @@
     "M07794": {
       "main_job": "M07794",
       "pc9": "39252-0067",
+      "shade": "MEDIUM",
       "first_exf": "20-Nov-26",
       "max": 413.0,
       "customer": "LEVIS",
@@ -1151,6 +1161,7 @@
     "M07646": {
       "main_job": "M07646",
       "pc9": "007UU-0000",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 16717.0,
       "customer": "LEVIS",
@@ -1257,6 +1268,7 @@
     "M07766": {
       "main_job": "M07766",
       "pc9": "007UU-0000",
+      "shade": "MEDIUM",
       "first_exf": "15-Jan-27",
       "max": 11368.0,
       "customer": "LEVIS",
@@ -1369,6 +1381,7 @@
     "M07798": {
       "main_job": "M07798",
       "pc9": "94451-0022",
+      "shade": "",
       "first_exf": "18-Dec-26",
       "max": 3963.0,
       "customer": "GOLD",
@@ -1469,6 +1482,7 @@
     "M07375": {
       "main_job": "M07375",
       "pc9": "009CR-0002",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 11984.0,
       "customer": "RED",
@@ -1599,6 +1613,7 @@
     "M07666": {
       "main_job": "M07666",
       "pc9": "18759-0050",
+      "shade": "DARK",
       "first_exf": "26-Nov-26",
       "max": 2598.0,
       "customer": "LEVIS",
@@ -1699,6 +1714,7 @@
     "M07667": {
       "main_job": "M07667",
       "pc9": "18882-0023",
+      "shade": "DARK",
       "first_exf": "03-Dec-26",
       "max": 1661.0,
       "customer": "LEVIS",
@@ -1799,6 +1815,7 @@
     "M07813": {
       "main_job": "M07813",
       "pc9": "18759-0050",
+      "shade": "DARK",
       "first_exf": "31-Dec-26",
       "max": 3795.0,
       "customer": "LEVIS",
@@ -1905,6 +1922,7 @@
     "M07814": {
       "main_job": "M07814",
       "pc9": "18882-0023",
+      "shade": "DARK",
       "first_exf": "31-Dec-26",
       "max": 1729.0,
       "customer": "LEVIS",
@@ -2011,6 +2029,7 @@
     "M07815": {
       "main_job": "M07815",
       "pc9": "18883-0011",
+      "shade": "DARK",
       "first_exf": "31-Dec-26",
       "max": 1579.0,
       "customer": "LEVIS",
@@ -2117,6 +2136,7 @@
     "M07685": {
       "main_job": "M07685",
       "pc9": "94525-0052",
+      "shade": "LIGHT",
       "first_exf": "04-Dec-26",
       "max": 1530.0,
       "customer": "GOLD",
@@ -2223,6 +2243,7 @@
     "M07803": {
       "main_job": "M07803",
       "pc9": "94525-0052",
+      "shade": "LIGHT",
       "first_exf": "01-Jan-27",
       "max": 4606.0,
       "customer": "GOLD",
@@ -2323,6 +2344,7 @@
     "M07714": {
       "main_job": "M07714",
       "pc9": "007UU-0001",
+      "shade": "MEDIUM",
       "first_exf": "08-Jan-27",
       "max": 6844.0,
       "customer": "LEVIS",
@@ -2435,6 +2457,7 @@
     "M07490": {
       "main_job": "M07490",
       "pc9": "006WA-0002",
+      "shade": "LIGHT",
       "first_exf": "18-Dec-26",
       "max": 4687.92,
       "customer": "GOLD/SHIRT",
@@ -2535,6 +2558,7 @@
     "M07674": {
       "main_job": "M07674",
       "pc9": "24692-0111",
+      "shade": "DARK",
       "first_exf": "25-Dec-26",
       "max": 2272.56,
       "customer": "GOLD",
@@ -2641,6 +2665,7 @@
     "M07682": {
       "main_job": "M07682",
       "pc9": "74906-0058",
+      "shade": "DARK",
       "first_exf": "27-Nov-26",
       "max": 13356.0,
       "customer": "GOLD",
@@ -2747,6 +2772,7 @@
     "M07717": {
       "main_job": "M07717",
       "pc9": "19626-0001",
+      "shade": "DARK",
       "first_exf": "01-Dec-26",
       "max": 2776.0,
       "customer": "LEVIS",
@@ -2853,6 +2879,7 @@
     "M07712": {
       "main_job": "M07712",
       "pc9": "19631-0001",
+      "shade": "DARK",
       "first_exf": "26-Nov-26",
       "max": 2521.0,
       "customer": "LEVIS",
@@ -2953,6 +2980,7 @@
     "M07759": {
       "main_job": "M07759",
       "pc9": "19631-0001",
+      "shade": "DARK",
       "first_exf": "01-Dec-26",
       "max": 10881.0,
       "customer": "LEVIS",
@@ -3059,6 +3087,7 @@
     "M07741": {
       "main_job": "M07741",
       "pc9": "19627-0001",
+      "shade": "DARK",
       "first_exf": "01-Dec-26",
       "max": 10482.0,
       "customer": "LEVIS",
@@ -3159,6 +3188,7 @@
     "M07761": {
       "main_job": "M07761",
       "pc9": "19632-0001",
+      "shade": "DARK",
       "first_exf": "03-Dec-26",
       "max": 5670.0,
       "customer": "LEVIS",
@@ -3265,6 +3295,7 @@
     "M07716": {
       "main_job": "M07716",
       "pc9": "007UU-0004",
+      "shade": "LIGHT",
       "first_exf": "11-Dec-26",
       "max": 1722.0,
       "customer": "LEVIS",
@@ -3377,6 +3408,7 @@
     "M07314": {
       "main_job": "M07314",
       "pc9": "A3410-0081",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 15136.0,
       "customer": "LEVIS",
@@ -3483,6 +3515,7 @@
     "M07723": {
       "main_job": "M07723",
       "pc9": "A3410-0081",
+      "shade": "DARK",
       "first_exf": "01-Jan-27",
       "max": 6610.0,
       "customer": "LEVIS",
@@ -3589,6 +3622,7 @@
     "M07770": {
       "main_job": "M07770",
       "pc9": "19632-0162",
+      "shade": "DARK",
       "first_exf": "03-Dec-26",
       "max": 12779.0,
       "customer": "LEVIS",
@@ -3695,6 +3729,7 @@
     "M07703": {
       "main_job": "M07703",
       "pc9": "A3410-0076",
+      "shade": "LIGHT",
       "first_exf": "26-Nov-26",
       "max": 3719.0,
       "customer": "LEVIS",
@@ -3795,6 +3830,7 @@
     "M07695": {
       "main_job": "M07695",
       "pc9": "A3410-0115",
+      "shade": "MEDIUM",
       "first_exf": "26-Nov-26",
       "max": 3905.0,
       "customer": "LEVIS",
@@ -3901,6 +3937,7 @@
     "M07694": {
       "main_job": "M07694",
       "pc9": "18882-0788",
+      "shade": "MEDIUM",
       "first_exf": "26-Nov-26",
       "max": 5502.0,
       "customer": "LEVIS",
@@ -4007,6 +4044,7 @@
     "M07707": {
       "main_job": "M07707",
       "pc9": "18882-0788",
+      "shade": "MEDIUM",
       "first_exf": "10-Dec-26",
       "max": 8071.0,
       "customer": "LEVIS",
@@ -4113,6 +4151,7 @@
     "M07773": {
       "main_job": "M07773",
       "pc9": "19626-0635",
+      "shade": "MEDIUM",
       "first_exf": "10-Dec-26",
       "max": 12106.0,
       "customer": "LEVIS",
@@ -4225,6 +4264,7 @@
     "M07774": {
       "main_job": "M07774",
       "pc9": "19631-0279",
+      "shade": "MEDIUM",
       "first_exf": "10-Dec-26",
       "max": 13528.0,
       "customer": "LEVIS",
@@ -4325,6 +4365,7 @@
     "M07629": {
       "main_job": "M07629",
       "pc9": "00AMN-0001",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 3390.0,
       "customer": "LEVIS",
@@ -4431,6 +4472,7 @@
     "M07598": {
       "main_job": "M07598",
       "pc9": "008SY-0022",
+      "shade": "DARK",
       "first_exf": "26-Nov-26",
       "max": 21270.0,
       "customer": "LEVIS",
@@ -4531,6 +4573,7 @@
     "M07668": {
       "main_job": "M07668",
       "pc9": "008SY-0022",
+      "shade": "DARK",
       "first_exf": "10-Dec-26",
       "max": 18490.0,
       "customer": "LEVIS",
@@ -4637,6 +4680,7 @@
     "M07772": {
       "main_job": "M07772",
       "pc9": "001PZ-0062",
+      "shade": "DARK",
       "first_exf": "10-Dec-26",
       "max": 17404.0,
       "customer": "LEVIS",
@@ -4743,6 +4787,7 @@
     "M07424": {
       "main_job": "M07424",
       "pc9": "00AMN-0004",
+      "shade": "LIGHT",
       "first_exf": "20-Nov-26",
       "max": 1530.0,
       "customer": "LEVIS",
@@ -4849,6 +4894,7 @@
     "M07702": {
       "main_job": "M07702",
       "pc9": "008SY-0018",
+      "shade": "LIGHT",
       "first_exf": "10-Dec-26",
       "max": 16841.0,
       "customer": "LEVIS",
@@ -4961,6 +5007,7 @@
     "M07718": {
       "main_job": "M07718",
       "pc9": "005I3-0013",
+      "shade": "LIGHT",
       "first_exf": "11-Dec-26",
       "max": 5307.0,
       "customer": "LEVIS",
@@ -5067,6 +5114,7 @@
     "M07597": {
       "main_job": "M07597",
       "pc9": "008SY-0020",
+      "shade": "MEDIUM",
       "first_exf": "26-Nov-26",
       "max": 20774.0,
       "customer": "LEVIS",
@@ -5173,6 +5221,7 @@
     "M07704": {
       "main_job": "M07704",
       "pc9": "008SY-0020",
+      "shade": "MEDIUM",
       "first_exf": "10-Dec-26",
       "max": 17279.0,
       "customer": "LEVIS",
@@ -5273,6 +5322,7 @@
     "M07719": {
       "main_job": "M07719",
       "pc9": "005I3-0014",
+      "shade": "MEDIUM",
       "first_exf": "11-Dec-26",
       "max": 3324.0,
       "customer": "LEVIS",
@@ -5379,6 +5429,7 @@
     "M07526": {
       "main_job": "M07526",
       "pc9": "95250-0021",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 6304.0,
       "customer": "GOLD",
@@ -5485,6 +5536,7 @@
     "M07652": {
       "main_job": "M07652",
       "pc9": "A6189-0000",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 2346.0,
       "customer": "GOLD",
@@ -5585,6 +5637,7 @@
     "M07720": {
       "main_job": "M07720",
       "pc9": "008SY-0023",
+      "shade": "DARK",
       "first_exf": "03-Dec-26",
       "max": 16639.0,
       "customer": "LEVIS",
@@ -5691,6 +5744,7 @@
     "M07252": {
       "main_job": "M07252",
       "pc9": "006W7-0008",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 1530.0,
       "customer": "RED",
@@ -5827,6 +5881,7 @@
     "M07675": {
       "main_job": "M07675",
       "pc9": "A2922-0006",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 2607.0,
       "customer": "GOLD",
@@ -5927,6 +5982,7 @@
     "M07237": {
       "main_job": "M07237",
       "pc9": "A2898-0010",
+      "shade": "MEDIUM",
       "first_exf": "28-Nov-26",
       "max": 5830.0,
       "customer": "GOLD",
@@ -6063,6 +6119,7 @@
     "M07253": {
       "main_job": "M07253",
       "pc9": "A2898-0010",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 1530.0,
       "customer": "GOLD",
@@ -6211,6 +6268,7 @@
     "M07601": {
       "main_job": "M07601",
       "pc9": "18759-0396",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 1534.0,
       "customer": "LEVIS",
@@ -6341,6 +6399,7 @@
     "M07627": {
       "main_job": "M07627",
       "pc9": "008T4-0001",
+      "shade": "LIGHT",
       "first_exf": "11-Dec-26",
       "max": 2769.3,
       "customer": "LEVIS",
@@ -6459,6 +6518,7 @@
     "M07257": {
       "main_job": "M07257",
       "pc9": "009CR-0000",
+      "shade": "MEDIUM",
       "first_exf": "11-Dec-26",
       "max": 7748.0,
       "customer": "GOLD",
@@ -6571,6 +6631,7 @@
     "M07420": {
       "main_job": "M07420",
       "pc9": "009NB-0001",
+      "shade": "DARK",
       "first_exf": "25-Dec-26",
       "max": 1841.1,
       "customer": "GOLD",
@@ -6665,6 +6726,7 @@
     "M07676": {
       "main_job": "M07676",
       "pc9": "A7805-0000",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 2546.94,
       "customer": "GOLD",
@@ -6765,6 +6827,7 @@
     "M07565": {
       "main_job": "M07565",
       "pc9": "86647-0057",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 12771.0,
       "customer": "GOLD",
@@ -6883,6 +6946,7 @@
     "M07688": {
       "main_job": "M07688",
       "pc9": "94525-0017",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 10849.0,
       "customer": "GOLD",
@@ -6989,6 +7053,7 @@
     "M07893": {
       "main_job": "M07893",
       "pc9": "52797-0464",
+      "shade": "DARK",
       "first_exf": "12-Dec-26",
       "max": 171.36,
       "customer": "LEVIS",
@@ -7089,6 +7154,7 @@
     "M07647": {
       "main_job": "M07647",
       "pc9": "19632-0141",
+      "shade": "MEDIUM",
       "first_exf": "18-Dec-26",
       "max": 8743.0,
       "customer": "LEVIS",
@@ -7195,6 +7261,7 @@
     "M07290": {
       "main_job": "M07290",
       "pc9": "00ALU-0000",
+      "shade": "LIGHT",
       "first_exf": "26-Nov-26",
       "max": 7161.0,
       "customer": "LEVIS",
@@ -7301,6 +7368,7 @@
     "M07655": {
       "main_job": "M07655",
       "pc9": "A2898-0005",
+      "shade": "LIGHT",
       "first_exf": "04-Dec-26",
       "max": 2460.24,
       "customer": "GOLD",
@@ -7407,6 +7475,7 @@
     "M07771": {
       "main_job": "M07771",
       "pc9": "18759-0297",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 11016.0,
       "customer": "LEVIS",
@@ -7519,6 +7588,7 @@
     "M07427": {
       "main_job": "M07427",
       "pc9": "005DR-0006",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 6312.0,
       "customer": "LEVIS",
@@ -7655,6 +7725,7 @@
     "M07673": {
       "main_job": "M07673",
       "pc9": "24692-0112",
+      "shade": "DARK",
       "first_exf": "11-Dec-26",
       "max": 1918.62,
       "customer": "GOLD",
@@ -7761,6 +7832,7 @@
     "M07779": {
       "main_job": "M07779",
       "pc9": "19627-0280",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 2787.0,
       "customer": "LEVIS",
@@ -7867,6 +7939,7 @@
     "M07426": {
       "main_job": "M07426",
       "pc9": "23669-0045",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 3619.0,
       "customer": "GOLD",
@@ -7979,6 +8052,7 @@
     "M07584": {
       "main_job": "M07584",
       "pc9": "001PZ-0065",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 16415.0,
       "customer": "LEVIS",
@@ -8091,6 +8165,7 @@
     "M07776": {
       "main_job": "M07776",
       "pc9": "001PZ-0065",
+      "shade": "MEDIUM",
       "first_exf": "17-Dec-26",
       "max": 9765.0,
       "customer": "LEVIS",
@@ -8209,6 +8284,7 @@
     "M07801": {
       "main_job": "M07801",
       "pc9": "003BG-0002",
+      "shade": "BLACK",
       "first_exf": "18-Dec-26",
       "max": 1648.32,
       "customer": "GOLD",
@@ -8309,6 +8385,7 @@
     "M07513": {
       "main_job": "M07513",
       "pc9": "A6081-0020",
+      "shade": "MEDIUM",
       "first_exf": "20-Nov-26",
       "max": 11973.0,
       "customer": "LEVIS",
@@ -8421,6 +8498,7 @@
     "M07626": {
       "main_job": "M07626",
       "pc9": "A6081-0020",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 13757.0,
       "customer": "LEVIS",
@@ -8545,6 +8623,7 @@
     "M07631": {
       "main_job": "M07631",
       "pc9": "A6081-0020",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 10505.0,
       "customer": "LEVIS",
@@ -8669,6 +8748,7 @@
     "M07383": {
       "main_job": "M07383",
       "pc9": "001GQ-0004",
+      "shade": "GREEN",
       "first_exf": "27-Nov-26",
       "max": 2190.96,
       "customer": "OLIVER",
@@ -8751,6 +8831,7 @@
     "M07410": {
       "main_job": "M07410",
       "pc9": "36738-0151",
+      "shade": "DARK GARY",
       "first_exf": "27-Nov-26",
       "max": 1872.72,
       "customer": "RED",
@@ -8869,6 +8950,7 @@
     "M07778": {
       "main_job": "M07778",
       "pc9": "19631-0204",
+      "shade": "DARK",
       "first_exf": "23-Dec-26",
       "max": 1438.0,
       "customer": "LEVIS",
@@ -8975,6 +9057,7 @@
     "M07677": {
       "main_job": "M07677",
       "pc9": "74906-0044",
+      "shade": "MEDIUM",
       "first_exf": "25-Dec-26",
       "max": 1681.98,
       "customer": "GOLD",
@@ -9081,6 +9164,7 @@
     "M07593": {
       "main_job": "M07593",
       "pc9": "006MS-0025",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 2529.0,
       "customer": "RED",
@@ -9193,6 +9277,7 @@
     "M07686": {
       "main_job": "M07686",
       "pc9": "A2897-0000",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 1530.0,
       "customer": "GOLD",
@@ -9293,6 +9378,7 @@
     "M07591": {
       "main_job": "M07591",
       "pc9": "009CW-0000",
+      "shade": "LIGHT",
       "first_exf": "04-Dec-26",
       "max": 15442.0,
       "customer": "LEVIS/SHORT",
@@ -9429,6 +9515,7 @@
     "M07315": {
       "main_job": "M07315",
       "pc9": "18882-0960",
+      "shade": "MEDIUM",
       "first_exf": "30-Dec-26",
       "max": 2194.02,
       "customer": "LEVIS",
@@ -9541,6 +9628,7 @@
     "M07891": {
       "main_job": "M07891",
       "pc9": "19631-0187",
+      "shade": "DARK",
       "first_exf": "14-Jan-27",
       "max": 1550.0,
       "customer": "LEVIS",
@@ -9647,6 +9735,7 @@
     "M07262": {
       "main_job": "M07262",
       "pc9": "009CW-0001",
+      "shade": "DARK",
       "first_exf": "18-Dec-26",
       "max": 7446.0,
       "customer": "RED",
@@ -9759,6 +9848,7 @@
     "M07608": {
       "main_job": "M07608",
       "pc9": "74906-0069",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 10302.0,
       "customer": "GOLD",
@@ -9877,6 +9967,7 @@
     "M07464": {
       "main_job": "M07464",
       "pc9": "009D3-0000",
+      "shade": "WHITE",
       "first_exf": "27-Nov-26",
       "max": 3121.2,
       "customer": "GOLD/SHIRT",
@@ -9947,6 +10038,7 @@
     "M07577": {
       "main_job": "M07577",
       "pc9": "00BCW-0001",
+      "shade": "WHITE",
       "first_exf": "11-Dec-26",
       "max": 10994.0,
       "customer": "GOLD/SHIRT",
@@ -10023,6 +10115,7 @@
     "M07570": {
       "main_job": "M07570",
       "pc9": "009CY-0002",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 3060.0,
       "customer": "GOLD",
@@ -10171,6 +10264,7 @@
     "M07561": {
       "main_job": "M07561",
       "pc9": "001PZ-0066",
+      "shade": "LIGHT",
       "first_exf": "20-Nov-26",
       "max": 8101.0,
       "customer": "LEVIS",
@@ -10277,6 +10371,7 @@
     "M07738": {
       "main_job": "M07738",
       "pc9": "001PZ-0066",
+      "shade": "LIGHT",
       "first_exf": "03-Dec-26",
       "max": 6446.0,
       "customer": "LEVIS",
@@ -10383,6 +10478,7 @@
     "M07781": {
       "main_job": "M07781",
       "pc9": "001PZ-0066",
+      "shade": "LIGHT",
       "first_exf": "08-Jan-27",
       "max": 1020.0,
       "customer": "LEVIS",
@@ -10489,6 +10585,7 @@
     "M07687": {
       "main_job": "M07687",
       "pc9": "A2897-0001",
+      "shade": "LIGHT",
       "first_exf": "04-Dec-26",
       "max": 6485.16,
       "customer": "GOLD",
@@ -10589,6 +10686,7 @@
     "M07355": {
       "main_job": "M07355",
       "pc9": "00APF-0001",
+      "shade": "DARK",
       "first_exf": "27-Nov-26",
       "max": 4005.0,
       "customer": "LEVIS",
@@ -10695,6 +10793,7 @@
     "M07625": {
       "main_job": "M07625",
       "pc9": "00APF-0001",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 8201.0,
       "customer": "LEVIS",
@@ -10801,6 +10900,7 @@
     "M07630": {
       "main_job": "M07630",
       "pc9": "00AMN-0003",
+      "shade": "DARK",
       "first_exf": "18-Dec-26",
       "max": 1997.16,
       "customer": "LEVIS",
@@ -10907,6 +11007,7 @@
     "M07604": {
       "main_job": "M07604",
       "pc9": "23669-0046",
+      "shade": "DARK",
       "first_exf": "27-Nov-26",
       "max": 1736.0,
       "customer": "GOLD",
@@ -11019,6 +11120,7 @@
     "M07582": {
       "main_job": "M07582",
       "pc9": "009D2-0001",
+      "shade": "LIGHT",
       "first_exf": "04-Dec-26",
       "max": 1531.02,
       "customer": "GOLD/SHIRT",
@@ -11101,6 +11203,7 @@
     "M07689": {
       "main_job": "M07689",
       "pc9": "A2897-0003",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 1664.64,
       "customer": "RED",
@@ -11201,6 +11304,7 @@
     "M07697": {
       "main_job": "M07697",
       "pc9": "86893-0046",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 1224.0,
       "customer": "LEVIS",
@@ -11313,6 +11417,7 @@
     "M07796": {
       "main_job": "M07796",
       "pc9": "0070D-0000",
+      "shade": "DARK",
       "first_exf": "01-Jan-27",
       "max": 2023.0,
       "customer": "RED",
@@ -11425,6 +11530,7 @@
     "M07527": {
       "main_job": "M07527",
       "pc9": "95250-0038",
+      "shade": "DARK",
       "first_exf": "27-Nov-26",
       "max": 2497.0,
       "customer": "GOLD",
@@ -11519,6 +11625,7 @@
     "M07311": {
       "main_job": "M07311",
       "pc9": "18759-0395",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 2508.0,
       "customer": "LEVIS",
@@ -11625,6 +11732,7 @@
     "M07762": {
       "main_job": "M07762",
       "pc9": "A0126-0020",
+      "shade": "",
       "first_exf": "04-Dec-26",
       "max": 1224.0,
       "customer": "LEVIS",
@@ -11731,6 +11839,7 @@
     "M07791": {
       "main_job": "M07791",
       "pc9": "19632-0000",
+      "shade": "BLACK",
       "first_exf": "03-Dec-26",
       "max": 5034.0,
       "customer": "LEVIS",
@@ -11825,6 +11934,7 @@
     "M07804": {
       "main_job": "M07804",
       "pc9": "18882-0024",
+      "shade": "BLACK",
       "first_exf": "17-Dec-26",
       "max": 6797.0,
       "customer": "LEVIS",
@@ -11895,6 +12005,7 @@
     "M07805": {
       "main_job": "M07805",
       "pc9": "18759-0063",
+      "shade": "BLACK",
       "first_exf": "25-Dec-26",
       "max": 10110.0,
       "customer": "LEVIS",
@@ -11995,6 +12106,7 @@
     "M07816": {
       "main_job": "M07816",
       "pc9": "18882-0024",
+      "shade": "BLACK",
       "first_exf": "31-Dec-26",
       "max": 3160.0,
       "customer": "LEVIS",
@@ -12101,6 +12213,7 @@
     "M07760": {
       "main_job": "M07760",
       "pc9": "19627-0000",
+      "shade": "BLACK",
       "first_exf": "03-Dec-26",
       "max": 5462.0,
       "customer": "LEVIS",
@@ -12195,6 +12308,7 @@
     "M07763": {
       "main_job": "M07763",
       "pc9": "19626-0000",
+      "shade": "BLACK",
       "first_exf": "10-Dec-26",
       "max": 1667.0,
       "customer": "LEVIS",
@@ -12289,6 +12403,7 @@
     "M07764": {
       "main_job": "M07764",
       "pc9": "19631-0000",
+      "shade": "BLACK",
       "first_exf": "10-Dec-26",
       "max": 5757.0,
       "customer": "LEVIS",
@@ -12389,6 +12504,7 @@
     "M07790": {
       "main_job": "M07790",
       "pc9": "001PZ-0005",
+      "shade": "BLACK",
       "first_exf": "04-Dec-26",
       "max": 9064.0,
       "customer": "LEVIS",
@@ -12483,6 +12599,7 @@
     "M07797": {
       "main_job": "M07797",
       "pc9": "A3410-0007",
+      "shade": "BLACK",
       "first_exf": "18-Dec-26",
       "max": 3267.0,
       "customer": "LEVIS",
@@ -12577,6 +12694,7 @@
     "M07830": {
       "main_job": "M07830",
       "pc9": "A3410-0007",
+      "shade": "BLACK",
       "first_exf": "31-Dec-26",
       "max": 1877.0,
       "customer": "LEVIS",
@@ -12671,6 +12789,7 @@
     "M07538": {
       "main_job": "M07538",
       "pc9": "24692-0101",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 3943.0,
       "customer": "GOLD",
@@ -12783,6 +12902,7 @@
     "M07351": {
       "main_job": "M07351",
       "pc9": "0098T-0005",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 4689.0,
       "customer": "LEVIS",
@@ -12895,6 +13015,7 @@
     "M07442": {
       "main_job": "M07442",
       "pc9": "009CU-0004",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 52731.0,
       "customer": "GOLD/SHIRT",
@@ -12971,6 +13092,7 @@
     "M07628": {
       "main_job": "M07628",
       "pc9": "0081C-0000",
+      "shade": "DARK GRAY",
       "first_exf": "27-Nov-26",
       "max": 4484.0,
       "customer": "LEVIS",
@@ -13077,6 +13199,7 @@
     "M07690": {
       "main_job": "M07690",
       "pc9": "001ZQ-0000",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 1969.62,
       "customer": "GOLD",
@@ -13177,6 +13300,7 @@
     "M07592": {
       "main_job": "M07592",
       "pc9": "009CW-0002",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 8274.0,
       "customer": "LEVIS/SHORT",
@@ -13301,6 +13425,7 @@
     "M07200": {
       "main_job": "M07200",
       "pc9": "003BJ-0002",
+      "shade": "LIGHT",
       "first_exf": "10-Nov-26",
       "max": 2129.76,
       "customer": "GOLD/ROMPER",
@@ -13407,6 +13532,7 @@
     "M07485": {
       "main_job": "M07485",
       "pc9": "004I7-0005",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 1530.0,
       "customer": "RED",
@@ -13513,6 +13639,7 @@
     "M07693": {
       "main_job": "M07693",
       "pc9": "003Y9-0026",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 3011.0,
       "customer": "RED",
@@ -13619,6 +13746,7 @@
     "M07654": {
       "main_job": "M07654",
       "pc9": "A2898-0004",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 3116.1,
       "customer": "GOLD",
@@ -13719,6 +13847,7 @@
     "M07384": {
       "main_job": "M07384",
       "pc9": "009CV-0002",
+      "shade": "LIGHT",
       "first_exf": "08-Jan-27",
       "max": 3876.0,
       "customer": "RED/SHIRT",
@@ -13813,6 +13942,7 @@
     "M07643": {
       "main_job": "M07643",
       "pc9": "001PZ-0004",
+      "shade": "LIGHT",
       "first_exf": "26-Nov-26",
       "max": 9552.0,
       "customer": "LEVIS",
@@ -13925,6 +14055,7 @@
     "M07780": {
       "main_job": "M07780",
       "pc9": "001PZ-0004",
+      "shade": "LIGHT",
       "first_exf": "17-Dec-26",
       "max": 43602.0,
       "customer": "LEVIS",
@@ -14031,6 +14162,7 @@
     "M07518": {
       "main_job": "M07518",
       "pc9": "A2922-0004",
+      "shade": "MEDIUM",
       "first_exf": "20-Nov-26",
       "max": 4939.0,
       "customer": "GOLD",
@@ -14131,6 +14263,7 @@
     "M07425": {
       "main_job": "M07425",
       "pc9": "23669-0044",
+      "shade": "MEDIUM",
       "first_exf": "04-Dec-26",
       "max": 2941.0,
       "customer": "GOLD",
@@ -14243,6 +14376,7 @@
     "M07519": {
       "main_job": "M07519",
       "pc9": "A6189-0001",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 3504.0,
       "customer": "GOLD",
@@ -14343,6 +14477,7 @@
     "M07670": {
       "main_job": "M07670",
       "pc9": "36738-0135",
+      "shade": "DARK",
       "first_exf": "11-Dec-26",
       "max": 36014.0,
       "customer": "RED",
@@ -14461,6 +14596,7 @@
     "M07312": {
       "main_job": "M07312",
       "pc9": "19887-0413",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 1949.0,
       "customer": "LEVIS",
@@ -14567,6 +14703,7 @@
     "M07600": {
       "main_job": "M07600",
       "pc9": "0039B-0059",
+      "shade": "MEDIUM",
       "first_exf": "27-Nov-26",
       "max": 1224.0,
       "customer": "LEVIS",
@@ -14679,6 +14816,7 @@
     "M07354": {
       "main_job": "M07354",
       "pc9": "0081C-0007",
+      "shade": "LIGHT",
       "first_exf": "27-Nov-26",
       "max": 10273.0,
       "customer": "LEVIS",
@@ -14785,6 +14923,7 @@
     "M07742": {
       "main_job": "M07742",
       "pc9": "0081C-0007",
+      "shade": "LIGHT",
       "first_exf": "22-Jan-27",
       "max": 4204.0,
       "customer": "LEVIS",
@@ -14885,6 +15024,7 @@
     "M07744": {
       "main_job": "M07744",
       "pc9": "19626-0557",
+      "shade": "LIGHT",
       "first_exf": "03-Dec-26",
       "max": 11089.0,
       "customer": "LEVIS",
@@ -14991,6 +15131,7 @@
     "M07775": {
       "main_job": "M07775",
       "pc9": "19631-0302",
+      "shade": "LIGHT",
       "first_exf": "11-Dec-26",
       "max": 4137.0,
       "customer": "LEVIS",
@@ -15097,6 +15238,7 @@
     "M07617": {
       "main_job": "M07617",
       "pc9": "0081J-0002",
+      "shade": "MEDIUM",
       "first_exf": "30-Nov-26",
       "max": 370.0,
       "customer": "LEVIS",
@@ -15203,6 +15345,7 @@
     "M07792": {
       "main_job": "M07792",
       "pc9": "19631-0301",
+      "shade": "MEDIUM",
       "first_exf": "23-Dec-26",
       "max": 204.0,
       "customer": "LEVIS",
@@ -15303,6 +15446,7 @@
     "M07878": {
       "main_job": "M07878",
       "pc9": "19645-0048",
+      "shade": "MEDIUM",
       "first_exf": "24-Dec-26",
       "max": 1422.0,
       "customer": "LEVIS",
@@ -15409,6 +15553,7 @@
     "M07879": {
       "main_job": "M07879",
       "pc9": "19632-0170",
+      "shade": "MEDIUM",
       "first_exf": "31-Dec-26",
       "max": 2168.0,
       "customer": "LEVIS",
@@ -15515,6 +15660,7 @@
     "M07745": {
       "main_job": "M07745",
       "pc9": "19627-0246",
+      "shade": "DARK",
       "first_exf": "26-Nov-26",
       "max": 2946.0,
       "customer": "LEVIS",
@@ -15615,6 +15761,7 @@
     "M07595": {
       "main_job": "M07595",
       "pc9": "19887-0321",
+      "shade": "DARK",
       "first_exf": "26-Nov-26",
       "max": 8768.0,
       "customer": "LEVIS",
@@ -15727,6 +15874,7 @@
     "M07708": {
       "main_job": "M07708",
       "pc9": "39250-0164",
+      "shade": "DARK",
       "first_exf": "25-Dec-26",
       "max": 5632.0,
       "customer": "LEVIS",
@@ -15833,6 +15981,7 @@
     "M07746": {
       "main_job": "M07746",
       "pc9": "19627-0263",
+      "shade": "DARK",
       "first_exf": "26-Nov-26",
       "max": 1224.0,
       "customer": "LEVIS",
@@ -15939,6 +16088,7 @@
     "M07832": {
       "main_job": "M07832",
       "pc9": "19887-0321",
+      "shade": "DARK",
       "first_exf": "24-Dec-26",
       "max": 408.0,
       "customer": "LEVIS",
@@ -16045,6 +16195,7 @@
     "M07602": {
       "main_job": "M07602",
       "pc9": "23648-0070",
+      "shade": "DARK",
       "first_exf": "27-Nov-26",
       "max": 1658.0,
       "customer": "LEVIS",
@@ -16151,6 +16302,7 @@
     "M07632": {
       "main_job": "M07632",
       "pc9": "A4694-0024",
+      "shade": "LIGHT",
       "first_exf": "25-Dec-26",
       "max": 2601.0,
       "customer": "LEVIS",
@@ -16275,6 +16427,7 @@
     "M07748": {
       "main_job": "M07748",
       "pc9": "A0086-0050",
+      "shade": "DARK",
       "first_exf": "03-Dec-26",
       "max": 8648.0,
       "customer": "LEVIS",
@@ -16381,6 +16534,7 @@
     "M07845": {
       "main_job": "M07845",
       "pc9": "A9506-0001",
+      "shade": "",
       "first_exf": "25-Dec-26",
       "max": 1530.0,
       "customer": "LEVIS",
@@ -16481,6 +16635,7 @@
     "M07678": {
       "main_job": "M07678",
       "pc9": "94442-0079",
+      "shade": "DARK",
       "first_exf": "04-Dec-26",
       "max": 1752.0,
       "customer": "GOLD",
@@ -16581,6 +16736,7 @@
     "M07857": {
       "main_job": "M07857",
       "pc9": "94354-0111",
+      "shade": "MEDIUM",
       "first_exf": "01-Jan-27",
       "max": 1891.0,
       "customer": "GOLD",
@@ -16681,6 +16837,7 @@
     "M07858": {
       "main_job": "M07858",
       "pc9": "95250-0021",
+      "shade": "MEDIUM",
       "first_exf": "01-Jan-27",
       "max": 2491.0,
       "customer": "GOLD",
@@ -16781,6 +16938,7 @@
     "M07818": {
       "main_job": "M07818",
       "pc9": "95250-0004",
+      "shade": "DARK",
       "first_exf": "01-Jan-27",
       "max": 9182.0,
       "customer": "GOLD",
@@ -16881,6 +17039,7 @@
     "M07727": {
       "main_job": "M07727",
       "pc9": "008SY-0022",
+      "shade": "DARK",
       "first_exf": "31-Dec-26",
       "max": 17988.0,
       "customer": "LEVIS",
@@ -16987,6 +17146,7 @@
     "M07822": {
       "main_job": "M07822",
       "pc9": "A7141-0010",
+      "shade": "LIGHT",
       "first_exf": "01-Jan-27",
       "max": 30108.0,
       "customer": "RED",
@@ -17111,6 +17271,7 @@
     "M07864": {
       "main_job": "M07864",
       "pc9": "18759-0297",
+      "shade": "MEDIUM",
       "first_exf": "24-Dec-26",
       "max": 1224.0,
       "customer": "LEVIS",
@@ -17217,6 +17378,7 @@
     "M07705": {
       "main_job": "M07705",
       "pc9": "18759-0397",
+      "shade": "MEDIUM",
       "first_exf": "25-Dec-26",
       "max": 893.0,
       "customer": "LEVIS",
@@ -17329,6 +17491,7 @@
     "M07730": {
       "main_job": "M07730",
       "pc9": "005I3-0014",
+      "shade": "MEDIUM",
       "first_exf": "01-Jan-27",
       "max": 8869.0,
       "customer": "LEVIS",
@@ -17435,6 +17598,7 @@
     "M07841": {
       "main_job": "M07841",
       "pc9": "94453-0020",
+      "shade": "MEDIUM",
       "first_exf": "01-Jan-27",
       "max": 16144.0,
       "customer": "GOLD",
@@ -17535,6 +17699,7 @@
     "M07715": {
       "main_job": "M07715",
       "pc9": "007UU-0003",
+      "shade": "DARK",
       "first_exf": "24-Dec-26",
       "max": 2588.0,
       "customer": "LEVIS",
@@ -17647,6 +17812,7 @@
     "M07853": {
       "main_job": "M07853",
       "pc9": "19632-0001",
+      "shade": "DARK",
       "first_exf": "17-Dec-26",
       "max": 7519.0,
       "customer": "LEVIS",
@@ -17753,6 +17919,7 @@
     "M07854": {
       "main_job": "M07854",
       "pc9": "19626-0001",
+      "shade": "DARK",
       "first_exf": "31-Dec-26",
       "max": 3313.0,
       "customer": "LEVIS",
@@ -17859,6 +18026,7 @@
     "M07880": {
       "main_job": "M07880",
       "pc9": "95250-0019",
+      "shade": "LIGHT",
       "first_exf": "01-Jan-27",
       "max": 424.0,
       "customer": "GOLD",
@@ -17959,6 +18127,7 @@
     "M07679": {
       "main_job": "M07679",
       "pc9": "94442-0112",
+      "shade": "DARK",
       "first_exf": "11-Dec-26",
       "max": 4213.0,
       "customer": "GOLD",
@@ -18059,6 +18228,7 @@
     "M07819": {
       "main_job": "M07819",
       "pc9": "94442-0087",
+      "shade": "MEDIUM",
       "first_exf": "01-Jan-27",
       "max": 3128.0,
       "customer": "GOLD",
@@ -18159,6 +18329,7 @@
     "M07672": {
       "main_job": "M07672",
       "pc9": "001GC-0093",
+      "shade": "LIGHT",
       "first_exf": "01-Jan-27",
       "max": 3290.52,
       "customer": "RED",
@@ -18271,6 +18442,7 @@
     "M07659": {
       "main_job": "M07659",
       "pc9": "A2898-0010",
+      "shade": "MEDIUM",
       "first_exf": "15-Jan-27",
       "max": 3570.0,
       "customer": "GOLD",
@@ -18413,6 +18585,7 @@
     "M07855": {
       "main_job": "M07855",
       "pc9": "19626-0000",
+      "shade": "BLACK",
       "first_exf": "18-Dec-26",
       "max": 3698.0,
       "customer": "LEVIS",
@@ -18513,6 +18686,7 @@
     "M07846": {
       "main_job": "M07846",
       "pc9": "94442-0088",
+      "shade": "MEDIUM",
       "first_exf": "08-Jan-27",
       "max": 10737.0,
       "customer": "GOLD",
@@ -18619,6 +18793,7 @@
     "M07671": {
       "main_job": "M07671",
       "pc9": "001GC-0082",
+      "shade": "MEDIUM",
       "first_exf": "18-Dec-26",
       "max": 5279.0,
       "customer": "RED",
@@ -18719,6 +18894,7 @@
     "M07261": {
       "main_job": "M07261",
       "pc9": "004WQ-0005",
+      "shade": "WHITE",
       "first_exf": "18-Dec-26",
       "max": 4662.0,
       "customer": "GOLD",
@@ -18819,6 +18995,7 @@
     "M07669": {
       "main_job": "M07669",
       "pc9": "005I3-0012",
+      "shade": "DARK",
       "first_exf": "11-Dec-26",
       "max": 9849.0,
       "customer": "LEVIS",
@@ -18925,6 +19102,7 @@
     "M07881": {
       "main_job": "M07881",
       "pc9": "95250-0038",
+      "shade": "DARK",
       "first_exf": "01-Jan-27",
       "max": 2022.66,
       "customer": "GOLD",
@@ -19025,6 +19203,7 @@
     "M07847": {
       "main_job": "M07847",
       "pc9": "A6189-0000",
+      "shade": "MEDIUM",
       "first_exf": "08-Jan-27",
       "max": 1781.94,
       "customer": "GOLD",
@@ -19125,6 +19304,7 @@
     "M07820": {
       "main_job": "M07820",
       "pc9": "A6189-0001",
+      "shade": "DARK",
       "first_exf": "01-Jan-27",
       "max": 2488.8,
       "customer": "GOLD",
@@ -19225,6 +19405,7 @@
     "M07817": {
       "main_job": "M07817",
       "pc9": "005I3-0012",
+      "shade": "DARK",
       "first_exf": "01-Jan-27",
       "max": 4960.0,
       "customer": "LEVIS",
@@ -19331,6 +19512,7 @@
     "M07732": {
       "main_job": "M07732",
       "pc9": "008SY-0023",
+      "shade": "DARK",
       "first_exf": "15-Jan-27",
       "max": 13566.0,
       "customer": "LEVIS",
@@ -19437,6 +19619,7 @@
     "M07823": {
       "main_job": "M07823",
       "pc9": "A2898-0011",
+      "shade": "MEDIUM",
       "first_exf": "15-Jan-27",
       "max": 1632.0,
       "customer": "GOLD",
@@ -19537,6 +19720,7 @@
     "M07824": {
       "main_job": "M07824",
       "pc9": "A2898-0005",
+      "shade": "LIGHT",
       "first_exf": "01-Jan-27",
       "max": 3011.0,
       "customer": "GOLD",
@@ -19637,6 +19821,7 @@
     "M07859": {
       "main_job": "M07859",
       "pc9": "94453-0027",
+      "shade": "DARK",
       "first_exf": "01-Jan-27",
       "max": 4822.0,
       "customer": "GOLD",
@@ -19737,6 +19922,7 @@
     "M07856": {
       "main_job": "M07856",
       "pc9": "19631-0000",
+      "shade": "BLACK",
       "first_exf": "17-Dec-26",
       "max": 5071.0,
       "customer": "LEVIS",
@@ -19837,6 +20023,7 @@
     "M07260": {
       "main_job": "M07260",
       "pc9": "004WQ-0004",
+      "shade": "MEDIUM",
       "first_exf": "18-Dec-26",
       "max": 7534.0,
       "customer": "GOLD",
@@ -19937,6 +20124,7 @@
     "M07884": {
       "main_job": "M07884",
       "pc9": "A2922-0004",
+      "shade": "MEDIUM",
       "first_exf": "01-Jan-27",
       "max": 1574.88,
       "customer": "GOLD",
@@ -20037,6 +20225,7 @@
     "M07896": {
       "main_job": "M07896",
       "pc9": "008SY-0020",
+      "shade": "MEDIUM",
       "first_exf": "31-Dec-26",
       "max": 19579.0,
       "customer": "LEVIS",
@@ -20137,6 +20326,7 @@
     "M07843": {
       "main_job": "M07843",
       "pc9": "007TQ-0000",
+      "shade": "DARK",
       "first_exf": "01-Jan-27",
       "max": 3607.74,
       "customer": "RED",
@@ -20237,6 +20427,7 @@
     "M07721": {
       "main_job": "M07721",
       "pc9": "005DR-0006",
+      "shade": "LIGHT",
       "first_exf": "25-Dec-26",
       "max": 4266.0,
       "customer": "LEVIS",
@@ -20337,6 +20528,7 @@
     "M07860": {
       "main_job": "M07860",
       "pc9": "94525-0056",
+      "shade": "LIGHT",
       "first_exf": "08-Jan-27",
       "max": 2155.26,
       "customer": "GOLD",
@@ -20437,6 +20629,7 @@
     "M07885": {
       "main_job": "M07885",
       "pc9": "94525-0055",
+      "shade": "LIGHT",
       "first_exf": "08-Jan-27",
       "max": 2898.84,
       "customer": "GOLD",
@@ -20537,6 +20730,7 @@
     "M07886": {
       "main_job": "M07886",
       "pc9": "94525-0017",
+      "shade": "DARK",
       "first_exf": "08-Jan-27",
       "max": 4221.78,
       "customer": "GOLD",
@@ -20637,6 +20831,7 @@
     "M07894": {
       "main_job": "M07894",
       "pc9": "008T4-0001",
+      "shade": "LIGHT",
       "first_exf": "05-Feb-27",
       "max": 4451.28,
       "customer": "LEVIS",
@@ -20737,6 +20932,7 @@
     "M07898": {
       "main_job": "M07898",
       "pc9": "0033F-0005",
+      "shade": "DARK",
       "first_exf": "31-Dec-26",
       "max": 1572.0,
       "customer": "LEVIS",
@@ -20837,6 +21033,7 @@
     "M07899": {
       "main_job": "M07899",
       "pc9": "001PZ-0062",
+      "shade": "DARK",
       "first_exf": "31-Dec-26",
       "max": 12996.0,
       "customer": "LEVIS",
@@ -20937,6 +21134,7 @@
     "M07692": {
       "main_job": "M07692",
       "pc9": "003Y9-0006",
+      "shade": "WHITE",
       "first_exf": "11-Dec-26",
       "max": 1530.0,
       "customer": "LEVIS",
@@ -21037,6 +21235,7 @@
     "M07821": {
       "main_job": "M07821",
       "pc9": "004I5-0010",
+      "shade": "WHITE",
       "first_exf": "01-Jan-27",
       "max": 1377.0,
       "customer": "RED",
@@ -21137,6 +21336,7 @@
     "M07838": {
       "main_job": "M07838",
       "pc9": "74906-0044",
+      "shade": "MEDIUM",
       "first_exf": "22-Jan-27",
       "max": 18087.0,
       "customer": "GOLD",
@@ -21237,6 +21437,7 @@
     "M07910": {
       "main_job": "M07910",
       "pc9": "0033F-0001",
+      "shade": "LIGHT",
       "first_exf": "31-Dec-26",
       "max": 824.0,
       "customer": "LEVIS",
