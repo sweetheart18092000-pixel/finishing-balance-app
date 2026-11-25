@@ -636,11 +636,31 @@ function renderTransmission() {
     return;
   }
 
-  if (filtered.length === 0) {
-    transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No pending transmission jobs match.</div>';
+  // Sort active/pending jobs first, SHIPPED/FINAL/TRANSMITTED/LOCK at the bottom
+  const doneStatuses = new Set(['SHIPPED', 'FINAL', 'READY FOR PICKUP', 'TRANSMITTED']);
+  const sortedFiltered = [...filtered].sort((a, b) => {
+    const aDone = doneStatuses.has((a.job_status || '').toUpperCase()) || (a.pl_lock || '').toUpperCase() === 'LOCK' ? 1 : 0;
+    const bDone = doneStatuses.has((b.job_status || '').toUpperCase()) || (b.pl_lock || '').toUpperCase() === 'LOCK' ? 1 : 0;
+    return aDone - bDone;
+  });
+
+  if (sortedFiltered.length === 0) {
+    transList.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">No transmission jobs match.</div>';
   } else {
-    transList.innerHTML = filtered.map(j => `
-      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="grid grid-cols-[1fr_70px_76px] gap-1.5 items-center px-2.5 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
+    transList.innerHTML = sortedFiltered.map(j => {
+      const stUp = (j.job_status || '').toUpperCase();
+      const isDone = doneStatuses.has(stUp);
+      const shortDate = (j.plan_ex || '-').replace(/-\d{2}$/, '');
+      const dateHtml = isDone
+        ? `<span class="text-[10.5px] font-semibold text-slate-400 dark:text-zinc-500">${escapeHtml(shortDate)}</span>`
+        : getExfBadgeHtml(j.plan_ex);
+
+      const statusBadgeCls = isDone
+        ? 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
+        : 'bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400';
+
+      return `
+      <div data-trans-mjob="${escapeHtml(j.m_job)}" class="grid grid-cols-[1fr_68px_82px] gap-1.5 items-center px-2.5 py-2 hover:bg-slate-50 dark:hover:bg-zinc-800/80 cursor-pointer transition even:bg-slate-50/50 dark:even:bg-zinc-950/30">
         <div class="min-w-0">
           <div class="flex items-center space-x-1.5 min-w-0">
             <span class="font-mono font-extrabold text-xs text-indigo-700 dark:text-sky-400 shrink-0">${escapeHtml(j.job_no)}</span>
@@ -648,27 +668,25 @@ function renderTransmission() {
             <span class="text-[10px] text-slate-400 truncate">${escapeHtml(j.style)}</span>
           </div>
           <div class="text-[11px] font-bold text-slate-800 dark:text-zinc-100 truncate mt-0.5">${escapeHtml(j.wash || '-')}</div>
-          <div class="flex items-center space-x-1.5 text-[9.5px] text-slate-500 dark:text-zinc-400 mt-0.5 truncate">
-            ${j.pl_lock ? `<span class="font-bold text-slate-700 dark:text-zinc-300">${escapeHtml(j.pl_lock)}</span><span>•</span>` : ''}
-            <span>${escapeHtml(j.person || '-')}</span>
-            <span>•</span>
-            <span class="font-semibold text-amber-700 dark:text-amber-400">${escapeHtml(j.job_status || '-')}</span>
-            ${j.mode ? `<span>•</span><span class="font-semibold text-indigo-600 dark:text-indigo-400">${escapeHtml(j.mode)}</span>` : ''}
-            <span>•</span>
-            <span>${escapeHtml(j.country || '-')}</span>
+          <div class="flex items-center flex-wrap gap-1 text-[9px] text-slate-500 dark:text-zinc-400 mt-1">
+            ${j.pl_lock ? `<span class="px-1 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 font-bold text-slate-700 dark:text-zinc-300">${escapeHtml(j.pl_lock)}</span>` : ''}
+            ${j.job_status ? `<span class="px-1 py-0.5 rounded font-bold ${statusBadgeCls}">${escapeHtml(j.job_status)}</span>` : ''}
+            ${j.person ? `<span class="truncate">${escapeHtml(j.person)}</span>` : ''}
+            ${j.mode ? `<span class="font-semibold text-indigo-600 dark:text-indigo-400">• ${escapeHtml(j.mode)}</span>` : ''}
+            ${j.country ? `<span class="text-slate-400">• ${escapeHtml(j.country)}</span>` : ''}
           </div>
         </div>
         <div class="text-center leading-tight">
-          ${getExfBadgeHtml(j.plan_ex)}
-          <span class="block text-[8.5px] text-slate-400 mt-0.5 truncate">${escapeHtml(j.ship_seq)}</span>
+          ${dateHtml}
+          ${j.ship_seq ? `<span class="block text-[8.5px] text-slate-400 mt-0.5 truncate">${escapeHtml(j.ship_seq)}</span>` : ''}
         </div>
         <div class="text-right">
-          <div class="text-xs font-mono font-extrabold text-slate-800 dark:text-zinc-100 tabular-nums">${fmtNum(j.pack)}</div>
-          <div class="text-[9.5px] font-mono text-slate-400 tabular-nums">/ ${fmtNum(j.order_qty)}</div>
-          <div class="text-[9.5px] font-mono font-bold ${j.short > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'} tabular-nums">Sh: ${fmtNum(j.short)}</div>
+          <div class="text-xs font-mono font-extrabold text-slate-800 dark:text-zinc-100 tabular-nums leading-tight">${fmtNum(j.pack)}<span class="text-[9.5px] font-normal text-slate-400"> / ${fmtNum(j.order_qty)}</span></div>
+          <div class="text-[10px] font-mono font-bold mt-0.5 ${j.short > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'} tabular-nums">Sh: ${fmtNum(j.short)}</div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
   transmissionCard.classList.remove('hidden');
