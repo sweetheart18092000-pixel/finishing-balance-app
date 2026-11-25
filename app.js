@@ -90,6 +90,7 @@ const transFiltersRow = document.getElementById('transFiltersRow');
 const transSearchInput = document.getElementById('transSearchInput');
 const transPersonSelect = document.getElementById('transPersonSelect');
 const transStatusSelect = document.getElementById('transStatusSelect');
+const transModeSelect = document.getElementById('transModeSelect');
 const transTableHeader = document.getElementById('transTableHeader');
 const transList = document.getElementById('transList');
 
@@ -414,6 +415,10 @@ function initTransmissionControls() {
   const statuses = Array.from(new Set(trans.jobs.map(j => j.job_status).filter(Boolean))).sort();
   transStatusSelect.innerHTML = `<option value="">All Status</option>` +
     statuses.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
+
+  const modes = Array.from(new Set(trans.jobs.map(j => j.mode).filter(Boolean))).sort();
+  transModeSelect.innerHTML = `<option value="">All Mode</option>` +
+    modes.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join('');
 }
 
 transModeJobsBtn.addEventListener('click', () => {
@@ -434,7 +439,7 @@ transModeUniqueBtn.addEventListener('click', () => {
   renderTransmission();
 });
 
-[transSearchInput, transPersonSelect, transStatusSelect].forEach(el => {
+[transSearchInput, transPersonSelect, transStatusSelect, transModeSelect].forEach(el => {
   el.addEventListener('input', renderTransmission);
   el.addEventListener('change', renderTransmission);
 });
@@ -477,16 +482,19 @@ function renderTransmission() {
   const q = transSearchInput.value.trim().toUpperCase();
   const pFilter = transPersonSelect.value;
   const sFilter = transStatusSelect.value;
+  const mFilter = transModeSelect.value;
 
   const filtered = trans.jobs.filter(j => {
     if (pFilter && j.person !== pFilter) return false;
     if (sFilter && j.job_status !== sFilter) return false;
+    if (mFilter && j.mode !== mFilter) return false;
     if (q) {
       return j.job_no.toUpperCase().includes(q) ||
         j.m_job.toUpperCase().includes(q) ||
         j.style.toUpperCase().includes(q) ||
         j.wash.toUpperCase().includes(q) ||
         j.person.toUpperCase().includes(q) ||
+        j.mode.toUpperCase().includes(q) ||
         j.country.toUpperCase().includes(q);
     }
     return true;
@@ -510,6 +518,7 @@ function renderTransmission() {
             <span>${escapeHtml(j.person || '-')}</span>
             <span>•</span>
             <span class="font-semibold text-amber-700 dark:text-amber-400">${escapeHtml(j.job_status || '-')}</span>
+            ${j.mode ? `<span>•</span><span class="font-semibold text-indigo-600 dark:text-indigo-400">${escapeHtml(j.mode)}</span>` : ''}
             <span>•</span>
             <span>${escapeHtml(j.country || '-')}</span>
           </div>
