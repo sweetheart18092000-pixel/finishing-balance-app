@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27 00:16:20",
+  "updated_at": "2026-11-27 01:01:21",
   "total_jobs": 201,
   "operations_list": [
     "4 HOLE BUTTON",
@@ -22743,8 +22743,8 @@
         "short": 14.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "SEA_40HC HEN",
-        "job_status": "READY FOR PICKUP",
+        "mode": "MRSU-428879-8",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "LAST WEEK",
         "audit": "Audit Done"
@@ -22801,7 +22801,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "SEA_40HC USA",
-        "job_status": "FINAL",
+        "job_status": "READY FOR PICKUP",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "28-Nov-26"
@@ -22934,7 +22934,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "HAMU-509283-2",
-        "job_status": "READY FOR PICKUP",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "-"
@@ -22953,7 +22953,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "HAMU-509283-2",
-        "job_status": "READY FOR PICKUP",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "-"
@@ -23010,7 +23010,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "HAMU-509283-2",
-        "job_status": "READY FOR PICKUP",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "Audit Done"
@@ -23485,7 +23485,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "SEA_20 AUS",
-        "job_status": "FINAL",
+        "job_status": "READY FOR PICKUP",
         "tr": 13.0,
         "ship_seq": "LAST WEEK",
         "audit": "Audit Done"
@@ -23503,8 +23503,8 @@
         "short": 14.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "SEA_40HC HEN",
-        "job_status": "READY FOR PICKUP",
+        "mode": "MRSU-428879-8",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "Audit Done"
@@ -23542,7 +23542,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "HAMU-509283-2",
-        "job_status": "READY FOR PICKUP",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "20-Nov-26"
@@ -24112,7 +24112,7 @@
         "pl_lock": "LOCK",
         "person": "Waiting For End",
         "mode": "HAMU-509283-2",
-        "job_status": "READY FOR PICKUP",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "26-Nov-26"
@@ -24168,8 +24168,8 @@
         "short": -137.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "SEA_40HC HEN",
-        "job_status": "READY FOR PICKUP",
+        "mode": "MRSU-428879-8",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "LAST WEEK",
         "audit": "Audit Done"
@@ -24207,7 +24207,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "JV-4206",
-        "job_status": "READY FOR PICKUP",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "LAST WEEK",
         "audit": "Audit Done"
@@ -24225,8 +24225,8 @@
         "short": -162.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "SEA_40HC HEN",
-        "job_status": "READY FOR PICKUP",
+        "mode": "MRSU-428879-8",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "26-Nov-26"
@@ -24340,7 +24340,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "JV-4206",
-        "job_status": "READY FOR PICKUP",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "Audit Done"
@@ -24700,8 +24700,8 @@
         "short": -110.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "SEA_40HC HEN",
-        "job_status": "READY FOR PICKUP",
+        "mode": "MRSU-428879-8",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "LAST WEEK",
         "audit": "Audit Done"
@@ -24758,7 +24758,7 @@
         "pl_lock": "DRAFT",
         "person": "OK",
         "mode": "DAMCO_ 20ft",
-        "job_status": "AUDIT_CLEAR",
+        "job_status": "FINAL",
         "tr": 0.0,
         "ship_seq": "LAST WEEK",
         "audit": "Audit Done"
@@ -25214,7 +25214,7 @@
         "pl_lock": "DRAFT",
         "person": "OK",
         "mode": "SEA_20 AUS",
-        "job_status": "FINAL",
+        "job_status": "READY FOR PICKUP",
         "tr": 7.0,
         "ship_seq": "CR_WEEK",
         "audit": "26-Nov-26"
@@ -25402,9 +25402,9 @@
         "pack": 1127.0,
         "short": 45.0,
         "pl_lock": "DRAFT",
-        "person": "Khalil PL",
+        "person": "OK",
         "mode": "SEA_40HC USA",
-        "job_status": "AUDIT_CLEAR",
+        "job_status": "FINAL",
         "tr": 6.0,
         "ship_seq": "LAST WEEK",
         "audit": "27-Nov-26"
@@ -25442,7 +25442,7 @@
         "pl_lock": "DRAFT",
         "person": "OK",
         "mode": "SEA_20 AUS",
-        "job_status": "FINAL",
+        "job_status": "READY FOR PICKUP",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "27-Nov-26"
@@ -25556,7 +25556,7 @@
         "pl_lock": "DRAFT",
         "person": "OK",
         "mode": "SEA_40HC USA",
-        "job_status": "ON_AUDIT",
+        "job_status": "FINAL",
         "tr": 6.0,
         "ship_seq": "CR_WEEK",
         "audit": "23-Nov-26"
@@ -25632,7 +25632,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "HAMU-509283-2",
-        "job_status": "READY FOR PICKUP",
+        "job_status": "SHIPPED",
         "tr": 0.0,
         "ship_seq": "CR_WEEK",
         "audit": "-"
