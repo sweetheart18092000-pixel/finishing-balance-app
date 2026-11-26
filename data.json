@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26 23:46:20",
+  "updated_at": "2026-11-27 00:16:20",
   "total_jobs": 201,
   "operations_list": [
     "4 HOLE BUTTON",
@@ -25551,10 +25551,10 @@
         "plan_ex": "27-Nov-26",
         "country": "UNITED STATES",
         "order_qty": 469.0,
-        "pack": 449.0,
-        "short": 20.0,
+        "pack": 448.0,
+        "short": 21.0,
         "pl_lock": "DRAFT",
-        "person": "Khalil PL",
+        "person": "OK",
         "mode": "SEA_40HC USA",
         "job_status": "ON_AUDIT",
         "tr": 6.0,
