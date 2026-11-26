@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-26 19:31:19",
+  "updated_at": "2026-11-26 19:46:24",
   "total_jobs": 201,
   "operations_list": [
     "4 HOLE BUTTON",
@@ -25247,10 +25247,10 @@
         "plan_ex": "26-Nov-26",
         "country": "GERMANY",
         "order_qty": 2000.0,
-        "pack": 1544.0,
-        "short": 456.0,
+        "pack": 1989.0,
+        "short": 11.0,
         "pl_lock": "DRAFT",
-        "person": "Waiting For End",
+        "person": "Khalil PL",
         "mode": "SEA_20 Ger",
         "job_status": "QMP_REQ",
         "tr": 0.0,
@@ -25328,7 +25328,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "SEA_20 Ger",
-        "job_status": "ON_AUDIT",
+        "job_status": "AUDIT_CLEAR",
         "tr": 16.0,
         "ship_seq": "CR_WEEK",
         "audit": "20-Nov-26"
