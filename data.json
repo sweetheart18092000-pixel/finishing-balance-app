@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-28 11:01:22",
+  "updated_at": "2026-11-28 11:16:23",
   "total_jobs": 237,
   "operations_list": [
     "4 HOLE BUTTON",
@@ -26028,7 +26028,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "SEA_40HC USA",
-        "job_status": "FINAL",
+        "job_status": "READY FOR PICKUP",
         "tr": 0.0,
         "ship_seq": "TDY",
         "audit": "Audit Done"
@@ -26047,7 +26047,7 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "SEA_40HC USA",
-        "job_status": "FINAL",
+        "job_status": "READY FOR PICKUP",
         "tr": 4.0,
         "ship_seq": "TDY",
         "audit": "Audit Done"
