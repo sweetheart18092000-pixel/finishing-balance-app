@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-27 18:01:22",
+  "updated_at": "2026-11-28 09:01:38",
   "total_jobs": 237,
   "operations_list": [
     "4 HOLE BUTTON",
@@ -25761,10 +25761,10 @@
         "short": -8.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -25783,7 +25783,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25802,7 +25802,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25821,7 +25821,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25840,7 +25840,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25859,7 +25859,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "-"
       },
       {
@@ -25878,7 +25878,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "-"
       },
       {
@@ -25897,7 +25897,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25916,7 +25916,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "FINAL",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25935,7 +25935,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "AUDIT_CLEAR",
         "tr": 31.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25953,8 +25953,8 @@
         "person": "Waiting For End",
         "mode": "SEA_40HC USA",
         "job_status": "AUDIT_CLEAR",
-        "tr": 1.0,
-        "ship_seq": "CR_WEEK",
+        "tr": 3.0,
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25973,7 +25973,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "AUDIT_CLEAR",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -25992,7 +25992,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "AUDIT_CLEAR",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -26011,7 +26011,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -26030,7 +26030,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "FINAL",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -26049,7 +26049,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "FINAL",
         "tr": 4.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -26067,8 +26067,8 @@
         "person": "Khalil PL",
         "mode": "SEA_40HC USA",
         "job_status": "AUDIT_CLEAR",
-        "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "tr": 4.0,
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -26087,7 +26087,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "FINAL",
         "tr": 4.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -26106,7 +26106,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "TDY",
         "audit": "-"
       },
       {
@@ -26502,10 +26502,10 @@
         "short": 0.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "AIR_PORT_17FT",
-        "job_status": "READY FOR PICKUP",
+        "mode": "",
+        "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "LAST WEEK",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -26521,10 +26521,10 @@
         "short": -5.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -26578,10 +26578,10 @@
         "short": 0.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "AIR_PORT_17FT",
-        "job_status": "READY FOR PICKUP",
+        "mode": "",
+        "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "LAST WEEK",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -26692,10 +26692,10 @@
         "short": -4.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -26749,10 +26749,10 @@
         "short": -2.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -26825,10 +26825,10 @@
         "short": 1.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -26844,10 +26844,10 @@
         "short": -9.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "AIR_PORT_17FT",
-        "job_status": "READY FOR PICKUP",
+        "mode": "",
+        "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "LAST WEEK",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -26904,7 +26904,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "FINAL",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -26977,10 +26977,10 @@
         "short": 0.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "AIR_PORT_17FT",
-        "job_status": "READY FOR PICKUP",
+        "mode": "",
+        "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "CR_WEEK",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -27300,10 +27300,10 @@
         "short": 0.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -27414,10 +27414,10 @@
         "short": -3.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -27429,8 +27429,8 @@
         "plan_ex": "27-Nov-26",
         "country": "MEXICO",
         "order_qty": 9076.0,
-        "pack": 7372.0,
-        "short": 1704.0,
+        "pack": 8632.0,
+        "short": 444.0,
         "pl_lock": "DRAFT",
         "person": "Waiting For End",
         "mode": "DAMCO_ 20ft",
@@ -27448,14 +27448,14 @@
         "plan_ex": "27-Nov-26",
         "country": "UNITED STATES",
         "order_qty": 500.0,
-        "pack": 236.0,
-        "short": 264.0,
+        "pack": 494.0,
+        "short": 6.0,
         "pl_lock": "DRAFT",
-        "person": "Waiting For End",
+        "person": "Khalil PL",
         "mode": "SEA_40HC USA",
         "job_status": "AUDIT_CLEAR",
         "tr": 0.0,
-        "ship_seq": "MONDAY",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -27625,7 +27625,7 @@
         "person": "Waiting For End",
         "mode": "DAMCO_ 20ft",
         "job_status": "IN FINISHING",
-        "tr": 0.0,
+        "tr": 36.0,
         "ship_seq": "MONDAY",
         "audit": "30-Nov-26"
       },
@@ -27642,10 +27642,10 @@
         "short": 3.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -28214,8 +28214,8 @@
         "person": "Khalil PL",
         "mode": "DAMCO_ 20ft",
         "job_status": "AUDIT_CLEAR",
-        "tr": 0.0,
-        "ship_seq": "TOM",
+        "tr": 1.0,
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -28303,8 +28303,8 @@
         "plan_ex": "26-Nov-26",
         "country": "CZECHIA",
         "order_qty": 1571.0,
-        "pack": 918.0,
-        "short": 653.0,
+        "pack": 1098.0,
+        "short": 473.0,
         "pl_lock": "DRAFT",
         "person": "Waiting For End",
         "mode": "SEA_20 CZ",
@@ -28574,9 +28574,9 @@
         "pl_lock": "DRAFT",
         "person": "Khalil PL",
         "mode": "DAMCO_ 20ft",
-        "job_status": "ON_AUDIT",
+        "job_status": "AUDIT_CLEAR",
         "tr": 24.0,
-        "ship_seq": "TOM",
+        "ship_seq": "TDY",
         "audit": "23-Nov-26"
       },
       {
@@ -28609,11 +28609,11 @@
         "order_qty": 2516.0,
         "pack": 2517.0,
         "short": -1.0,
-        "pl_lock": "LOCK",
+        "pl_lock": "DRAFT",
         "person": "OK",
         "mode": "AIR_PORT_17FT",
         "job_status": "FINAL",
-        "tr": 0.0,
+        "tr": 13.0,
         "ship_seq": "TOM",
         "audit": "Audit Done"
       },
@@ -28632,8 +28632,8 @@
         "person": "Waiting For End",
         "mode": "SEA_40HC USA",
         "job_status": "ON_AUDIT",
-        "tr": 0.0,
-        "ship_seq": "TOM",
+        "tr": 8.0,
+        "ship_seq": "TDY",
         "audit": "28-Nov-26"
       },
       {
@@ -28740,8 +28740,8 @@
         "plan_ex": "26-Nov-26",
         "country": "GERMANY",
         "order_qty": 2407.0,
-        "pack": 1732.0,
-        "short": 675.0,
+        "pack": 1923.0,
+        "short": 484.0,
         "pl_lock": "DRAFT",
         "person": "Waiting For End",
         "mode": "DAMCO_ 20ft",
@@ -28785,7 +28785,7 @@
         "mode": "AIR_PORT_17FT",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "LAST WEEK",
+        "ship_seq": "TOM",
         "audit": "Audit Done"
       },
       {
@@ -28820,10 +28820,10 @@
         "short": 60.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -28839,10 +28839,10 @@
         "short": 0.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "AIR_PORT_17FT",
-        "job_status": "READY FOR PICKUP",
+        "mode": "",
+        "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -28854,14 +28854,14 @@
         "plan_ex": "27-Nov-26",
         "country": "UNITED STATES",
         "order_qty": 8232.0,
-        "pack": 8100.0,
-        "short": 132.0,
+        "pack": 8136.0,
+        "short": 96.0,
         "pl_lock": "DRAFT",
         "person": "Waiting For End",
         "mode": "SEA_40HC USA",
         "job_status": "IN FINISHING",
         "tr": 0.0,
-        "ship_seq": "MONDAY",
+        "ship_seq": "TDY",
         "audit": "27-Nov-26"
       },
       {
@@ -28892,8 +28892,8 @@
         "plan_ex": "27-Nov-26",
         "country": "UNITED STATES",
         "order_qty": 8237.0,
-        "pack": 3528.0,
-        "short": 4709.0,
+        "pack": 5040.0,
+        "short": 3197.0,
         "pl_lock": "DRAFT",
         "person": "Waiting For End",
         "mode": "SEA_40HC USA",
@@ -29049,9 +29049,9 @@
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "DAMCO_ 20ft",
-        "job_status": "ON_AUDIT",
+        "job_status": "RESCREEN",
         "tr": 7.0,
-        "ship_seq": "TOM",
+        "ship_seq": "MONDAY",
         "audit": "21-Nov-26"
       },
       {
@@ -29067,10 +29067,10 @@
         "short": -14.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -29241,7 +29241,7 @@
         "mode": "DAMCO_ 20ft",
         "job_status": "IN FINISHING",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "MONDAY",
         "audit": "28-Nov-26"
       },
       {
@@ -29291,8 +29291,8 @@
         "plan_ex": "27-Nov-26",
         "country": "PHILIPPINES",
         "order_qty": 318.0,
-        "pack": 0.0,
-        "short": 318.0,
+        "pack": 198.0,
+        "short": 120.0,
         "pl_lock": "DRAFT",
         "person": "Waiting For End",
         "mode": "AIR_PORT_17FT",
@@ -29353,9 +29353,9 @@
         "pl_lock": "DRAFT",
         "person": "Waiting For End",
         "mode": "SEA_40HC USA",
-        "job_status": "ON_AUDIT",
-        "tr": 0.0,
-        "ship_seq": "TOM",
+        "job_status": "RESCREEN",
+        "tr": 41.0,
+        "ship_seq": "MONDAY",
         "audit": "27-Nov-26"
       },
       {
@@ -29409,10 +29409,10 @@
         "short": -2.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "AIR_PORT_17FT",
-        "job_status": "READY FOR PICKUP",
+        "mode": "",
+        "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -29519,8 +29519,8 @@
         "plan_ex": "27-Nov-26",
         "country": "UNITED STATES",
         "order_qty": 405.0,
-        "pack": 375.0,
-        "short": 30.0,
+        "pack": 403.0,
+        "short": 2.0,
         "pl_lock": "LOCK",
         "person": "OK",
         "mode": "AIR_PORT_17FT",
@@ -29545,7 +29545,7 @@
         "mode": "DAMCO_ 20ft",
         "job_status": "IN FINISHING",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "TDY",
         "audit": "26-Nov-26"
       },
       {
@@ -29564,7 +29564,7 @@
         "mode": "DAMCO_ 20ft",
         "job_status": "AUDIT_CLEAR",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "TDY",
         "audit": "Audit Done"
       },
       {
@@ -29599,10 +29599,10 @@
         "short": 0.0,
         "pl_lock": "LOCK",
         "person": "OK",
-        "mode": "JV-4206",
+        "mode": "",
         "job_status": "SHIPPED",
         "tr": 0.0,
-        "ship_seq": "TOM",
+        "ship_seq": "",
         "audit": "Audit Done"
       },
       {
@@ -29753,7 +29753,7 @@
         "person": "Khalil PL",
         "mode": "AIR_PORT_17FT",
         "job_status": "RESCREEN",
-        "tr": 117.0,
+        "tr": 59.0,
         "ship_seq": "MONDAY",
         "audit": "27-Nov-26"
       },
