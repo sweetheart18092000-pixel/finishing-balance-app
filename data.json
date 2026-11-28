@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-28 16:31:22",
+  "updated_at": "2026-11-28 16:46:32",
   "total_jobs": 237,
   "operations_list": [
     "4 HOLE BUTTON",
@@ -26361,10 +26361,10 @@
         "plan_ex": "11-Dec-26",
         "country": "UNITED STATES",
         "order_qty": 6879.0,
-        "pack": 6268.0,
-        "short": 611.0,
+        "pack": 6938.0,
+        "short": -59.0,
         "pl_lock": "",
-        "person": "Waiting For End",
+        "person": "Khalil PL",
         "mode": "SEA_40HC USA",
         "job_status": "AUDIT_CLEAR",
         "tr": 0.0,
@@ -28154,7 +28154,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "AUDIT_CLEAR",
         "tr": 3.0,
-        "ship_seq": "TDY",
+        "ship_seq": "CR_WEEK",
         "audit": "Audit Done"
       },
       {
@@ -28549,9 +28549,9 @@
         "pack": 3199.0,
         "short": -1.0,
         "pl_lock": "DRAFT",
-        "person": "Waiting For End",
+        "person": "OK",
         "mode": "SEA_40HC USA",
-        "job_status": "AUDIT_CLEAR",
+        "job_status": "FINAL",
         "tr": 4.0,
         "ship_seq": "TDY",
         "audit": "Audit Done"
@@ -28568,9 +28568,9 @@
         "pack": 3226.0,
         "short": -32.0,
         "pl_lock": "DRAFT",
-        "person": "Waiting For End",
+        "person": "OK",
         "mode": "SEA_40HC USA",
-        "job_status": "AUDIT_CLEAR",
+        "job_status": "FINAL",
         "tr": 8.0,
         "ship_seq": "TDY",
         "audit": "Audit Done"
@@ -28774,10 +28774,10 @@
         "plan_ex": "27-Nov-26",
         "country": "CANADA",
         "order_qty": 2148.0,
-        "pack": 1824.0,
-        "short": 324.0,
+        "pack": 2040.0,
+        "short": 108.0,
         "pl_lock": "DRAFT",
-        "person": "Waiting For End",
+        "person": "Khalil PL",
         "mode": "DAMCO_ 20ft",
         "job_status": "IN FINISHING",
         "tr": 14.0,
@@ -29617,7 +29617,7 @@
         "mode": "SEA_40HC USA",
         "job_status": "READY FOR PICKUP",
         "tr": 0.0,
-        "ship_seq": "TDY",
+        "ship_seq": "CR_WEEK",
         "audit": "-"
       },
       {
